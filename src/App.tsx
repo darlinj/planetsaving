@@ -1,24 +1,42 @@
 import React from "react";
 import "./App.css";
-import {green} from "@mui/material/colors";
+import {green, red, blue, orange, yellow} from "@mui/material/colors";
 
 interface ClimateData {
   amount: number;
   label: string;
+  color: string;
+  subSection: ClimateData[] | null;
 }
 
 function App() {
   const data: ClimateData[] = [
-    {amount: 25, label: "Things you buy"},
-    {amount: 20, label: "Food"},
-    {amount: 15, label: "Transport"},
-    {amount: 10, label: "Schools and hospitals"},
-    {amount: 10, label: "Housing"},
+    {
+      amount: 3.2,
+      subSection: null,
+      color: red[500],
+      label: "Things you buy (3.2T)",
+    },
+    {
+      amount: 2.4,
+      subSection: null,
+      color: orange[500],
+      label: "Transport(2.4T)",
+    },
+    {amount: 2, subSection: null, color: yellow[500], label: "Fuel (2T)"},
+    {
+      amount: 1.1,
+      subSection: null,
+      color: green[500],
+      label: "Schools and hospitals (1.1T)",
+    },
+    {amount: 1.9, subSection: null, color: blue[500], label: "Food (1.9T)"},
   ];
   return (
     <div className="App">
       <h1>Annual Carbon footprint of the average UK citizen</h1>
       <Footprint data={data} />
+      <h3>Total 10.6 Tons of CO2 equivalent</h3>
     </div>
   );
 }
@@ -31,13 +49,13 @@ const Footprint = ({data}: {data: ClimateData[]}) => {
     .map((item) => item.amount)
     .reduce((acc, val) => acc + val, 0);
   return (
-    <svg width="400" height="700">
+    <svg width="400" height="500">
       {data.map((stripe, index) => {
         const stripeHeight = (stripe.amount / totalAmount) * footHeight;
         stripeOffset += lastStripeHeight;
         const midStripe = stripeOffset + stripeHeight / 2;
         lastStripeHeight = stripeHeight;
-        const greens = Object.values(green);
+        // const greens = Object.values(green);
         return (
           <g key={index}>
             <rect
@@ -46,7 +64,7 @@ const Footprint = ({data}: {data: ClimateData[]}) => {
               y={stripeOffset}
               height={stripeHeight}
               style={{
-                fill: greens[index],
+                fill: stripe.color,
               }}
             />
             <text x="0" y={midStripe} fill="black">
