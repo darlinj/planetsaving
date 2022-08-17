@@ -1,7 +1,13 @@
 import React from "react";
 import "./App.css";
 import {green, red, blue, orange, yellow} from "@mui/material/colors";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 
 interface ClimateData {
@@ -35,19 +41,81 @@ function App() {
     {amount: 1.9, subSection: null, color: blue[500], label: "Food"},
   ];
   return (
-    <div className="App">
-      <Box sx={{width: "100%", maxWidth: 1000}}>
-        <Typography variant="h2" component="div" gutterBottom>
+    <Grid container spacing={2} sx={{border: 1, borderColor: "blue"}}>
+      <Grid item xs={12}>
+        <Typography variant="h2" component="div" gutterBottom align="center">
           Annual Carbon footprint of the average UK citizen
         </Typography>
+      </Grid>
+      <Grid item xs={8} sx={{minWidth: 440}}>
         <Footprint data={data} />
         <Typography variant="h4" component="div" gutterBottom>
           Total 10.6 Tons of CO2 equivalent
         </Typography>
-      </Box>
-    </div>
+      </Grid>
+      <Grid item xs={4} sx={{border: 3}}>
+        <Paper
+          sx={{
+            paddingLeft: 2,
+            paddingRight: 2,
+            paddingBottom: 2,
+          }}
+        >
+          <Typography variant="h4" component="div" gutterBottom align="center">
+            Top actions you can take
+          </Typography>
+          <SuggestedActionCard />
+        </Paper>
+      </Grid>
+    </Grid>
   );
 }
+
+const SuggestedActionCard = () => {
+  return (
+    <Card
+      sx={{
+        borderRadius: "16px",
+        backgroundColor: yellow[500],
+      }}
+    >
+      <CardContent>
+        <Typography variant="body1" component="div" align="center">
+          Reduce your thermostat by 1 degree
+        </Typography>
+        <Box display={"flex"}>
+          <ImpactWell text="Cost=£0" />
+          <ImpactWell text="CO2 saved=0.3T" />
+        </Box>
+        <Button size="small">Learn More</Button>
+      </CardContent>
+    </Card>
+  );
+};
+
+const ImpactWell = ({text}: {text: string}) => {
+  return (
+    <Box
+      sx={{
+        borderRadius: 4,
+        display: "flex",
+        justifyContent: "center",
+        width: 100,
+        backgroundColor: yellow[800],
+      }}
+    >
+      <Typography
+        color="black"
+        variant="body1"
+        sx={{
+          fontSize: 10,
+        }}
+      >
+        {text}
+      </Typography>
+    </Box>
+  );
+};
 
 const Footprint = ({data}: {data: ClimateData[]}) => {
   const footHeight = 500;
