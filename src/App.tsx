@@ -7,8 +7,13 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
+import CardActionArea from "@mui/material/CardActionArea";
 import Typography from "@mui/material/Typography";
+import CardHeader from "@mui/material/CardHeader";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 
 interface ClimateData {
   amount: number;
@@ -17,78 +22,126 @@ interface ClimateData {
   subSection: ClimateData[] | null;
 }
 
+interface ActionData {
+  actionTitle: string;
+  cost: number;
+  carbonSaved: number;
+  actionType: "fuel" | "food";
+}
+
+const data: ClimateData[] = [
+  {
+    amount: 3.2,
+    subSection: null,
+    color: red[500],
+    label: "Things you buy",
+  },
+  {
+    amount: 2.4,
+    subSection: null,
+    color: orange[500],
+    label: "Transport(2.4T)",
+  },
+  {amount: 2, subSection: null, color: yellow[500], label: "Fuel"},
+  {
+    amount: 1.1,
+    subSection: null,
+    color: green[500],
+    label: "Schools and hospitals",
+  },
+  {amount: 1.9, subSection: null, color: blue[500], label: "Food"},
+];
+
+const actions: ActionData[] = [
+  {
+    actionTitle: "Reduce your thermostat by one degree",
+    cost: 0,
+    carbonSaved: 0.3,
+    actionType: "fuel",
+  },
+  {
+    actionTitle: "Buy an electric car",
+    cost: 30000,
+    carbonSaved: 1.0,
+    actionType: "fuel",
+  },
+];
+
 function App() {
-  const data: ClimateData[] = [
-    {
-      amount: 3.2,
-      subSection: null,
-      color: red[500],
-      label: "Things you buy",
-    },
-    {
-      amount: 2.4,
-      subSection: null,
-      color: orange[500],
-      label: "Transport(2.4T)",
-    },
-    {amount: 2, subSection: null, color: yellow[500], label: "Fuel"},
-    {
-      amount: 1.1,
-      subSection: null,
-      color: green[500],
-      label: "Schools and hospitals",
-    },
-    {amount: 1.9, subSection: null, color: blue[500], label: "Food"},
-  ];
   return (
-    <Grid container spacing={2} sx={{border: 1, borderColor: "blue"}}>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <Typography variant="h2" component="div" gutterBottom align="center">
           Annual Carbon footprint of the average UK citizen
         </Typography>
       </Grid>
       <Grid item xs={8} sx={{minWidth: 440}}>
-        <Footprint data={data} />
-        <Typography variant="h4" component="div" gutterBottom>
-          Total 10.6 Tons of CO2 equivalent
-        </Typography>
-      </Grid>
-      <Grid item xs={4} sx={{border: 3}}>
-        <Paper
-          sx={{
-            paddingLeft: 2,
-            paddingRight: 2,
-            paddingBottom: 2,
-          }}
-        >
-          <Typography variant="h4" component="div" gutterBottom align="center">
-            Top actions you can take
+        <Paper sx={{padding: 1}}>
+          <Footprint data={data} />
+          <Typography variant="h4" component="div" gutterBottom>
+            Total 10.6 Tons of CO2 equivalent
           </Typography>
-          <SuggestedActionCard />
         </Paper>
+      </Grid>
+      <Grid item xs={4}>
+        <ActionsList actionData={actions} />
       </Grid>
     </Grid>
   );
 }
 
-const SuggestedActionCard = () => {
+const ActionsList = ({actionData}: {actionData: ActionData[]}) => {
+  return (
+    <Paper
+      sx={{
+        paddingLeft: 2,
+        paddingRight: 2,
+        paddingBottom: 2,
+        minWidth: 300,
+      }}
+    >
+      <Typography variant="h4" component="div" gutterBottom align="center">
+        Top actions you can take
+      </Typography>
+      {actionData.map((action) => {
+        return <SuggestedActionCard action={action} />;
+      })}
+    </Paper>
+  );
+};
+
+const SuggestedActionCard = ({action}: {action: ActionData}) => {
   return (
     <Card
       sx={{
         borderRadius: "16px",
         backgroundColor: yellow[500],
+        marginBottom: 2,
       }}
     >
-      <CardContent>
-        <Typography variant="body1" component="div" align="center">
-          Reduce your thermostat by 1 degree
-        </Typography>
-        <Box display={"flex"}>
-          <ImpactWell text="Cost=£0" />
-          <ImpactWell text="CO2 saved=0.3T" />
-        </Box>
-        <Button size="small">Learn More</Button>
-      </CardContent>
+      <CardActionArea>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="recipe">
+              <LocalFireDepartmentIcon />
+            </Avatar>
+          }
+          action={
+            <IconButton aria-label="settings">
+              <FavoriteIcon />
+            </IconButton>
+          }
+          title={action.actionTitle}
+          sx={{paddingBottom: 0}}
+        />
+        <CardContent sx={{paddingTop: 0}}>
+          <Box display={"flex"}>
+            <ImpactWell text={`Cost=£${action.cost}`} />
+            <ImpactWell text={`CO2 saved=${action.carbonSaved}T`} />
+          </Box>
+          <Typography variant="button">Learn More</Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 };
@@ -97,7 +150,8 @@ const ImpactWell = ({text}: {text: string}) => {
   return (
     <Box
       sx={{
-        borderRadius: 4,
+        borderRadius: 3,
+        margin: 1,
         display: "flex",
         justifyContent: "center",
         width: 100,
