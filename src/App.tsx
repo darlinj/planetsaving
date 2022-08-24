@@ -92,7 +92,12 @@ function App() {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Typography variant="h2" component="div" gutterBottom align="center">
-          Annual Carbon footprint of the average UK citizen
+          Planet saver expert
+        </Typography>
+        <Typography variant="body" component="div" gutterBottom align="center">
+          Want to do your bit to help save the planet. Here you can visualize
+          your carbon footprint and get practical suggestions about how you can
+          reduce your impact on the planet.
         </Typography>
       </Grid>
       <Grid item xs={8} sx={{minWidth: 440}}>
@@ -102,6 +107,9 @@ function App() {
             justifyContent: "center",
           }}
         >
+          <Typography variant="h4" component="div" gutterBottom>
+            Annual Carbon footprint of the average UK citizen
+          </Typography>
           <Footprint data={data} />
           <Typography variant="h4" component="div" gutterBottom>
             Total 10.6 Tons of CO2 equivalent
