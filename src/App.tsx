@@ -92,7 +92,7 @@ function App() {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Typography variant="h2" component="div" gutterBottom align="center">
-          Planet saver expert
+          Planet saving expert
         </Typography>
         <Typography variant="body1" component="div" gutterBottom align="center">
           Want to do your bit to help save the planet. Here you can visualize
