@@ -94,7 +94,7 @@ function App() {
         <Typography variant="h2" component="div" gutterBottom align="center">
           Planet saver expert
         </Typography>
-        <Typography variant="body" component="div" gutterBottom align="center">
+        <Typography variant="body1" component="div" gutterBottom align="center">
           Want to do your bit to help save the planet. Here you can visualize
           your carbon footprint and get practical suggestions about how you can
           reduce your impact on the planet.

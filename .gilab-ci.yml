@@ -1,0 +1,34 @@
+variables:
+  NODE_VERSION: "gallium"
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - echo "Building"
+    - npm install
+    - npm build
+
+test:
+  needs: []
+  image: node:${NODE_VERSION}-alpine
+  variables:
+    CI: "true"
+  stage: test
+  script:
+    - npm ci
+    - npm run test-ci
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+  after_script:
+    - echo "Test report available here - https://gitlab.com/joe.darling/footprint/-/jobs/$CI_JOB_ID/artifacts/frontend/coverage/lcov-report/index.html"
+  artifacts:
+    untracked: false
+    expire_in: 30 days
+    when: always
+    paths:
+      - frontend/coverage/
+    reports:
+      junit: frontend/coverage/junit.xml
