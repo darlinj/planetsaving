@@ -4,6 +4,7 @@ variables:
 stages:
   - build
   - test
+  - deploy
 
 build:
   stage: build
@@ -12,6 +13,9 @@ build:
     - echo "Building"
     - npm install
     - npm run build
+  artifacts:
+    paths:
+      - build/
 
 test:
   needs: []
@@ -30,6 +34,16 @@ test:
     expire_in: 30 days
     when: always
     paths:
-      - frontend/coverage/
+      - coverage/
     reports:
-      junit: frontend/coverage/junit.xml
+      junit: coverage/junit.xml
+
+deploy_to_s3:
+  stage: deploy
+  image:
+    name: amazon/aws-cli
+    entrypoint: [""]
+  script:
+    - aws --version
+    - aws s3 rm s3://$S3_BUCKET --recursive
+    - aws s3 cp build s3://$S3_BUCKET --recursive
