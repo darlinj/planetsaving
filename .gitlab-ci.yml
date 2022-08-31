@@ -11,7 +11,7 @@ build:
   script:
     - echo "Building"
     - npm install
-    - npm build
+    - npm run build
 
 test:
   needs: []

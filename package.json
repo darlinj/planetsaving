@@ -34,6 +34,11 @@
       "react-app/jest"
     ]
   },
+  "jest-junit": {
+    "suiteName": "UI Tests",
+    "outputDirectory": "./coverage",
+    "outputName": "junit.xml"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
