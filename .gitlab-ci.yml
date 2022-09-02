@@ -49,29 +49,6 @@ deploy_to_s3:
     - aws s3 rm s3://$S3_BUCKET --recursive
     - aws s3 cp build s3://$S3_BUCKET --recursive
 
-terraform_setup:
-  stage: infrastructure
-  script:
-    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    - cd infrastructure
-    - rm -rf .terraform
-    - terraform --version
-    - terraform init
-
-validate:
-  stage: infrastructure
-  image:
-    name: hashicorp/terraform:light
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  dependencies:
-    - terraform_setup
-  script:
-    - cd infrastructure
-    - terraform validate
-
 plan:
   stage: infrastructure
   image:
@@ -80,25 +57,8 @@ plan:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   script:
-    - cd infrastructure
-    - terraform plan -out "planfile"
-  dependencies:
-    - terraform_setup
-    - validate
-  artifacts:
-    paths:
-      - planfile
-
-apply:
-  stage: infrastructure
-  image:
-    name: hashicorp/terraform:light
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  script:
-    - cd infrastructure
-    - terraform apply -input=false "planfile"
-  dependencies:
-    - terraform_setup
-    - plan
+    - terraform --version
+    - terraform -chdir=infrastructure init
+    - terraform -chdir=infrastructure validate
+    - terraform -chdir=infrastructure plan -out "planfile"
+    - terraform -chdir=infrastructure apply -input=false "planfile"
