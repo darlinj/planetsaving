@@ -13,12 +13,10 @@ terraform {
 }
 
 provider "aws" {
-  profile = "terraform"
   region = "eu-west-2"
 }
 
 provider "aws" {
-  profile = "terraform"
   alias = "acm_provider"
   region = "us-east-1"
 }
