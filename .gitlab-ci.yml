@@ -57,6 +57,9 @@ plan:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   script:
+    - echo  ${AWS_ACCESS_KEY_ID}
+    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     - terraform --version
     - terraform -chdir=infrastructure init
     - terraform -chdir=infrastructure validate
