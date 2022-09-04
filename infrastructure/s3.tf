@@ -11,6 +11,7 @@ resource "aws_s3_object" "content_object" {
   key = "index.html"
   bucket = data.aws_s3_bucket.content_bucket.id
   cache_control = "no-cache"
+  source = "../build/index.html"
 }
 
 resource "aws_s3_bucket_acl" "bucket-acl" {
