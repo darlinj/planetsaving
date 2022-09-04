@@ -71,14 +71,14 @@ function App() {
           reduce your impact on the planet.
         </Typography>
       </Grid>
-      <Grid item xs={8} sx={{minWidth: 440}}>
+      <Grid item xs={12} md={8}>
         <Paper
           sx={{
             padding: 1,
             justifyContent: "center",
           }}
         >
-          <Typography variant="h4" component="div" gutterBottom>
+          <Typography variant="h4" component="div" gutterBottom align="center">
             Annual Carbon footprint of the average UK citizen
           </Typography>
           <Footprint data={data} />
@@ -87,7 +87,7 @@ function App() {
           </Typography>
         </Paper>
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={12} md={4}>
         <ActionsList actionData={actions} />
       </Grid>
     </Grid>

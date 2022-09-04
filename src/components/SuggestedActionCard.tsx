@@ -52,7 +52,11 @@ const SuggestedActionCard = ({action}: {action: ActionData}) => {
           sx={{paddingBottom: 0}}
         />
         <CardContent sx={{paddingTop: 0}}>
-          <Box display={"flex"}>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignContent={"center"}
+          >
             <ImpactWell color={colorArray[800]} text={`Cost=£${action.cost}`} />
             <ImpactWell
               color={colorArray[800]}
