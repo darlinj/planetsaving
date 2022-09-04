@@ -10,7 +10,6 @@ const ActionsList = ({actionData}: {actionData: ActionData[]}) => {
         paddingLeft: 2,
         paddingRight: 2,
         paddingBottom: 2,
-        minWidth: 280,
       }}
     >
       <Typography variant="h4" component="div" gutterBottom align="center">

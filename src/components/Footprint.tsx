@@ -13,7 +13,7 @@ const Footprint = ({data}: {data: ClimateData[]}) => {
     <Box
       sx={{display: "flex", alignContent: "center", justifyContent: "center"}}
     >
-      <svg width="450" height="500">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
         {data.map((stripe, index) => {
           const stripeHeight = (stripe.amount / totalAmount) * footHeight;
           stripeOffset += lastStripeHeight;
