@@ -10,8 +10,7 @@ data "aws_s3_bucket" "content_bucket" {
 resource "aws_s3_object" "content_object" {
   key = "index.html"
   bucket = data.aws_s3_bucket.content_bucket.id
-  source = "index.html"
-  metadata = { "cache-control": "no-cache"}
+  cache_control = "no-cache"
 }
 
 resource "aws_s3_bucket_acl" "bucket-acl" {
