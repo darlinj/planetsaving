@@ -46,8 +46,8 @@ deploy_to_s3:
     entrypoint: [""]
   script:
     - aws --version
-    - aws s3 rm s3://$S3_BUCKET --recursive
-    - aws s3 cp build s3://$S3_BUCKET --recursive
+    - aws s3 sync build s3://$S3_BUCKET --exclude /index.html
+    - aws s3 sync build s3://$S3_BUCKET --exclude "*" --include /index.html --metadata-directive REPLACE --cache-control no-cache
 
 infrastucture:
   stage: infrastructure

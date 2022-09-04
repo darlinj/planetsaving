@@ -7,13 +7,6 @@ data "aws_s3_bucket" "content_bucket" {
   bucket = aws_s3_bucket.www_bucket.bucket
 }
 
-resource "aws_s3_object" "content_object" {
-  key = "index.html"
-  bucket = data.aws_s3_bucket.content_bucket.id
-  cache_control = "no-cache"
-  source = "../build/index.html"
-}
-
 resource "aws_s3_bucket_acl" "bucket-acl" {
   bucket = data.aws_s3_bucket.content_bucket.id
   acl    = "public-read"
