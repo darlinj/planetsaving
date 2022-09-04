@@ -6,6 +6,14 @@ resource "aws_s3_bucket" "www_bucket" {
 data "aws_s3_bucket" "content_bucket" {
   bucket = aws_s3_bucket.www_bucket.bucket
 }
+
+resource "aws_s3_object" "content_object" {
+  key = "index.html"
+  bucket = data.aws_s3_bucket.content_bucket.id
+  source = "index.html"
+  metadata = { "Cache-Control": "no-cache"}
+}
+
 resource "aws_s3_bucket_acl" "bucket-acl" {
   bucket = data.aws_s3_bucket.content_bucket.id
   acl    = "public-read"
