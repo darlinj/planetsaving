@@ -68,7 +68,7 @@ function App() {
         <Typography variant="body1" component="div" gutterBottom align="center">
           Want to do your bit to help save the planet? Here you can visualize
           your carbon footprint and get practical suggestions about how you can
-          reduce your impact on the planet.
+          reduce your impact on the planet!
         </Typography>
       </Grid>
       <Grid item xs={12} md={8}>
