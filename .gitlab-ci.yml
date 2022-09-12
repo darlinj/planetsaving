@@ -4,6 +4,7 @@ variables:
 stages:
   - build
   - test
+  #- end_to_end_test
   - infrastructure
   - deploy
 
@@ -39,7 +40,36 @@ test:
     reports:
       junit: coverage/junit.xml
 
-deploy_to_s3:
+##testing_infrastucture:
+#  stage: end_to_end_test
+#  dependencies:
+#    - "build"
+#  image:
+#    name: hashicorp/terraform:light
+#    entrypoint:
+#      - "/usr/bin/env"
+#      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+#  script:
+#    - echo  ${AWS_ACCESS_KEY_ID}
+#    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+#    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+#    - terraform --version
+#    - terraform -chdir=infrastructure/test init
+#    - terraform -chdir=infrastructure/test validate
+#    - terraform -chdir=infrastructure/test plan -out "planfile" -var-file="testing.tfvars"
+#    - terraform -chdir=infrastructure/test apply -input=false "planfile" -var-file="testing.tfvars"
+#
+#deploy_to_test:
+#  stage: deploy
+#  image:
+#    name: amazon/aws-cli
+#    entrypoint: [""]
+#  script:
+#    - aws --version
+#    - aws s3 sync build s3://$S3_BUCKET --exclude index.html
+#    - aws s3 sync build s3://$S3_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
+
+deploy_to_production:
   stage: deploy
   image:
     name: amazon/aws-cli
@@ -63,7 +93,7 @@ infrastucture:
     - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
     - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     - terraform --version
-    - terraform -chdir=infrastructure init
-    - terraform -chdir=infrastructure validate
-    - terraform -chdir=infrastructure plan -out "planfile"
-    - terraform -chdir=infrastructure apply -input=false "planfile"
+    - terraform -chdir=infrastructure/production init
+    - terraform -chdir=infrastructure/production validate
+    - terraform -chdir=infrastructure/production plan -out "planfile"
+    - terraform -chdir=infrastructure/production apply -input=false "planfile"

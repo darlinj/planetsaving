@@ -1,6 +1,6 @@
 # S3 bucket for website.
 resource "aws_s3_bucket" "www_bucket" {
-  bucket = "www.${var.bucket_name}"
+  bucket = var.bucket_name
   tags = var.common_tags
 }
 data "aws_s3_bucket" "content_bucket" {
@@ -17,14 +17,14 @@ resource "aws_s3_bucket_cors_configuration" "example" {
 cors_rule {
     allowed_headers = ["Authorization", "Content-Length"]
     allowed_methods = ["GET", "POST"]
-    allowed_origins = ["https://www.${var.domain_name}"]
+    allowed_origins = ["https://$(var.domain_prefix}.${var.domain_name}"]
     max_age_seconds = 3000
   }
 }
 
 resource "aws_s3_bucket_policy" "bucket-policy" {
   bucket = data.aws_s3_bucket.content_bucket.id
-  policy = templatefile("templates/s3-policy.json", { bucket = "www.${var.bucket_name}" })
+  policy = templatefile("./templates/s3-policy.json", { bucket = var.bucket_name })
 }
 
 resource "aws_s3_bucket_website_configuration" "website-config" {

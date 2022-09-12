@@ -1,6 +1,16 @@
+variable "environment" {
+  type = string
+  description = "The environment that this is deploying to."
+}
+
 variable "domain_name" {
   type = string
   description = "The domain name for the website."
+}
+
+variable "domain_prefix" {
+  type = string
+  description = "The prefix for the website."
 }
 
 variable "bucket_name" {
@@ -10,4 +20,8 @@ variable "bucket_name" {
 
 variable "common_tags" {
   description = "Common tags you want applied to all components."
+}
+
+variable "name_servers_for_hosted_domain" {
+  description = "The name servers that your domain is connected to"
 }

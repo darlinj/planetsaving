@@ -2,7 +2,7 @@
 resource "aws_cloudfront_distribution" "www_s3_distribution" {
   origin {
     domain_name = aws_s3_bucket_website_configuration.website-config.website_endpoint
-    origin_id = "S3-www.${var.bucket_name}"
+    origin_id = "S3-${var.bucket_name}"
 
     custom_origin_config {
       http_port = 80
@@ -16,7 +16,7 @@ resource "aws_cloudfront_distribution" "www_s3_distribution" {
   is_ipv6_enabled = true
   default_root_object = "index.html"
 
-  aliases = ["www.${var.domain_name}", var.domain_name]
+  aliases = ["${var.domain_prefix}.${var.domain_name}", var.domain_name]
 
   custom_error_response {
     error_caching_min_ttl = 0
@@ -28,7 +28,7 @@ resource "aws_cloudfront_distribution" "www_s3_distribution" {
   default_cache_behavior {
     allowed_methods = ["GET", "HEAD"]
     cached_methods = ["GET", "HEAD"]
-    target_origin_id = "S3-www.${var.bucket_name}"
+    target_origin_id = "S3-${var.bucket_name}"
 
     forwarded_values {
       query_string = false
