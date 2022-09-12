@@ -21,7 +21,3 @@ variable "bucket_name" {
 variable "common_tags" {
   description = "Common tags you want applied to all components."
 }
-
-variable "name_servers_for_hosted_domain" {
-  description = "The name servers that your domain is connected to"
-}
