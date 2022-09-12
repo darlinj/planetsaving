@@ -3,15 +3,6 @@ resource "aws_route53_zone" "main" {
   tags = var.common_tags
 }
 
-resource "aws_route53_record" "dev-ns" {
-  zone_id = aws_route53_zone.main.zone_id
-  allow_overwrite = true
-  name = var.domain_name
-  type    = "NS"
-  ttl     = "172800"
-  records = var.name_servers_for_hosted_domain
-}
-
 resource "aws_route53_record" "root-a" {
   zone_id = aws_route53_zone.main.zone_id
   name = var.domain_name
