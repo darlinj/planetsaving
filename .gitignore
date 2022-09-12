@@ -2,3 +2,5 @@ node_modules/
 coverage/
 build/
 junit.xml
+**/.terraform
+**/.terraform.lock*
