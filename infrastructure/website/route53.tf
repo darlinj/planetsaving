@@ -1,10 +1,10 @@
-resource "aws_route53_zone" "main" {
+data "aws_route53_zone" "main" {
   name = var.domain_name
-  tags = var.common_tags
 }
 
 resource "aws_route53_record" "root-a" {
-  zone_id = aws_route53_zone.main.zone_id
+  count = var.environment == "production" ? 1 : 0
+  zone_id = data.aws_route53_zone.main.zone_id
   name = var.domain_name
   type = "A"
 
@@ -16,7 +16,7 @@ resource "aws_route53_record" "root-a" {
 }
 
 resource "aws_route53_record" "www-a" {
-  zone_id = aws_route53_zone.main.zone_id
+  zone_id = data.aws_route53_zone.main.zone_id
   name = "${var.domain_prefix}.${var.domain_name}"
   type = "A"
 
@@ -31,19 +31,19 @@ resource "aws_route53domains_registered_domain" "example" {
   domain_name = var.domain_name
 
   name_server {
-    name = "${aws_route53_zone.main.name_servers.0}"
+    name = "${data.aws_route53_zone.main.name_servers.0}"
   }
 
   name_server {
-    name = "${aws_route53_zone.main.name_servers.1}"
+    name = "${data.aws_route53_zone.main.name_servers.1}"
   }
 
   name_server {
-    name = "${aws_route53_zone.main.name_servers.2}"
+    name = "${data.aws_route53_zone.main.name_servers.2}"
   }
 
   name_server {
-    name = "${aws_route53_zone.main.name_servers.3}"
+    name = "${data.aws_route53_zone.main.name_servers.3}"
   }
 
   transfer_lock = false
