@@ -4,7 +4,8 @@ variables:
 stages:
   - build
   - test
-  #- end_to_end_test
+  - common_infra_deploy
+  - end_to_end_test
   - infrastructure
   - deploy
 
@@ -40,25 +41,25 @@ test:
     reports:
       junit: coverage/junit.xml
 
-##testing_infrastucture:
-#  stage: end_to_end_test
-#  dependencies:
-#    - "build"
-#  image:
-#    name: hashicorp/terraform:light
-#    entrypoint:
-#      - "/usr/bin/env"
-#      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-#  script:
-#    - echo  ${AWS_ACCESS_KEY_ID}
-#    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-#    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-#    - terraform --version
-#    - terraform -chdir=infrastructure/test init
-#    - terraform -chdir=infrastructure/test validate
-#    - terraform -chdir=infrastructure/test plan -out "planfile" -var-file="testing.tfvars"
-#    - terraform -chdir=infrastructure/test apply -input=false "planfile" -var-file="testing.tfvars"
-#
+#testing_infrastucture:
+  stage: end_to_end_test
+  dependencies:
+    - "build"
+  image:
+    name: hashicorp/terraform:light
+    entrypoint:
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  script:
+    - echo  ${AWS_ACCESS_KEY_ID}
+    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - terraform --version
+    - terraform -chdir=infrastructure/test init
+    - terraform -chdir=infrastructure/test validate
+    - terraform -chdir=infrastructure/test plan -out "planfile" 
+    - terraform -chdir=infrastructure/test apply -input=false "planfile" 
+
 #deploy_to_test:
 #  stage: deploy
 #  image:
@@ -78,6 +79,23 @@ deploy_to_production:
     - aws --version
     - aws s3 sync build s3://$S3_BUCKET --exclude index.html
     - aws s3 sync build s3://$S3_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
+
+common_infrastucture:
+  stage: common_infra_deploy
+  image:
+    name: hashicorp/terraform:light
+    entrypoint:
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  script:
+    - echo  ${AWS_ACCESS_KEY_ID}
+    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - terraform --version
+    - terraform -chdir=infrastructure/common init
+    - terraform -chdir=infrastructure/common validate
+    - terraform -chdir=infrastructure/common plan -out "planfile"
+    - terraform -chdir=infrastructure/common apply -input=false "planfile"
 
 infrastucture:
   stage: infrastructure

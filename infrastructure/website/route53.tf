@@ -26,26 +26,3 @@ resource "aws_route53_record" "www-a" {
     evaluate_target_health = false
   }
 }
-
-resource "aws_route53domains_registered_domain" "example" {
-  domain_name = var.domain_name
-
-  name_server {
-    name = "${data.aws_route53_zone.main.name_servers.0}"
-  }
-
-  name_server {
-    name = "${data.aws_route53_zone.main.name_servers.1}"
-  }
-
-  name_server {
-    name = "${data.aws_route53_zone.main.name_servers.2}"
-  }
-
-  name_server {
-    name = "${data.aws_route53_zone.main.name_servers.3}"
-  }
-
-  transfer_lock = false
-
-}
