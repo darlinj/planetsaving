@@ -30,4 +30,5 @@ module "website" {
   common_tags = {
     Project = "Planet saving expert resource"
   } 
+  cloudfront_aliases = ["planetsaving.uk","www.planetsaving.uk"]
 }
