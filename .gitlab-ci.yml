@@ -41,7 +41,7 @@ test:
     reports:
       junit: coverage/junit.xml
 
-#testing_infrastucture:
+testing_infrastucture:
   stage: end_to_end_test
   dependencies:
     - "build"
@@ -57,8 +57,8 @@ test:
     - terraform --version
     - terraform -chdir=infrastructure/test init
     - terraform -chdir=infrastructure/test validate
-    - terraform -chdir=infrastructure/test plan -out "planfile" 
-    - terraform -chdir=infrastructure/test apply -input=false "planfile" 
+    - terraform -chdir=infrastructure/test plan -out "planfile"
+    - terraform -chdir=infrastructure/test apply -input=false "planfile"
 
 deploy_to_test:
   stage: deploy
@@ -69,6 +69,13 @@ deploy_to_test:
     - aws --version
     - aws s3 sync build s3://$S3_TEST_BUCKET --exclude index.html
     - aws s3 sync build s3://$S3_TEST_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
+
+e2e_tests:
+  image:
+    name: testcafe/testcafe
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+    - /opt/testcafe/docker/testcafe-docker.sh firefox:headless,chromium e2e_tests/**/*
 
 deploy_to_production:
   stage: deploy
