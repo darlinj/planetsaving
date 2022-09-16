@@ -92,7 +92,7 @@ deploy_to_production:
     - aws s3 sync build s3://$S3_BUCKET --exclude index.html
     - aws s3 sync build s3://$S3_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
 
-common_infrastucture:
+common_infrastructure:
   stage: common_infra_deploy
   image:
     name: hashicorp/terraform:light
