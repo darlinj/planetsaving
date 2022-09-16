@@ -71,6 +71,11 @@ deploy_to_test:
     - aws s3 sync build s3://$S3_TEST_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
 
 e2e_tests:
+  stage: end_to_end_test
+  dependencies:
+    - "testing_infrastructure"
+  variables:
+    ENVIRONMENT: "TEST"
   image:
     name: testcafe/testcafe
     entrypoint: ["/bin/sh", "-c"]

@@ -62,7 +62,13 @@ function App() {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <Typography variant="h2" component="div" gutterBottom align="center">
+        <Typography
+          id="page-title"
+          variant="h2"
+          component="div"
+          gutterBottom
+          align="center"
+        >
           Planet saving expert
         </Typography>
         <Typography variant="body1" component="div" gutterBottom align="center">
