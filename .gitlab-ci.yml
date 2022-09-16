@@ -41,7 +41,7 @@ test:
     reports:
       junit: coverage/junit.xml
 
-testing_infrastucture:
+testing_infrastructure:
   stage: end_to_end_test
   dependencies:
     - "build"
