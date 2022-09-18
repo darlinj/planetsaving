@@ -74,7 +74,7 @@ e2e_tests:
   stage: end_to_end_test
   needs:
     - "testing_infrastructure"
-    - "end_to_end_test"
+    - "deploy_to_test"
   variables:
     ENVIRONMENT: "TEST"
   image:
