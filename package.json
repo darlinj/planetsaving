@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
-    "jest-junit": "^14.0.1"
+    "jest-junit": "^14.0.1",
+    "msw": "^0.47.3"
   }
 }

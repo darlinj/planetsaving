@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import {ClimateData, ActionData} from "../types";
+import {ClimateData} from "../types";
 
 const Footprint = ({data}: {data: ClimateData[]}) => {
   const footHeight = 500;
