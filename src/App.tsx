@@ -1,5 +1,12 @@
 import React from "react";
 import "./App.css";
+import {
+  useQuery,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import {request, gql} from "graphql-request";
 import {green, red, blue, orange, yellow} from "@mui/material/colors";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -8,28 +15,29 @@ import {ClimateData, ActionData} from "./types";
 import Footprint from "./components/Footprint";
 import ActionsList from "./components/ActionsList";
 
-const data: ClimateData[] = [
-  {
-    amount: 3.2,
-    subSection: null,
-    color: red[500],
-    label: "Things you buy",
-  },
-  {
-    amount: 2.4,
-    subSection: null,
-    color: orange[500],
-    label: "Transport",
-  },
-  {amount: 2, subSection: null, color: yellow[500], label: "Energy"},
-  {
-    amount: 1.1,
-    subSection: null,
-    color: green[500],
-    label: "Schools and hospitals",
-  },
-  {amount: 1.9, subSection: null, color: blue[500], label: "Food"},
-];
+const endpoint = "https://graphqlzero.almansi.me/api";
+// const data: ClimateData[] = [
+//   {
+//     amount: 3.2,
+//     subSection: null,
+//     color: red[500],
+//     label: "Things you buy",
+//   },
+//   {
+//     amount: 2.4,
+//     subSection: null,
+//     color: orange[500],
+//     label: "Transport",
+//   },
+//   {amount: 2, subSection: null, color: yellow[500], label: "Energy"},
+//   {
+//     amount: 1.1,
+//     subSection: null,
+//     color: green[500],
+//     label: "Schools and hospitals",
+//   },
+//   {amount: 1.9, subSection: null, color: blue[500], label: "Food"},
+// ];
 
 const actions: ActionData[] = [
   {
@@ -58,7 +66,31 @@ const actions: ActionData[] = [
   },
 ];
 
+function usePosts() {
+  return useQuery(["posts"], async () => {
+    const {
+      posts: {data},
+    } = await request(
+      endpoint,
+      gql`
+        query {
+          posts {
+            data {
+              id
+              title
+            }
+          }
+        }
+      `
+    );
+    console.log(data);
+    return data;
+  });
+}
+
 function App() {
+  const queryClient = useQueryClient();
+  const {status, data, error, isFetching} = usePosts();
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -87,7 +119,8 @@ function App() {
           <Typography variant="h4" component="div" gutterBottom align="center">
             Annual Carbon footprint of the average UK citizen
           </Typography>
-          <Footprint data={data} />
+          {/* <Footprint data={data} /> */}
+          {JSON.stringify(data)}
           <Typography variant="h4" component="div" gutterBottom>
             Total 10.6 Tons of CO2 equivalent
           </Typography>

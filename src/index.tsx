@@ -8,20 +8,24 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import Container from "@mui/material/Container";
+import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
 
 if (process.env.NODE_ENV === "development") {
   const {worker} = require("./mocks/browser");
   worker.start();
 }
 
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Container maxWidth="md">
-      <App />
-    </Container>
+    <QueryClientProvider client={queryClient}>
+      <Container maxWidth="md">
+        <App />
+      </Container>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
