@@ -11,6 +11,7 @@ const Footprint = ({data}: {data: ClimateData[]}) => {
     .reduce((acc, val) => acc + val, 0);
   return (
     <Box
+      id="footprint"
       sx={{display: "flex", alignContent: "center", justifyContent: "center"}}
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
