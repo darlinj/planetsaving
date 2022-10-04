@@ -1,21 +1,12 @@
 import React from "react";
 import "./App.css";
-import {
-  useQuery,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import {request, gql} from "graphql-request";
 import {green, red, blue, orange, yellow} from "@mui/material/colors";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import {ClimateData, ActionData} from "./types";
+import {ActionData} from "./types";
 import Footprint from "./components/Footprint";
 import ActionsList from "./components/ActionsList";
-
-const endpoint = "https://example.com/api";
 
 const actions: ActionData[] = [
   {
@@ -44,31 +35,7 @@ const actions: ActionData[] = [
   },
 ];
 
-function usePosts() {
-  return useQuery(["GetClimateData"], async () => {
-    const data = await request(
-      endpoint,
-      gql`
-        query GetClimateData {
-          climateData {
-            amount
-            subSection
-            color
-            label
-          }
-        }
-      `
-    );
-    return data.climateData;
-  });
-}
-
 function App() {
-  const queryClient = useQueryClient();
-  const {status, data, error, isFetching} = usePosts();
-  if (status == "loading") {
-    return <div>Loading...</div>;
-  }
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -97,7 +64,7 @@ function App() {
           <Typography variant="h4" component="div" gutterBottom align="center">
             Annual Carbon footprint of the average UK citizen
           </Typography>
-          <Footprint data={data} />
+          <Footprint />
           <Typography variant="h4" component="div" gutterBottom>
             Total 10.6 Tons of CO2 equivalent
           </Typography>

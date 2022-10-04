@@ -1,8 +1,16 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import {ClimateData} from "../types";
+import useFootprintData from "../api/useFootprintData";
 
-const Footprint = ({data}: {data: ClimateData[]}) => {
+const Footprint = () => {
+  const {status, data, error, isFetching} = useFootprintData();
+  if (status == "loading") {
+    return <div>Loading...</div>;
+  }
+  if (!data) {
+    return <div>No data returned...</div>;
+  }
   const footHeight = 500;
   let stripeOffset = 0;
   let lastStripeHeight = 0;
