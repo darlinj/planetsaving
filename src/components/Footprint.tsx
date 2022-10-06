@@ -4,8 +4,8 @@ import {ClimateData} from "../types";
 import useFootprintData from "../api/useFootprintData";
 
 const Footprint = () => {
-  const {status, data} = useFootprintData();
-  if (status == "loading") {
+  const {status, data, isLoading} = useFootprintData();
+  if (isLoading) {
     return <div>Loading...</div>;
   }
   if (!data) {

@@ -26,3 +26,39 @@ test("renders the foot", () => {
   const linkElement = screen.getByText(/Item 1/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+test("renders the loading message while loading is in progress", () => {
+  const mockUseFootprintData = useFootprintData as jest.MockedFunction<
+    typeof useFootprintData
+  >;
+  mockUseFootprintData.mockImplementation(() => {
+    const foo = {
+      data: undefined,
+      isLoading: true,
+      isError: false,
+      isFetching: true,
+    };
+    return foo as UseQueryResult<[ClimateData]>;
+  });
+  render(<Footprint />);
+  const linkElement = screen.getByText(/Loading/i);
+  expect(linkElement).toBeInTheDocument();
+});
+
+test("renders the no data message if there is no data", () => {
+  const mockUseFootprintData = useFootprintData as jest.MockedFunction<
+    typeof useFootprintData
+  >;
+  mockUseFootprintData.mockImplementation(() => {
+    const foo = {
+      data: undefined,
+      isLoading: false,
+      isError: false,
+      isFetching: false,
+    };
+    return foo as UseQueryResult<[ClimateData]>;
+  });
+  render(<Footprint />);
+  const linkElement = screen.getByText(/No data/i);
+  expect(linkElement).toBeInTheDocument();
+});
