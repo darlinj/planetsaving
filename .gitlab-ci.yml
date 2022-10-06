@@ -49,7 +49,7 @@ unittest_frontend:
 testing_infrastructure:
   stage: end_to_end_test
   dependencies:
-    - "build"
+    - "build_frontend"
   image:
     name: hashicorp/terraform:light
     entrypoint:
@@ -118,7 +118,7 @@ common_infrastructure:
 infrastucture:
   stage: infrastructure
   dependencies:
-    - "build"
+    - "build_frontend"
   image:
     name: hashicorp/terraform:light
     entrypoint:
