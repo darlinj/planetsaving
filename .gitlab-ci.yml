@@ -9,9 +9,11 @@ stages:
   - infrastructure
   - deploy
 
-build:
+build_frontend:
   stage: build
-  image: node:${NODE_VERSION}-alpine
+  image:
+    name: node:${NODE_VERSION}-alpine
+    entrypoint: ["/frontend"]
   script:
     - echo "Building"
     - npm install
@@ -20,13 +22,16 @@ build:
     paths:
       - build/
 
-test:
+unittest_frontend:
   needs: []
-  image: node:${NODE_VERSION}-alpine
+  image:
+    name: node:${NODE_VERSION}-alpine
+    entrypoint: ["/frontend"]
   variables:
     CI: "true"
   stage: test
   script:
+    - cd frontend
     - npm ci
     - npm run test-ci
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'

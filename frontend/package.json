@@ -27,6 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "integration": "testcafe chrome e2e_tests",
     "eject": "react-scripts eject",
     "test-ci": "npm run test -- --collectCoverage --ci --reporters=default --reporters=jest-junit --watchAll=false"
   },
