@@ -13,9 +13,10 @@ build_frontend:
   stage: build
   image:
     name: node:${NODE_VERSION}-alpine
-    entrypoint: ["frontend"]
   script:
     - echo "Building"
+    - pwd
+    - ls -la
     - npm install
     - npm run build
   artifacts:
