@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "TABLE_NAME=climateData-dev jest --watchAll",
     "start": "nodemon api/index.js"
   },
   "keywords": [],
