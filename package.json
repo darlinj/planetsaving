@@ -1,0 +1,30 @@
+{
+  "name": "footprint",
+  "version": "1.0.0",
+  "description": "Website that helps people understand their carbon footprint",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently npm:start:*",
+    "start:backend": "npm --prefix backend start",
+    "start:frontend": "REACT_APP_BACKEND_URL=http://localhost:4000/ npm --prefix frontend start",
+    "test": "TABLE_NAME=climateData-dev testcafe chrome ./e2e_tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/joe.darling/footprint.git"
+  },
+  "keywords": [
+    "climate",
+    "change",
+    "carbon"
+  ],
+  "author": "Joe Darling",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/joe.darling/footprint/issues"
+  },
+  "homepage": "https://gitlab.com/joe.darling/footprint#readme",
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  }
+}

@@ -4,9 +4,9 @@ module.exports = gql`
     getClimateData: [ClimateData]
   }
   type ClimateData {
-    id: Int
+    id: Float
     label: String
     color: String
-    amount: Int
+    amount: Float
   }
 `;

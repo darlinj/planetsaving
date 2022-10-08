@@ -2,7 +2,9 @@ import {useQuery} from "@tanstack/react-query";
 import {request, gql} from "graphql-request";
 import {ClimateData} from "../types";
 
-const endpoint = "https://example.com/api";
+const endpoint = process.env.REACT_APP_BACKEND_URL
+  ? process.env.REACT_APP_BACKEND_URL
+  : "https://example.com/api";
 
 function useFootprintData() {
   return useQuery<[ClimateData]>(["GetClimateData"], async () => {
@@ -10,16 +12,15 @@ function useFootprintData() {
       endpoint,
       gql`
         query GetClimateData {
-          climateData {
+          getClimateData {
             amount
-            subSection
             color
             label
           }
         }
       `
     );
-    return data.climateData;
+    return data.getClimateData;
   });
 }
 

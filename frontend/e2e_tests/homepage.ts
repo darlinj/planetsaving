@@ -1,6 +1,6 @@
-import {Selector, ClientFunction} from "testcafe";
+import {Selector} from "testcafe";
 
-import {emptyTable, uploadTestData} from "../backend/utils/db_utils";
+import {ClientFunction} from "testcafe";
 
 const URL =
   process.env.ENVIRONMENT == "TEST"
@@ -8,42 +8,7 @@ const URL =
     : "http://localhost:3000/";
 const getURL = ClientFunction(() => window.location.href);
 
-fixture`Homepage tests`.page(URL).before(async (t) => {
-  await emptyTable();
-  const climateCategory = [
-    {
-      id: 123,
-      label: "Things you buy",
-      color: "Red",
-      amount: 3.2,
-    },
-    {
-      id: 124,
-      label: "Transport",
-      color: "Green",
-      amount: 2.4,
-    },
-    {
-      id: 124,
-      label: "Energy",
-      color: "Orange",
-      amount: 2,
-    },
-    {
-      id: 124,
-      label: "Schools and hospitals",
-      color: "Yellow",
-      amount: 1.1,
-    },
-    {
-      id: 124,
-      label: "Food",
-      color: "Blue",
-      amount: 1.9,
-    },
-  ];
-  await uploadTestData(climateCategory);
-});
+fixture`Homepage tests`.page(URL);
 
 test("Assert page URL", async (t) => {
   await t.expect(getURL()).eql(URL);

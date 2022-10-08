@@ -10,10 +10,10 @@ import "@fontsource/roboto/700.css";
 import Container from "@mui/material/Container";
 import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
 
-// if (process.env.NODE_ENV === "development") {
-const {worker} = require("./mocks/browser");
-worker.start();
-// }
+if (process.env.REACT_APP_ENABLE_MSW === "true") {
+  const {worker} = require("./mocks/browser");
+  worker.start();
+}
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
