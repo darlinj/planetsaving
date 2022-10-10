@@ -2,10 +2,9 @@ import {Selector, ClientFunction} from "testcafe";
 
 import {emptyTable, uploadTestData} from "../backend/utils/db_utils";
 
-const URL =
-  process.env.ENVIRONMENT == "TEST"
-    ? "https://test.planetsaving.uk/"
-    : "http://localhost:3000/";
+const URL = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL
+  : "http://localhost:3000/";
 const getURL = ClientFunction(() => window.location.href);
 
 fixture`Homepage tests`.page(URL).before(async (t) => {

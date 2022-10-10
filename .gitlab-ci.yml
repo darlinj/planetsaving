@@ -1,5 +1,11 @@
 variables:
   NODE_VERSION: "gallium"
+  TEST_FRONTEND_URL: "http://test.planetsaving.uk"
+  PROD_FRONTEND_URL: "http://planetsaving.uk"
+  TEST_BACKEND_URL: "http://api.test.planetsaving.uk"
+  PROD_BACKEND_URL: "http://api.planetsaving.uk"
+  TEST_CLIMATE_DATA_DYNAMODB_TABLE: "footprint_climate_data_table_test"
+  PROD_CLIMATE_DATA_DYNAMODB_TABLE: "footprint_climate_data_table_prod"
 
 stages:
   - build
@@ -80,11 +86,13 @@ e2e_tests:
     - "testing_infrastructure"
     - "deploy_to_test"
   variables:
-    ENVIRONMENT: "TEST"
+    FRONTEND_URL: ${TEST_FRONTEND_URL}
+    TABLE_NAME: ${TEST_CLIMATE_DATA_DYNAMODB_TABLE}
   image:
     name: testcafe/testcafe
     entrypoint: ["/bin/sh", "-c"]
   script:
+    - npm i aws-sdk
     - /opt/testcafe/docker/testcafe-docker.sh firefox:headless,chromium e2e_tests/**/*
 
 deploy_to_production:
