@@ -16,7 +16,6 @@ stages:
   - deploy
 
 .build_frontend:
-  stage: build
   image:
     name: node:${NODE_VERSION}-alpine
   script:
@@ -27,14 +26,16 @@ stages:
 
 build_test_frontend:
   extends: .build_frontend
+  stage: end_to_end_test
   environment:
-    name: production
+    name: test
   artifacts:
     paths:
       - frontend/test_build/
 
 build_prod_frontend:
   extends: .build_frontend
+  stage: build
   environment:
     name: production
   artifacts:
