@@ -1,15 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
 import {request, gql} from "graphql-request";
 import {ClimateData} from "../types";
-
-const endpoint = process.env.REACT_APP_BACKEND_URL
-  ? process.env.REACT_APP_BACKEND_URL
-  : "https://example.com/api";
+import backendUrl from "./backend_url";
 
 function useFootprintData() {
   return useQuery<[ClimateData]>(["GetClimateData"], async () => {
     const data = await request(
-      endpoint,
+      backendUrl,
       gql`
         query GetClimateData {
           getClimateData {
