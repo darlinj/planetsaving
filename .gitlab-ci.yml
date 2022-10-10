@@ -18,24 +18,21 @@ stages:
     - sed "s|PLACEHOLDER|${API_URL}|g" ./src/api/url_template.json  > ./src/api/url.json
     - npm install
     - npm run build
+  artifacts:
+    paths:
+      - frontend/build/
 
 build_test_frontend:
   extends: .build_frontend
   stage: end_to_end_test
   environment:
     name: test
-  artifacts:
-    paths:
-      - frontend/test_build/
 
 build_prod_frontend:
   extends: .build_frontend
   stage: build
   environment:
     name: production
-  artifacts:
-    paths:
-      - frontend/prod_build/
 
 unittest_frontend:
   needs: []
@@ -90,8 +87,8 @@ deploy_to_test:
     name: test
   script:
     - aws --version
-    - aws s3 sync frontend/test_build s3://$S3_TEST_BUCKET --exclude index.html
-    - aws s3 sync frontend/test_build s3://$S3_TEST_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
+    - aws s3 sync frontend/build s3://$S3_TEST_BUCKET --exclude index.html
+    - aws s3 sync frontend/build s3://$S3_TEST_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
 
 e2e_tests:
   stage: end_to_end_test
@@ -118,8 +115,8 @@ deploy_to_production:
     name: production
   script:
     - aws --version
-    - aws s3 sync frontend/prod_build s3://$S3_BUCKET --exclude index.html
-    - aws s3 sync frontend/prod_build s3://$S3_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
+    - aws s3 sync frontend/build s3://$S3_BUCKET --exclude index.html
+    - aws s3 sync frontend/build s3://$S3_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
 
 common_infrastructure:
   stage: common_infra_deploy
