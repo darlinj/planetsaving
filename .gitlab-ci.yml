@@ -15,7 +15,7 @@ stages:
   script:
     - echo "Building frontend"
     - cd frontend
-    - cat <<< $(jq '.url = "${API_URL}"' ./src/api/url.json) > ./src/api/url.json
+    - jq --arg API_URL "$API_URL" '.url = $API_URL' ./src/api/url_template.json  > ./src/api/url.json
     - npm install
     - npm run build
 
