@@ -15,10 +15,27 @@ stages:
   - infrastructure
   - deploy
 
-build_frontend:
+build_test_frontend:
   stage: build
   image:
     name: node:${NODE_VERSION}-alpine
+  environment:
+    name: production
+  script:
+    - echo "Building frontend"
+    - cd frontend
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - frontend/build/
+
+build_prod_frontend:
+  stage: build
+  image:
+    name: node:${NODE_VERSION}-alpine
+  environment:
+    name: production
   script:
     - echo "Building frontend"
     - cd frontend
@@ -54,12 +71,14 @@ unittest_frontend:
 testing_infrastructure:
   stage: end_to_end_test
   dependencies:
-    - "build_frontend"
+    - "build_test_frontend"
   image:
     name: hashicorp/terraform:light
     entrypoint:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  environment:
+    name: test
   script:
     - echo  ${AWS_ACCESS_KEY_ID}
     - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
@@ -75,6 +94,8 @@ deploy_to_test:
   image:
     name: amazon/aws-cli
     entrypoint: [""]
+  environment:
+    name: test
   script:
     - aws --version
     - aws s3 sync frontend/build s3://$S3_TEST_BUCKET --exclude index.html
@@ -91,6 +112,8 @@ e2e_tests:
   image:
     name: testcafe/testcafe
     entrypoint: ["/bin/sh", "-c"]
+  environment:
+    name: test
   script:
     - npm i aws-sdk
     - /opt/testcafe/docker/testcafe-docker.sh firefox:headless,chromium e2e_tests/**/*
@@ -100,6 +123,8 @@ deploy_to_production:
   image:
     name: amazon/aws-cli
     entrypoint: [""]
+  environment:
+    name: production
   script:
     - aws --version
     - aws s3 sync frontend/build s3://$S3_BUCKET --exclude index.html
@@ -125,12 +150,14 @@ common_infrastructure:
 infrastucture:
   stage: infrastructure
   dependencies:
-    - "build_frontend"
+    - "build_prod_frontend"
   image:
     name: hashicorp/terraform:light
     entrypoint:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  environment:
+    name: production
   script:
     - echo  ${AWS_ACCESS_KEY_ID}
     - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
