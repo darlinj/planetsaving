@@ -8,6 +8,11 @@ variable "domain_name" {
   description = "The domain name for the api."
 }
 
+variable "root_domain" {
+  type = string
+  description = "The root domain name that the API will be under."
+}
+
 variable "project_name" {
   type = string
   description = "name of the project"
