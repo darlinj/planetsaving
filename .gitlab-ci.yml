@@ -14,7 +14,7 @@ stages:
     name: node:${NODE_VERSION}-alpine
   script:
     - echo "Building frontend"
-    - apt install jq
+    - apt-get install jq
     - cd frontend
     - jq --arg API_URL "$API_URL" '.url = $API_URL' ./src/api/url_template.json  > ./src/api/url.json
     - npm install
