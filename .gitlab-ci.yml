@@ -89,6 +89,8 @@ testing_infrastructure:
 
 deploy_to_test:
   stage: end_to_end_test
+  needs:
+    - "build_test_frontend"
   image:
     name: amazon/aws-cli
     entrypoint: [""]
