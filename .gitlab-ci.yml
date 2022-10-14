@@ -81,6 +81,7 @@ deploy_test_infrastructure:
   stage: end_to_end_test
   dependencies:
     - "build_test_frontend"
+    - "build_backend"
   image:
     name: hashicorp/terraform:light
     entrypoint:
