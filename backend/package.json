@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "TABLE_NAME=climateData-dev jest --watchAll",
-    "start": "TABLE_NAME=climateData-dev nodemon api/index.js"
+    "test": "NODE_ENV=development jest --watchAll",
+    "start": "nodemon api/index.js",
+    "ci": "NODE_ENV=test jest --watchAll"
   },
   "keywords": [],
   "author": "",

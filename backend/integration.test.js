@@ -2,8 +2,8 @@ const {ApolloServer} = require("apollo-server");
 const {DbUtils} = require("./utils/db_utils");
 const serverOptions = require("./server_options");
 const server = new ApolloServer(serverOptions);
-
-const dbUtils = new DbUtils(process.env.TABLE_NAME);
+import {climateDataTableName} from "./tablenames";
+const dbUtils = new DbUtils(climateDataTableName);
 
 describe("the climateChange API", () => {
   beforeEach(async () => {

@@ -1,6 +1,7 @@
 import {Selector, ClientFunction} from "testcafe";
 
 import {DbUtils} from "../backend/utils/db_utils";
+import {climateDataTableName} from "../backend/tablenames";
 
 //import DbUtils = require("../backend/utils/db_utils");
 const URL = process.env.FRONTEND_URL
@@ -8,7 +9,7 @@ const URL = process.env.FRONTEND_URL
   : "http://localhost:3000/";
 const getURL = ClientFunction(() => window.location.href);
 
-const dbUtils = new DbUtils(process.env.TABLE_NAME);
+const dbUtils = new DbUtils(climateDataTableName);
 
 fixture`Homepage tests`.page(URL).before(async (t) => {
   await dbUtils.emptyTable();

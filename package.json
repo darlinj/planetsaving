@@ -4,10 +4,10 @@
   "description": "Website that helps people understand their carbon footprint",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently npm:start:*",
+    "start": "NODE_ENV=development concurrently npm:start:*",
     "start:backend": "npm --prefix backend start",
     "start:frontend": "REACT_APP_BACKEND_URL=http://localhost:4000/ npm --prefix frontend start",
-    "test": "TABLE_NAME=climateData-dev testcafe chrome ./e2e_tests"
+    "test": "NODE_ENV=development testcafe chrome ./e2e_tests"
   },
   "repository": {
     "type": "git",

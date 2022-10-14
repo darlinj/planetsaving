@@ -3,7 +3,7 @@ const AWS = require("aws-sdk");
 
 const dynamo = new AWS.DynamoDB.DocumentClient({region: "eu-west-2"});
 
-const tableName = process.env.TABLE_NAME;
+const {climateDataTableName} = require("../tablenames");
 
 class Dynamodb extends DataSource {
   constructor() {
@@ -13,7 +13,7 @@ class Dynamodb extends DataSource {
 
   async getClimateData(args) {
     const data = await dynamo
-      .scan({TableName: tableName, ConsistentRead: true})
+      .scan({TableName: climateDataTableName, ConsistentRead: true})
       .promise();
     return data.Items;
   }

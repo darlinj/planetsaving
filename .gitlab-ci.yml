@@ -107,7 +107,7 @@ e2e_tests:
     - "testing_infrastructure"
     - "deploy_to_test"
   variables:
-    TABLE_NAME: ${TEST_CLIMATE_DATA_DYNAMODB_TABLE}
+    NODE_ENV: test
   image:
     name: testcafe/testcafe
     entrypoint: ["/bin/sh", "-c"]

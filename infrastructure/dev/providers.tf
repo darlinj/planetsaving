@@ -18,7 +18,7 @@ provider "aws" {
 
 module "database" {
   source = "../database"
-  environment = "dev"
+  environment = "development"
   common_tags = {
     Project = "Planet saving expert dev resource"
   } 
