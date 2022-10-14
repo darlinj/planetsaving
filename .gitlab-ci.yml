@@ -77,29 +77,6 @@ unittest_frontend:
     reports:
       junit: frontend/coverage/junit.xml
 
-deploy_test_infrastructure:
-  stage: end_to_end_test
-  dependencies:
-    - "build_test_frontend"
-    - "build_backend"
-  image:
-    name: hashicorp/terraform:light
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  environment:
-    name: test
-  script:
-    - echo  ${AWS_ACCESS_KEY_ID}
-    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    - ls -l backend/node_modules/
-    - terraform --version
-    - terraform -chdir=infrastructure/test init
-    - terraform -chdir=infrastructure/test validate
-    - terraform -chdir=infrastructure/test plan -out "planfile"
-    - terraform -chdir=infrastructure/test apply -input=false "planfile"
-
 deploy_frontend_to_test:
   stage: end_to_end_test
   needs:
@@ -159,10 +136,34 @@ common_infrastructure:
     - terraform -chdir=infrastructure/common plan -out "planfile"
     - terraform -chdir=infrastructure/common apply -input=false "planfile"
 
+deploy_test_infrastructure:
+  stage: end_to_end_test
+  dependencies:
+    - "build_test_frontend"
+    - "build_backend"
+  image:
+    name: hashicorp/terraform:light
+    entrypoint:
+      - "/usr/bin/env"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  environment:
+    name: test
+  script:
+    - echo  ${AWS_ACCESS_KEY_ID}
+    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - ls -l backend/node_modules/
+    - terraform --version
+    - terraform -chdir=infrastructure/test init
+    - terraform -chdir=infrastructure/test validate
+    - terraform -chdir=infrastructure/test plan -out "planfile"
+    - terraform -chdir=infrastructure/test apply -input=false "planfile"
+
 production_infrastucture:
   stage: infrastructure
   dependencies:
     - "build_prod_frontend"
+    - "build_backend"
   image:
     name: hashicorp/terraform:light
     entrypoint:
