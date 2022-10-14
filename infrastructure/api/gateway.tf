@@ -2,7 +2,7 @@ resource "aws_apigatewayv2_api" "lambda" {
   name          = "${var.project_name}_api_gateway_${var.environment}"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_origins = ["https://*.planetsaving.uk"]
+    allow_origins = ["*"]
     allow_methods = ["POST", "GET", "OPTIONS"]
     allow_headers = ["content-type"]
     max_age = 300
