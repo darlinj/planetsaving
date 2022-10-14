@@ -12,6 +12,7 @@ stages:
 .build_frontend:
   image:
     name: node:${NODE_VERSION}-alpine
+  stage: build
   script:
     - echo "Building frontend"
     - cd frontend
@@ -21,7 +22,6 @@ stages:
 
 build_test_frontend:
   extends: .build_frontend
-  stage: end_to_end_test
   environment:
     name: test
   after_script:
@@ -31,9 +31,20 @@ build_test_frontend:
     paths:
       - frontend/test_build/
 
+build_backend:
+  stage: build
+  image:
+    name: node:${NODE_VERSION}-alpine
+  script:
+    - echo "Building backend"
+    - cd backend
+    - npm install
+  artifacts:
+    paths:
+      - backend/node_modules/
+
 build_prod_frontend:
   extends: .build_frontend
-  stage: build
   environment:
     name: production
   after_script:
