@@ -68,4 +68,9 @@ handler                        = "graphql.graphqlHandler"
 runtime                        = "nodejs14.x"
 source_code_hash               = data.archive_file.zip_the_apollo_server_code.output_base64sha256
 depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
+environment {
+  variables = {
+    NODE_ENV = var.environment
+  }
+}
 }
