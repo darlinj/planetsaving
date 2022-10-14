@@ -1,2 +1,3 @@
 const climateDataTableName = `climateDataTable_${process.env.NODE_ENV}`;
-module.exports = {climateDataTableName};
+const actionsTableName = `actionsTable_${process.env.NODE_ENV}`;
+module.exports = {climateDataTableName, actionsTableName};

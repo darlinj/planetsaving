@@ -11,6 +11,7 @@ const ActionsList = ({actionData}: {actionData: ActionData[]}) => {
         paddingRight: 2,
         paddingBottom: 2,
       }}
+      id="actions"
     >
       <Typography variant="h4" component="div" gutterBottom align="center">
         Top actions you can take
