@@ -1,11 +1,13 @@
 const {ApolloServer} = require("apollo-server");
-const {emptyTable, uploadTestData} = require("./utils/db_utils");
+const {DbUtils} = require("./utils/db_utils");
 const serverOptions = require("./server_options");
 const server = new ApolloServer(serverOptions);
 
+const dbUtils = new DbUtils(process.env.TABLE_NAME);
+
 describe("the climateChange API", () => {
   beforeEach(async () => {
-    await emptyTable();
+    await dbUtils.emptyTable();
   });
   test("It returns the expected data", async () => {
     const climateCategory1 = {
@@ -20,7 +22,7 @@ describe("the climateChange API", () => {
       color: "Green",
       amount: 20,
     };
-    await uploadTestData([climateCategory1, climateCategory2]);
+    await dbUtils.uploadTestData([climateCategory1, climateCategory2]);
     const result = await server.executeOperation({
       query: "query { getClimateData { id label color amount} }",
     });

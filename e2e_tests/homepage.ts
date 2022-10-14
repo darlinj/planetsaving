@@ -1,14 +1,17 @@
 import {Selector, ClientFunction} from "testcafe";
 
-import {emptyTable, uploadTestData} from "../backend/utils/db_utils";
+import {DbUtils} from "../backend/utils/db_utils";
 
+//import DbUtils = require("../backend/utils/db_utils");
 const URL = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL
   : "http://localhost:3000/";
 const getURL = ClientFunction(() => window.location.href);
 
+const dbUtils = new DbUtils(process.env.TABLE_NAME);
+
 fixture`Homepage tests`.page(URL).before(async (t) => {
-  await emptyTable();
+  await dbUtils.emptyTable();
   const climateCategory = [
     {
       id: 123,
@@ -41,7 +44,7 @@ fixture`Homepage tests`.page(URL).before(async (t) => {
       amount: 1.9,
     },
   ];
-  await uploadTestData(climateCategory);
+  await dbUtils.uploadTestData(climateCategory);
 });
 
 test("Assert page URL", async (t) => {
