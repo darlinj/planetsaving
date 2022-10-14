@@ -25,7 +25,7 @@ resource "aws_dynamodb_table" "actions_table" {
   read_capacity  = 2
   write_capacity = 2
   hash_key       = "id"
-  range_key      = "title"
+  range_key      = "actionTitle"
 
   attribute {
     name = "id"
@@ -33,7 +33,7 @@ resource "aws_dynamodb_table" "actions_table" {
   }
 
   attribute {
-    name = "title"
+    name = "actionTitle"
     type = "S"
   }
 
