@@ -1,8 +1,8 @@
 const {ApolloServer} = require("apollo-server");
-const {DbUtils} = require("./utils/db_utils");
-const serverOptions = require("./server_options");
+const {DbUtils} = require("../utils/db_utils");
+const serverOptions = require("../server_options");
 const server = new ApolloServer(serverOptions);
-import {climateDataTableName} from "./tablenames";
+import {climateDataTableName} from "../tablenames";
 const dbUtils = new DbUtils(climateDataTableName);
 
 describe("the climateChange API", () => {

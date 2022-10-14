@@ -1,4 +1,4 @@
-import {getClimateData, getDBData} from "./queries";
+import {getClimateData} from "./queries";
 
 describe("Query resolvers", () => {
   test("should get data from the database", () => {
