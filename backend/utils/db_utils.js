@@ -6,12 +6,11 @@ class DbUtils {
   constructor(tableName) {
     this.tableName = tableName;
   }
-  deleteItem = async (id, label) => {
+  deleteItem = async (id) => {
     var params = {
       TableName: this.tableName,
       Key: {
         id,
-        label,
       },
     };
 
@@ -32,7 +31,7 @@ class DbUtils {
       .scan({TableName: this.tableName, ConsistentRead: true})
       .promise();
     await data.Items.forEach(async (row) => {
-      await this.deleteItem(row.id, row.label);
+      await this.deleteItem(row.id);
     });
     await new Promise((r) => setTimeout(r, 2000));
   };
