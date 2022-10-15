@@ -25,7 +25,6 @@ describe("the actions API", () => {
       actionType: "energy",
     };
     await dbUtils.uploadTestData([action1, action2]);
-    console.log("data uploaded");
     const result = await server.executeOperation({
       query:
         "query { getActions { id actionTitle cost carbonSaved actionType} }",

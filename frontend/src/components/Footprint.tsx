@@ -1,15 +1,17 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import {ClimateData} from "../types";
 import useFootprintData from "../api/useFootprintData";
 
 const Footprint = () => {
-  const {status, data, isLoading} = useFootprintData();
+  const {status, data, isLoading, isError, error} = useFootprintData();
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  if (isError && error instanceof Error) {
+    return <div>{error.message}</div>;
+  }
   if (!data) {
-    return <div>No data returned...</div>;
+    return <div>No data returned... {status}</div>;
   }
   const footHeight = 500;
   let stripeOffset = 0;

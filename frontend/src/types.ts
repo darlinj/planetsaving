@@ -6,6 +6,7 @@ export interface ClimateData {
 }
 
 export interface ActionData {
+  id: number;
   actionTitle: string;
   cost: number;
   carbonSaved: number;
