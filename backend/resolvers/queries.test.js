@@ -1,7 +1,7 @@
 import {getClimateData} from "./queries";
 
 describe("Query resolvers", () => {
-  test("should get data from the database", () => {
+  test("should get climate change data from the database", () => {
     const context = {
       dataSources: {
         dynamodb: {
