@@ -8,37 +8,6 @@ import {ActionData} from "./types";
 import Footprint from "./components/Footprint";
 import ActionsList from "./components/ActionsList";
 
-const actions: ActionData[] = [
-  {
-    id: 123,
-    actionTitle: "Reduce your thermostat by one degree",
-    cost: 0,
-    carbonSaved: 0.3,
-    actionType: "energy",
-  },
-  {
-    id: 124,
-    actionTitle: "Buy an electric car",
-    cost: 30000,
-    carbonSaved: 1.0,
-    actionType: "transport",
-  },
-  {
-    id: 125,
-    actionTitle: "Stop buying air freighted food",
-    cost: 0,
-    carbonSaved: 0.3,
-    actionType: "food",
-  },
-  {
-    id: 126,
-    actionTitle: "Buy more second hand things",
-    cost: 0,
-    carbonSaved: 0.4,
-    actionType: "purchasing",
-  },
-];
-
 function App() {
   return (
     <Grid container spacing={2}>
@@ -75,7 +44,7 @@ function App() {
         </Paper>
       </Grid>
       <Grid item xs={12} md={4}>
-        <ActionsList actionData={actions} />
+        <ActionsList />
       </Grid>
     </Grid>
   );
