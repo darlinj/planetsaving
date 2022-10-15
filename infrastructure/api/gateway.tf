@@ -80,8 +80,8 @@ resource "aws_api_gateway_domain_name" "acm_custome_domain" {
   }
 }
 
-resource "aws_api_gateway_base_path_mapping" "link_custom_domain_to_api_gateway" {
+resource "aws_apigatewayv2_api_mapping" "link_custom_domain_to_api_gateway" {
   api_id = aws_apigatewayv2_api.lambda.id
-  stage_name  = aws_api_gateway_stage.lambda.stage_name
   domain_name = aws_api_gateway_domain_name.acm_custome_domain.domain_name
+  stage       = aws_apigatewayv2_stage.lambda.id
 }
