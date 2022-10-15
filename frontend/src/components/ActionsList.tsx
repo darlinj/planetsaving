@@ -17,7 +17,7 @@ const ActionsList = ({actionData}: {actionData: ActionData[]}) => {
         Top actions you can take
       </Typography>
       {actionData.map((action) => {
-        return <SuggestedActionCard action={action} />;
+        return <SuggestedActionCard action={action} key={action.id} />;
       })}
     </Paper>
   );

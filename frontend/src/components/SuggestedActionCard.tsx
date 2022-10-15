@@ -6,7 +6,7 @@ import {
   CardActionArea,
   CardContent,
   Box,
-  IconButton,
+  Icon,
   Typography,
 } from "@mui/material";
 import {ActionData} from "../types";
@@ -44,9 +44,9 @@ const SuggestedActionCard = ({action}: {action: ActionData}) => {
             </Avatar>
           }
           action={
-            <IconButton aria-label="settings" sx={{color: colorArray[800]}}>
+            <Icon aria-label="settings" sx={{color: colorArray[800]}}>
               <FavoriteIcon />
-            </IconButton>
+            </Icon>
           }
           title={action.actionTitle}
           sx={{paddingBottom: 0}}
