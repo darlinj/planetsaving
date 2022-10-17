@@ -7,7 +7,9 @@ const dbUtils = new DbUtils(actionsTableName);
 
 describe("the actions API", () => {
   beforeEach(async () => {
-    await dbUtils.emptyTable();
+    await server.executeOperation({
+      query: "mutation { clearActions {} }",
+    });
   });
   test("It returns the expected data", async () => {
     const action1 = {

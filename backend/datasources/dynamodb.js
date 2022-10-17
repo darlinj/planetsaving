@@ -19,11 +19,31 @@ class Dynamodb extends DataSource {
   }
 
   async getActions(args) {
-    console.log(actionsTableName);
     const data = await dynamo
       .scan({TableName: actionsTableName, ConsistentRead: true})
       .promise();
     return data.Items;
+  }
+
+  async clearActions(args) {
+    let result = true;
+    const data = await dynamo
+      .scan({TableName: actionsTableName, ConsistentRead: true})
+      .promise();
+    data.Items.forEach(async (item) => {
+      try {
+        const params = {
+          TableName: actionsTableName,
+          Key: {
+            id: item.id,
+          },
+        };
+        await dynamo.delete(params).promise();
+      } catch (err) {
+        result = false;
+      }
+    });
+    return result;
   }
 }
 

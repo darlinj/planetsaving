@@ -4,6 +4,9 @@ module.exports = gql`
     getClimateData: [ClimateData]
     getActionsList: [Action]
   }
+  type Mutation {
+    clearActions: Boolean
+  }
   type ClimateData {
     id: Float
     label: String
