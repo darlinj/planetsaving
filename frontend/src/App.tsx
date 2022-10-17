@@ -1,10 +1,8 @@
 import React from "react";
 import "./App.css";
-import {green, red, blue, orange, yellow} from "@mui/material/colors";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import {ActionData} from "./types";
 import Footprint from "./components/Footprint";
 import ActionsList from "./components/ActionsList";
 

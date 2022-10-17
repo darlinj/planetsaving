@@ -1,4 +1,4 @@
-import {getClimateData, getActions} from "./queries";
+import {getClimateData, getActionsList} from "./queries";
 
 describe("Query resolvers", () => {
   test("should get climate change data from the database", () => {
@@ -25,7 +25,7 @@ describe("Query resolvers", () => {
         },
       },
     };
-    const data = getActions(null, {}, context, null);
+    const data = getActionsList(null, {}, context, null);
     expect(data.length).toBe(2);
   });
 });

@@ -26,19 +26,19 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
       amount: 2.4,
     },
     {
-      id: 124,
+      id: 125,
       label: "Energy",
       color: "Orange",
       amount: 2,
     },
     {
-      id: 124,
+      id: 126,
       label: "Schools and hospitals",
       color: "Yellow",
       amount: 1.1,
     },
     {
-      id: 124,
+      id: 127,
       label: "Food",
       color: "Blue",
       amount: 1.9,

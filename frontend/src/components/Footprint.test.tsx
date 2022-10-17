@@ -62,3 +62,22 @@ test("renders the no data message if there is no data", () => {
   const linkElement = screen.getByText(/No data/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+test("renders the error message if there is an error", () => {
+  const mockUseFootprintData = useFootprintData as jest.MockedFunction<
+    typeof useFootprintData
+  >;
+  mockUseFootprintData.mockImplementation(() => {
+    const foo = {
+      data: undefined,
+      isLoading: false,
+      isError: true,
+      error: new Error("this is an error"),
+      isFetching: false,
+    };
+    return foo as UseQueryResult<[ClimateData]>;
+  });
+  render(<Footprint />);
+  const linkElement = screen.getByText(/this is an error/i);
+  expect(linkElement).toBeInTheDocument();
+});

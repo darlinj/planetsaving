@@ -27,10 +27,10 @@ describe("the actions API", () => {
     await dbUtils.uploadTestData([action1, action2]);
     const result = await server.executeOperation({
       query:
-        "query { getActions { id actionTitle cost carbonSaved actionType} }",
+        "query { getActionsList { id actionTitle cost carbonSaved actionType} }",
     });
 
-    expect(result.data.getActions.length).toEqual(2);
-    expect(result.data.getActions[0]).toEqual(action2);
+    expect(result.data.getActionsList.length).toEqual(2);
+    expect(result.data.getActionsList[0]).toEqual(action2);
   });
 });

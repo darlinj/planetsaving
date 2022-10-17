@@ -1,40 +1,16 @@
 import React from "react";
 import {Paper, Typography} from "@mui/material";
 import SuggestedActionCard from "./SuggestedActionCard";
-import {ActionData} from "../types";
-
-const actionData: ActionData[] = [
-  {
-    id: 123,
-    actionTitle: "Reduce your thermostat by one degree",
-    cost: 0,
-    carbonSaved: 0.3,
-    actionType: "energy",
-  },
-  {
-    id: 124,
-    actionTitle: "Buy an electric car",
-    cost: 30000,
-    carbonSaved: 1.0,
-    actionType: "transport",
-  },
-  {
-    id: 125,
-    actionTitle: "Stop buying air freighted food",
-    cost: 0,
-    carbonSaved: 0.3,
-    actionType: "food",
-  },
-  {
-    id: 126,
-    actionTitle: "Buy more second hand things",
-    cost: 0,
-    carbonSaved: 0.4,
-    actionType: "purchasing",
-  },
-];
+import useActionsList from "../api/useActionsList";
 
 const ActionsList = () => {
+  const {data, isLoading} = useActionsList();
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (!data) {
+    return <div>Not data returned</div>;
+  }
   return (
     <Paper
       sx={{
@@ -47,7 +23,7 @@ const ActionsList = () => {
       <Typography variant="h4" component="div" gutterBottom align="center">
         Top actions you can take
       </Typography>
-      {actionData.map((action) => {
+      {data.map((action) => {
         return <SuggestedActionCard action={action} key={action.id} />;
       })}
     </Paper>

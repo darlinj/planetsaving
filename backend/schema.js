@@ -2,7 +2,7 @@ const {gql} = require("apollo-server-lambda");
 module.exports = gql`
   type Query {
     getClimateData: [ClimateData]
-    getActions: [Action]
+    getActionsList: [Action]
   }
   type ClimateData {
     id: Float
