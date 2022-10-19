@@ -7,27 +7,37 @@ const dbUtils = new DbUtils(climateDataTableName);
 
 describe("the climateChange API", () => {
   beforeEach(async () => {
-    await dbUtils.emptyTable();
+    await server.executeOperation({
+      query: "mutation { clearClimateData }",
+    });
+    await new Promise((r) => setTimeout(r, 1000));
   });
   test("It returns the expected data", async () => {
-    const climateCategory1 = {
-      id: 123,
-      label: "Food",
-      color: "Red",
-      amount: 10,
-    };
-    const climateCategory2 = {
-      id: 124,
-      label: "consumables",
-      color: "Green",
-      amount: 20,
-    };
-    await dbUtils.uploadTestData([climateCategory1, climateCategory2]);
+    await server.executeOperation({
+      query: `mutation { 
+        addClimateChangeData(
+          id: 123,
+          label: "Food",
+          color: "Red",
+          amount: 10,
+       )
+      }`,
+    });
+    await server.executeOperation({
+      query: `mutation { 
+        addClimateChangeData(
+          id: 124,
+          label: "consumables",
+          color: "Green",
+          amount: 20,
+       )
+      }`,
+    });
     const result = await server.executeOperation({
       query: "query { getClimateData { id label color amount} }",
     });
 
     expect(result.data.getClimateData.length).toEqual(2);
-    expect(result.data.getClimateData[0]).toEqual(climateCategory1);
+    expect(result.data.getClimateData[0].label).toEqual("Food");
   });
 });

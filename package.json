@@ -26,5 +26,8 @@
   "homepage": "https://gitlab.com/joe.darling/footprint#readme",
   "devDependencies": {
     "concurrently": "^7.4.0"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^3.0.0"
   }
 }

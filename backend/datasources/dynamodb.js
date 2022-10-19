@@ -25,6 +25,28 @@ class Dynamodb extends DataSource {
     return data.Items;
   }
 
+  async clearClimateData(args) {
+    let result = true;
+    const data = await dynamo
+      .scan({TableName: climateDataTableName, ConsistentRead: true})
+      .promise();
+    data.Items.forEach(async (item) => {
+      try {
+        const params = {
+          TableName: climateDataTableName,
+          Key: {
+            id: item.id,
+          },
+        };
+        await dynamo.delete(params).promise();
+      } catch (err) {
+        console.log("Error", err);
+        result = false;
+      }
+    });
+    return result;
+  }
+
   async clearActions(args) {
     let result = true;
     const data = await dynamo
@@ -40,10 +62,30 @@ class Dynamodb extends DataSource {
         };
         await dynamo.delete(params).promise();
       } catch (err) {
+        console.log("Error", err);
         result = false;
       }
     });
     return result;
+  }
+
+  async addAction(args) {
+    var params = {
+      TableName: actionsTableName,
+      Item: args,
+    };
+
+    const res = await dynamo.put(params).promise();
+  }
+
+  async addClimateChangeData(args) {
+    var params = {
+      TableName: climateDataTableName,
+      Item: args,
+    };
+
+    const res = await dynamo.put(params).promise();
+    return true;
   }
 }
 

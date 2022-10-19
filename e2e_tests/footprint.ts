@@ -1,17 +1,12 @@
 import {Selector, ClientFunction} from "testcafe";
-
-import {DbUtils} from "../backend/utils/db_utils";
-import {climateDataTableName} from "../backend/tablenames";
+import {clearClimateData, addClimateChangeData} from "./utils/api_utils";
 
 const URL = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL
   : "http://localhost:3000/";
-const getURL = ClientFunction(() => window.location.href);
-
-const dbUtils = new DbUtils(climateDataTableName);
 
 fixture`Footprint tests`.page(URL).before(async (t) => {
-  await dbUtils.emptyTable();
+  await clearClimateData();
   const climateCategory = [
     {
       id: 123,
@@ -44,7 +39,7 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
       amount: 1.9,
     },
   ];
-  await dbUtils.uploadTestData(climateCategory);
+  await addClimateChangeData(climateCategory);
 });
 
 test("Check default footprint", async (t) => {

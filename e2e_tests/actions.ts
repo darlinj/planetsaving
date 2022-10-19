@@ -1,16 +1,12 @@
 import {Selector, ClientFunction} from "testcafe";
-
-import {DbUtils} from "../backend/utils/db_utils";
-import {actionsTableName} from "../backend/tablenames";
+import {clearActions, addActions} from "./utils/api_utils";
 
 const URL = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL
   : "http://localhost:3000/";
 
-const dbUtils = new DbUtils(actionsTableName);
-
 fixture`Footprint tests`.page(URL).before(async (t) => {
-  await dbUtils.emptyTable();
+  await clearActions();
   const actions = [
     {
       id: 123,
@@ -41,7 +37,7 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
       actionType: "purchasing",
     },
   ];
-  await dbUtils.uploadTestData(actions);
+  await addActions(actions);
 });
 
 test("Check default actions list", async (t) => {
