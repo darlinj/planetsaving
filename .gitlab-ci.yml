@@ -104,7 +104,7 @@ run_e2e_tests:
   environment:
     name: test
   script:
-    - npm i aws-sdk
+    - npm install
     - /opt/testcafe/docker/testcafe-docker.sh firefox:headless,chromium e2e_tests/**/*
 
 deploy_to_production:
