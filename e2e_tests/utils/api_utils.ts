@@ -1,8 +1,10 @@
 require("isomorphic-fetch");
 
-const API_URL = process.env.BACKEND_URL
-  ? process.env.BACKEND_URL
+const API_URL = process.env.API_URL
+  ? process.env.API_URL
   : "http://localhost:4000/";
+
+console.log("API_URL:", API_URL);
 
 export const clearActions = async () => {
   await sendFetch(`mutation { clearActions }`);
