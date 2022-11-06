@@ -22,4 +22,5 @@ module "database" {
   common_tags = {
     Project = "Planet saving expert dev resource"
   } 
+  db_password="postgres"
 }

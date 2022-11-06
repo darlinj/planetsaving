@@ -43,6 +43,13 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
            "dynamodb:GetRecords"
        ],
        "Resource": "*"
+   },
+   {
+       "Effect": "Allow",
+       "Action": [
+           "rds-db:connect"
+       ],
+       "Resource": "*"
    }
  ]
 }
