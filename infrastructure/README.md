@@ -21,3 +21,27 @@ Go [here](https://us-east-1.console.aws.amazon.com/route53/home#DomainListing:)
   - /infrastucture/test/providers.tf
   - /infrastucture/production/providers.tf
   - /common/terraform.tfvars
+
+## Installing the infrastructure
+
+set AWS_PROFILE to match the profile with the credentials for your AWS account. e.g.
+
+```
+export AWS_PROFILE=terraform
+```
+
+run terraform apply from the directory for the environment you are targeting:
+
+```
+# for dev
+cd infrastructure/dev
+terraform apply
+
+# for test
+cd infrastructure/test
+terraform apply
+
+# for prod
+cd infrastructure/production
+terraform apply
+```
