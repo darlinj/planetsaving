@@ -10,7 +10,7 @@ describe("the actions API", () => {
     });
     await new Promise((r) => setTimeout(r, 1000));
   });
-  test("It returns the actions list", async () => {
+  test.only("It returns the actions list", async () => {
     await server.executeOperation({
       query: `mutation { 
         addAction(
@@ -37,6 +37,8 @@ describe("the actions API", () => {
       query:
         "query { getActionsList { id actionTitle cost carbonSaved actionType} }",
     });
+
+    console.log(result);
 
     expect(result.data.getActionsList.length).toEqual(2);
     expect(result.data.getActionsList[0].actionTitle).toEqual(
