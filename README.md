@@ -1,3 +1,24 @@
+# Running locally
+
+## Install sqlite
+
+```
+brew install sqlite
+```
+
+## Set AWS_PROFILE
+
+```
+export AWS_PROFILE=joe
+```
+
+## Set up the database locally
+
+```
+cd backend
+npx sequelize-cli db:migrate
+```
+
 # Creating the infrastructure
 
 ## First create the bucket to store the terraform state in:
