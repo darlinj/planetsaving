@@ -19,6 +19,13 @@ cd backend
 npx sequelize-cli db:migrate
 ```
 
+## Install the seed data
+
+```
+cd backend
+npx sequelize-cli db:seed:all
+```
+
 # Creating the infrastructure
 
 ## First create the bucket to store the terraform state in:
