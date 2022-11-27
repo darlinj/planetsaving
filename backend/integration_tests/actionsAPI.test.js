@@ -10,7 +10,7 @@ describe("the actions API", () => {
     });
     await new Promise((r) => setTimeout(r, 1000));
   });
-  test.only("It returns the actions list", async () => {
+  test("It returns the actions list", async () => {
     await server.executeOperation({
       query: `mutation { 
         addAction(

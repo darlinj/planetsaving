@@ -4,7 +4,7 @@ describe("Query resolvers", () => {
   test("should get climate change data from the database", () => {
     const context = {
       dataSources: {
-        dynamodb: {
+        database: {
           getClimateData: () => {
             return [{id: 123}, {id: 321}];
           },

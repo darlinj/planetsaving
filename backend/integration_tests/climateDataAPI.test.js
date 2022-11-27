@@ -1,7 +1,6 @@
 const {ApolloServer} = require("apollo-server");
 const serverOptions = require("../server_options");
 const server = new ApolloServer(serverOptions);
-import {climateDataTableName} from "../tablenames";
 
 describe("the climateChange API", () => {
   beforeEach(async () => {
