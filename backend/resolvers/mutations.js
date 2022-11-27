@@ -3,12 +3,12 @@ module.exports = {
     return dataSources.database.clearClimateData();
   },
   clearActions: (parent, args, {dataSources}, info) => {
-    return dataSources.dynamodb.clearActions();
+    return dataSources.database.clearActions();
   },
   addClimateChangeData: (parent, args, {dataSources}, info) => {
     return dataSources.database.addClimateChangeData(args);
   },
   addAction: (parent, args, {dataSources}, info) => {
-    return dataSources.dynamodb.addAction(args);
+    return dataSources.database.addAction(args);
   },
 };

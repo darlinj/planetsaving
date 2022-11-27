@@ -3,6 +3,6 @@ module.exports = {
     return dataSources.database.getClimateData();
   },
   getActionsList: (parent, args, {dataSources}, info) => {
-    return dataSources.dynamodb.getActions();
+    return dataSources.database.getActions();
   },
 };
