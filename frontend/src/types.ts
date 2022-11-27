@@ -7,8 +7,8 @@ export interface ClimateData {
 
 export interface ActionData {
   id: number;
-  actionTitle: string;
+  title: string;
   cost: number;
   carbonSaved: number;
-  actionType: "energy" | "food" | "transport" | "government" | "purchasing";
+  type: "energy" | "food" | "transport" | "government" | "purchasing";
 }

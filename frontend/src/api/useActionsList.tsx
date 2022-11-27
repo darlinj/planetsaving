@@ -11,10 +11,10 @@ function useActionsList() {
         query GetActionsList {
           getActionsList {
             id
-            actionTitle
+            title
             cost
             carbonSaved
-            actionType
+            type
           }
         }
       `

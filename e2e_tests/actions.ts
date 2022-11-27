@@ -10,31 +10,31 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
   const actions = [
     {
       id: 123,
-      actionTitle: "Reduce your thermostat by one degree",
+      title: "Reduce your thermostat by one degree",
       cost: 0,
       carbonSaved: 0.3,
-      actionType: "energy",
+      type: "energy",
     },
     {
       id: 124,
-      actionTitle: "Buy an electric car",
+      title: "Buy an electric car",
       cost: 30000,
       carbonSaved: 1.0,
-      actionType: "transport",
+      type: "transport",
     },
     {
       id: 125,
-      actionTitle: "Stop buying air freighted food",
+      title: "Stop buying air freighted food",
       cost: 0,
       carbonSaved: 0.3,
-      actionType: "food",
+      type: "food",
     },
     {
       id: 126,
-      actionTitle: "Buy more second hand things",
+      title: "Buy more second hand things",
       cost: 0,
       carbonSaved: 0.4,
-      actionType: "purchasing",
+      type: "purchasing",
     },
   ];
   await addActions(actions);

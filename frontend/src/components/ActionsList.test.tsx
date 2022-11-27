@@ -13,9 +13,9 @@ test("renders the loading message", () => {
   >;
   const actionsList: ActionData[] = [
     {
-      actionTitle: "Reduce your thermostat by ten degree",
+      title: "Reduce your thermostat by ten degree",
       id: 123,
-      actionType: "energy",
+      type: "energy",
       carbonSaved: 3.0,
       cost: 6.0,
     },
@@ -36,9 +36,9 @@ test("renders the foot", () => {
   >;
   const actionsList: ActionData[] = [
     {
-      actionTitle: "Reduce your thermostat by ten degree",
+      title: "Reduce your thermostat by ten degree",
       id: 123,
-      actionType: "energy",
+      type: "energy",
       carbonSaved: 3.0,
       cost: 6.0,
     },

@@ -37,10 +37,10 @@ export const addActions = async (actionList) => {
       `mutation {
         addAction(
           id: ${action.id},
-          actionTitle: "${action.actionTitle}",
+          title: "${action.title}",
           cost: ${action.cost},
           carbonSaved: ${action.carbonSaved},
-          actionType: "${action.actionType}"
+          type: "${action.type}"
           )
         }`
     );

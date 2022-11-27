@@ -24,7 +24,7 @@ const categoryColorMap = {
 };
 
 const SuggestedActionCard = ({action}: {action: ActionData}) => {
-  const colorArray = categoryColorMap[action.actionType];
+  const colorArray = categoryColorMap[action.type];
   return (
     <Card
       sx={{
@@ -48,7 +48,7 @@ const SuggestedActionCard = ({action}: {action: ActionData}) => {
               <FavoriteIcon />
             </Icon>
           }
-          title={action.actionTitle}
+          title={action.title}
           sx={{paddingBottom: 0}}
         />
         <CardContent sx={{paddingTop: 0}}>

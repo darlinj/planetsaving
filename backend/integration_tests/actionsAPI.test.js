@@ -15,10 +15,10 @@ describe("the actions API", () => {
       query: `mutation { 
         addAction(
           id: 124,
-          actionTitle: "Buy an electric car",
+          title: "Buy an electric car",
           cost: 30000,
           carbonSaved: 1.0,
-          actionType: "transport",
+          type: "transport",
        )
       }`,
     });
@@ -26,22 +26,21 @@ describe("the actions API", () => {
       query: `mutation { 
         addAction(
           id: 123,
-          actionTitle: "Reduce your thermostat by one degree",
+          title: "Reduce your thermostat by one degree",
           cost: 0,
           carbonSaved: 0.3,
-          actionType: "energy",
+          type: "energy",
        )
       }`,
     });
     const result = await server.executeOperation({
-      query:
-        "query { getActionsList { id actionTitle cost carbonSaved actionType} }",
+      query: "query { getActionsList { id title cost carbonSaved type} }",
     });
 
     console.log(result);
 
     expect(result.data.getActionsList.length).toEqual(2);
-    expect(result.data.getActionsList[0].actionTitle).toEqual(
+    expect(result.data.getActionsList[0].title).toEqual(
       "Reduce your thermostat by one degree"
     );
   });
