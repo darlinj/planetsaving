@@ -1,7 +1,7 @@
 const {DataSource} = require("apollo-datasource");
-const {ClimateData, Action} = require("../models");
+const {ClimateData} = require("../models");
 
-class Database extends DataSource {
+class ClimateDatasource extends DataSource {
   constructor() {
     super();
   }
@@ -11,24 +11,10 @@ class Database extends DataSource {
     return ClimateData.findAll();
   }
 
-  async getActions() {
-    return Action.findAll();
-  }
-
   async clearClimateData() {
     ClimateData.destroy({
       truncate: true,
     });
-  }
-
-  async clearActions() {
-    Action.destroy({
-      truncate: true,
-    });
-  }
-
-  async addAction(args) {
-    await Action.create(args);
   }
 
   async addClimateChangeData(args) {
@@ -36,4 +22,4 @@ class Database extends DataSource {
   }
 }
 
-module.exports = Database;
+module.exports = ClimateDatasource;

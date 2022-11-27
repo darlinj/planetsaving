@@ -1,8 +1,8 @@
-const Dynamodb = require("./dynamodb");
-const Database = require("./database");
+const ClimateData = require("./climateDatasource");
+const Actions = require("./actionsDatasource");
 
 const dataSources = () => ({
-  dynamodb: new Dynamodb(),
-  database: new Database(),
+  climateData: new ClimateData(),
+  actions: new Actions(),
 });
 module.exports = dataSources;

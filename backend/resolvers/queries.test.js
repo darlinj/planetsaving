@@ -4,7 +4,7 @@ describe("Query resolvers", () => {
   test("should get climate change data from the database", () => {
     const context = {
       dataSources: {
-        database: {
+        climateData: {
           getClimateData: () => {
             return [{id: 123}, {id: 321}];
           },
@@ -18,7 +18,7 @@ describe("Query resolvers", () => {
   test("should get the actions from the database", () => {
     const context = {
       dataSources: {
-        database: {
+        action: {
           getActions: () => {
             return [{id: 123}, {id: 321}];
           },
