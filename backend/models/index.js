@@ -8,6 +8,14 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const db = {};
+const {Signer} = require("aws-sdk/clients/rds");
+
+const signer = new Signer({
+  region: "eu-west-2",
+  username: "db_user",
+  hostname: "footprint-test.c0u40heuqthr.eu-west-2.rds.amazonaws.com",
+  port: 5432,
+});
 
 let sequelize;
 if (config.use_env_variable) {
@@ -19,6 +27,9 @@ if (config.use_env_variable) {
     config.password,
     config
   );
+  sequelize.beforeConnect((config) => {
+    config.password = signer.getAuthToken();
+  });
 }
 
 fs.readdirSync(__dirname)
