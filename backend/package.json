@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=development jest --watchAll",
-    "start": "NODE_ENV=development nodemon api/index.js",
+    "start": "nodemon api/index.js",
     "ci": "NODE_ENV=test jest --watchAll"
   },
   "keywords": [],
@@ -17,9 +17,12 @@
     "apollo-server": "^3.10.2",
     "apollo-server-lambda": "^3.10.2",
     "aws-sdk": "^2.1227.0",
+    "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
     "lodash": "^4.17.21",
     "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.25.8",
     "sqlite3": "^5.1.2"
   },

@@ -3,7 +3,6 @@ module.exports = {
     return dataSources.climateData.getClimateData();
   },
   getActionsList: (parent, args, {dataSources}, info) => {
-    console.log(dataSources);
     return dataSources.actions.getActions();
   },
 };

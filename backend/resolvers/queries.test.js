@@ -18,7 +18,7 @@ describe("Query resolvers", () => {
   test("should get the actions from the database", () => {
     const context = {
       dataSources: {
-        action: {
+        actions: {
           getActions: () => {
             return [{id: 123}, {id: 321}];
           },

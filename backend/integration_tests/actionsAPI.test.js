@@ -37,8 +37,6 @@ describe("the actions API", () => {
       query: "query { getActionsList { id title cost carbonSaved type} }",
     });
 
-    console.log(result);
-
     expect(result.data.getActionsList.length).toEqual(2);
     expect(result.data.getActionsList[0].title).toEqual(
       "Reduce your thermostat by one degree"

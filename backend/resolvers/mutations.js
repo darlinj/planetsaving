@@ -3,12 +3,12 @@ module.exports = {
     return dataSources.climateData.clearClimateData();
   },
   clearActions: (parent, args, {dataSources}, info) => {
-    return dataSources.action.clearActions();
+    return dataSources.actions.clearActions();
   },
   addClimateChangeData: (parent, args, {dataSources}, info) => {
     return dataSources.climateData.addClimateChangeData(args);
   },
   addAction: (parent, args, {dataSources}, info) => {
-    return dataSources.action.addAction(args);
+    return dataSources.actions.addAction(args);
   },
 };
