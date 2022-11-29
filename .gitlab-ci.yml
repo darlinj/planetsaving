@@ -106,7 +106,6 @@ run_e2e_tests:
     name: test
   script:
     - npm install
-    - ls -la
     - /opt/testcafe/docker/testcafe-docker.sh firefox:headless,chromium e2e_tests/
 
 deploy_to_production:
@@ -162,9 +161,10 @@ deploy_test_infrastructure:
     - terraform -chdir=infrastructure/test validate
     - terraform -chdir=infrastructure/test plan -out "planfile"
     - terraform -chdir=infrastructure/test apply -input=false "planfile"
+    - ls -la
   artifacts:
     reports:
-      dotenv: database.env
+      dotenv: /database.env
 
 production_infrastucture:
   stage: infrastructure

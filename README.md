@@ -96,3 +96,9 @@ terraform apply
 cd infrastructure/production
 terraform apply
 ```
+
+# Running e2e tests locally on docker
+
+```
+docker run -it --rm --name e2etests -v ${PWD}:/app --entrypoint "" testcafe/testcafe:2.0.2 sh
+```
