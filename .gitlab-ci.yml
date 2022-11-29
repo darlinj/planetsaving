@@ -164,7 +164,7 @@ deploy_test_infrastructure:
     - terraform -chdir=infrastructure/test apply -input=false "planfile"
   artifacts:
     reports:
-      dotenv: infrastructure/text/database.env
+      dotenv: database.env
 
 production_infrastucture:
   stage: infrastructure
@@ -189,4 +189,4 @@ production_infrastucture:
     - terraform -chdir=infrastructure/production apply -input=false "planfile"
   artifacts:
     reports:
-      dotenv: infrastructure/text/database.env
+      dotenv: database.env

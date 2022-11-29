@@ -4,5 +4,4 @@ module "database" {
   common_tags = {
     Project = "Planet saving expert test api resource"
   } 
-  db_password="postgres"
 }

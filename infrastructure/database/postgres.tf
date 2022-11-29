@@ -25,6 +25,13 @@ resource "aws_security_group" "rds" {
   tags = var.common_tags
 }
 
+resource "random_password" "password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+
 resource "aws_db_instance" "footprint" {
   identifier                          = "footprint-${var.environment}"
   instance_class                      = "db.t3.micro"
@@ -32,7 +39,7 @@ resource "aws_db_instance" "footprint" {
   engine                              = "postgres"
   engine_version                      = "13.7"
   username                            = "db_user"
-  password                            = var.db_password
+  password                            = random_password.password.result
   vpc_security_group_ids              = [aws_security_group.rds.id]
   publicly_accessible                 = true
   skip_final_snapshot                 = true
@@ -42,4 +49,8 @@ resource "aws_db_instance" "footprint" {
 resource "local_file" "database_env" {
     content  = "DB_HOST=${aws_db_instance.footprint.address}"
     filename = "database.env"
+}
+
+output "instance_ip_addr" {
+  value = aws_db_instance.footprint.password
 }
