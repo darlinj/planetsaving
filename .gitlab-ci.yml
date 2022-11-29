@@ -81,6 +81,7 @@ deploy_frontend_to_test:
   stage: end_to_end_test
   needs:
     - "build_test_frontend"
+    - "deploy_test_infrastructure"
   image:
     name: amazon/aws-cli
     entrypoint: [""]
@@ -110,6 +111,8 @@ run_e2e_tests:
 
 deploy_to_production:
   stage: deploy
+  needs:
+    - "production_infrastucture"
   image:
     name: amazon/aws-cli
     entrypoint: [""]
@@ -159,6 +162,9 @@ deploy_test_infrastructure:
     - terraform -chdir=infrastructure/test validate
     - terraform -chdir=infrastructure/test plan -out "planfile"
     - terraform -chdir=infrastructure/test apply -input=false "planfile"
+  artifacts:
+    reports:
+      dotenv: infrastructure/text/database.env
 
 production_infrastucture:
   stage: infrastructure
@@ -181,3 +187,6 @@ production_infrastucture:
     - terraform -chdir=infrastructure/production validate
     - terraform -chdir=infrastructure/production plan -out "planfile"
     - terraform -chdir=infrastructure/production apply -input=false "planfile"
+  artifacts:
+    reports:
+      dotenv: infrastructure/text/database.env

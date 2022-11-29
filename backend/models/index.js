@@ -11,9 +11,9 @@ const db = {};
 const {Signer} = require("aws-sdk/clients/rds");
 
 const signer = new Signer({
-  region: "eu-west-2",
-  username: "db_user",
-  hostname: "footprint-test.c0u40heuqthr.eu-west-2.rds.amazonaws.com",
+  region: process.env.AWS_DEFAULT_REGION,
+  username: config.username,
+  hostname: config.host,
   port: 5432,
 });
 
@@ -21,6 +21,7 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
+  console.log(config);
   sequelize = new Sequelize(
     config.database,
     config.username,
@@ -29,6 +30,7 @@ if (config.use_env_variable) {
   );
   sequelize.beforeConnect((config) => {
     config.password = signer.getAuthToken();
+    console.log(config.password);
   });
 }
 

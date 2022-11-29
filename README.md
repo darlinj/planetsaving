@@ -6,12 +6,6 @@
 brew install sqlite
 ```
 
-## Set AWS_PROFILE
-
-```
-export AWS_PROFILE=joe
-```
-
 ## Set up the database locally
 
 ```
@@ -24,6 +18,35 @@ npx sequelize-cli db:migrate
 ```
 cd backend
 npx sequelize-cli db:seed:all
+```
+
+# Running the app
+
+## Locally
+
+You can run the front end and backend locally against a sqlite database just running npm start
+
+```
+npm start
+```
+
+## Against the test database
+
+This runs the front end and backend locally but talks to the remote AWS RDS postgres instance. This uses the settings in test.env to set up the relevant environment variables that point to the test database on AWS.
+
+```
+npm run against_test
+```
+
+## Set environment variables
+
+If you are running the backend locally or maybe some of the migration commands, it is necessary to set up some local variables. These are all in the test.env or production.env files in the root of the project.
+
+```
+export DB_HOST=<URL of the RDS instance>
+export AWS_DEFAULT_REGION=<Region that the RDS instance is in>
+export AWS_PROFILE=<Your AWS profile referring to ~/aws/credentials if you are not using the default profile>
+export NODE_ENV=[test|production]
 ```
 
 # Creating the infrastructure

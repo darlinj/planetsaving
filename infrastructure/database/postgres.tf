@@ -38,3 +38,8 @@ resource "aws_db_instance" "footprint" {
   skip_final_snapshot                 = true
   iam_database_authentication_enabled = true
 }
+
+resource "local_file" "database_env" {
+    content  = "DB_HOST=${aws_db_instance.footprint.address}"
+    filename = "database.env"
+}

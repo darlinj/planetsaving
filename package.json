@@ -7,7 +7,8 @@
     "start": "concurrently npm:start:*",
     "start:backend": "npm --prefix backend start",
     "start:frontend": "REACT_APP_BACKEND_URL=http://localhost:4000/ npm --prefix frontend start",
-    "test": "testcafe chrome ./e2e_tests"
+    "test": "testcafe chrome ./e2e_tests",
+    "against_test": "export $(cat test.env | xargs) && npm start"
   },
   "repository": {
     "type": "git",

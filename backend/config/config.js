@@ -11,7 +11,8 @@ module.exports = {
   },
   test: {
     database: "footprint_test",
-    host: "footprint-test.c0u40heuqthr.eu-west-2.rds.amazonaws.com",
+    username: "db_user",
+    host: process.env.DB_HOST,
     dialect: "postgres",
     dialectOptions: {
       ssl: {ca: rdsCa},
