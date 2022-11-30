@@ -112,6 +112,7 @@ deploy_to_production:
   stage: deploy
   needs:
     - "production_infrastucture"
+    - "build_prod_frontend"
   image:
     name: amazon/aws-cli
     entrypoint: [""]
