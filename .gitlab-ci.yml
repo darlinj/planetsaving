@@ -164,9 +164,6 @@ deploy_test_infrastructure:
     - ls -la infrastructure
     - ls -la infrastructure/test
     - ls -la infrastructure/database
-  artifacts:
-    reports:
-      dotenv: infrastructure/test/database.env
 
 production_infrastucture:
   stage: infrastructure
@@ -189,6 +186,3 @@ production_infrastucture:
     - terraform -chdir=infrastructure/production validate
     - terraform -chdir=infrastructure/production plan -out "planfile"
     - terraform -chdir=infrastructure/production apply -input=false "planfile"
-  artifacts:
-    reports:
-      dotenv: database.env

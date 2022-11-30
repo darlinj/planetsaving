@@ -78,6 +78,7 @@ depends_on                     = [aws_iam_role_policy_attachment.attach_iam_poli
 environment {
   variables = {
     NODE_ENV = var.environment
+    DB_HOST = var.db_host
   }
 }
 }
