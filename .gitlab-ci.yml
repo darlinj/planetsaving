@@ -161,12 +161,12 @@ deploy_test_infrastructure:
     - terraform -chdir=infrastructure/test validate
     - terraform -chdir=infrastructure/test plan -out "planfile"
     - terraform -chdir=infrastructure/test apply -input=false "planfile"
-    - ls -la /infrastructure
-    - ls -la /infrastructure/test
-    - ls -la /infrastructure/database
+    - ls -la infrastructure
+    - ls -la infrastructure/test
+    - ls -la infrastructure/database
   artifacts:
     reports:
-      dotenv: /infrastructure/test/database.env
+      dotenv: infrastructure/test/database.env
 
 production_infrastucture:
   stage: infrastructure
