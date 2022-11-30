@@ -100,7 +100,7 @@ run_e2e_tests:
   variables:
     NODE_ENV: test
   image:
-    name: testcafe/testcafe
+    name: testcafe/testcafe:2.0.2
     entrypoint: ["/bin/sh", "-c"]
   environment:
     name: test
@@ -161,10 +161,12 @@ deploy_test_infrastructure:
     - terraform -chdir=infrastructure/test validate
     - terraform -chdir=infrastructure/test plan -out "planfile"
     - terraform -chdir=infrastructure/test apply -input=false "planfile"
-    - ls -la
+    - ls -la /infrastructure
+    - ls -la /infrastructure/test
+    - ls -la /infrastructure/database
   artifacts:
     reports:
-      dotenv: /database.env
+      dotenv: /infrastructure/test/database.env
 
 production_infrastucture:
   stage: infrastructure
