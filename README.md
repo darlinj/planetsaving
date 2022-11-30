@@ -20,6 +20,16 @@ cd backend
 npx sequelize-cli db:seed:all
 ```
 
+## Install the seed data on test (or prod)
+
+From the root of the project
+
+```
+. test.env
+cd backend
+npx sequelize-cli db:seed:all
+```
+
 # Running the app
 
 ## Locally

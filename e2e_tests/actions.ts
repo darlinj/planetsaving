@@ -5,6 +5,10 @@ const URL = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL
   : "http://localhost:3000/";
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 fixture`Footprint tests`.page(URL).before(async (t) => {
   await clearActions();
   const actions = [

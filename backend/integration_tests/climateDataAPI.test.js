@@ -18,6 +18,10 @@ describe("the climateChange API", () => {
           color: "Red",
           amount: 10,
        )
+       {
+        id
+        label
+       }
       }`,
     });
     await server.executeOperation({
@@ -28,6 +32,10 @@ describe("the climateChange API", () => {
           color: "Green",
           amount: 20,
        )
+       {
+        id
+        label
+       }
       }`,
     });
     const result = await server.executeOperation({

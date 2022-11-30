@@ -19,7 +19,10 @@ describe("the actions API", () => {
           cost: 30000,
           carbonSaved: 1.0,
           type: "transport",
-       )
+       ) {
+        id
+        title
+       }
       }`,
     });
     await server.executeOperation({
@@ -30,7 +33,10 @@ describe("the actions API", () => {
           cost: 0,
           carbonSaved: 0.3,
           type: "energy",
-       )
+       ){
+        id
+        title
+       }
       }`,
     });
     const result = await server.executeOperation({

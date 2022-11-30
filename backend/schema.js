@@ -13,13 +13,13 @@ module.exports = gql`
       cost: Float
       carbonSaved: Float
       type: String
-    ): Boolean
+    ): Action
     addClimateChangeData(
       id: Float
       label: String
       color: String
       amount: Float
-    ): Boolean
+    ): ClimateData
   }
   type ClimateData {
     id: Float

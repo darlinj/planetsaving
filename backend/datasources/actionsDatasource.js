@@ -18,7 +18,7 @@ class ActionsDatasource extends DataSource {
   }
 
   async addAction(args) {
-    await Action.create(args);
+    return await Action.create(args);
   }
 }
 

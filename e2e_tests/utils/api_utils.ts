@@ -25,7 +25,10 @@ export const addClimateChangeData = async (climateChangeDataList) => {
           label: "${data.label}"
           color: "${data.color}"
           amount: ${data.amount}
-          )
+          ) {
+            id
+            label
+          }
         }`
     );
   });
@@ -42,6 +45,10 @@ export const addActions = async (actionList) => {
           carbonSaved: ${action.carbonSaved},
           type: "${action.type}"
           )
+          {
+            id
+            title
+          }
         }`
     );
   });

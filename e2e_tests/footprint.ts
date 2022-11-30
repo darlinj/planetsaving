@@ -40,6 +40,7 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
     },
   ];
   await addClimateChangeData(climateCategory);
+  await new Promise((r) => setTimeout(r, 2000));
 });
 
 test("Check default footprint", async (t) => {

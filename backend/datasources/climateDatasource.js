@@ -18,7 +18,7 @@ class ClimateDatasource extends DataSource {
   }
 
   async addClimateChangeData(args) {
-    await ClimateData.create(args);
+    return await ClimateData.create(args);
   }
 }
 
