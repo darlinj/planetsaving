@@ -14,7 +14,6 @@ describe("the actions API", () => {
     await server.executeOperation({
       query: `mutation { 
         addAction(
-          id: 124,
           title: "Buy an electric car",
           cost: 30000,
           carbonSaved: 1.0,
@@ -28,7 +27,6 @@ describe("the actions API", () => {
     await server.executeOperation({
       query: `mutation { 
         addAction(
-          id: 123,
           title: "Reduce your thermostat by one degree",
           cost: 0,
           carbonSaved: 0.3,
@@ -44,7 +42,7 @@ describe("the actions API", () => {
     });
 
     expect(result.data.getActionsList.length).toEqual(2);
-    expect(result.data.getActionsList[0].title).toEqual(
+    expect(result.data.getActionsList.map((action) => action.title)).toContain(
       "Reduce your thermostat by one degree"
     );
   });

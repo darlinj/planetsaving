@@ -13,7 +13,6 @@ describe("the climateChange API", () => {
     await server.executeOperation({
       query: `mutation { 
         addClimateChangeData(
-          id: 123,
           label: "Food",
           color: "Red",
           amount: 10,
@@ -27,7 +26,6 @@ describe("the climateChange API", () => {
     await server.executeOperation({
       query: `mutation { 
         addClimateChangeData(
-          id: 124,
           label: "consumables",
           color: "Green",
           amount: 20,

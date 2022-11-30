@@ -8,14 +8,12 @@ module.exports = gql`
     clearActions: Boolean
     clearClimateData: Boolean
     addAction(
-      id: Float
       title: String
       cost: Float
       carbonSaved: Float
       type: String
     ): Action
     addClimateChangeData(
-      id: Float
       label: String
       color: String
       amount: Float

@@ -21,7 +21,6 @@ export const addClimateChangeData = async (climateChangeDataList) => {
     await sendFetch(
       `mutation {
         addClimateChangeData(
-          id: ${data.id},
           label: "${data.label}"
           color: "${data.color}"
           amount: ${data.amount}
@@ -39,7 +38,6 @@ export const addActions = async (actionList) => {
     await sendFetch(
       `mutation {
         addAction(
-          id: ${action.id},
           title: "${action.title}",
           cost: ${action.cost},
           carbonSaved: ${action.carbonSaved},
