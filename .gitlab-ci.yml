@@ -142,6 +142,7 @@ migrate_test_infrastructure:
   script:
     - echo "Migrate database"
     - export NODE_ENV=test
+    - sequelize-cli db:create
     - sequelize-cli db:migrate
 
 migrate_production_infrastructure:
@@ -150,6 +151,7 @@ migrate_production_infrastructure:
   script:
     - echo "Migrate database"
     - export NODE_ENV=production
+    - sequelize-cli db:create
     - sequelize-cli db:migrate
 
 common_infrastructure:
