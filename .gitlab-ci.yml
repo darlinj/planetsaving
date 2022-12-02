@@ -126,7 +126,7 @@ deploy_to_production:
 .migrate database:
   image:
     name: darlinj/sequelize-cli-iam-auth
-  script:
+  before_script:
     - export RDSHOST=${DB_HOST}
     - export PGUSERNAME=db_user
     - export PGPASSWORD="$(aws rds generate-db-auth-token --hostname $RDSHOST --port 5432 --region $AWS_DEFAULT_REGION --username $PGUSERNAME )"
