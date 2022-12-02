@@ -46,6 +46,11 @@ resource "aws_db_instance" "footprint" {
   iam_database_authentication_enabled = true
 }
 
+resource "local_file" "database_env" {
+    content  = "DB_HOST=${aws_db_instance.footprint.address}"
+    filename = "database.env"
+}
+
 output "instance_ip_addr" {
   value = aws_db_instance.footprint.password
 }

@@ -6,7 +6,7 @@ stages:
   - test
   - common_infra_deploy
   - end_to_end_test
-  - infrastructure
+  - production_infrastructure
   - deploy
 
 .build_frontend:
@@ -111,7 +111,7 @@ run_e2e_tests:
 deploy_to_production:
   stage: deploy
   needs:
-    - "production_infrastucture"
+    - "deploy_production_infrastucture"
     - "build_prod_frontend"
   image:
     name: amazon/aws-cli
@@ -122,6 +122,37 @@ deploy_to_production:
     - aws --version
     - aws s3 sync frontend/prod_build s3://$S3_BUCKET --exclude index.html
     - aws s3 sync frontend/prod_build s3://$S3_BUCKET --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
+
+.migrate database:
+  image:
+    name: darlinj/sequelize-cli-iam-auth
+  script:
+    - export RDSHOST=${DB_HOST}
+    - export PGUSERNAME=db_user
+    - export PGPASSWORD="$(aws rds generate-db-auth-token --hostname $RDSHOST --port 5432 --region $AWS_DEFAULT_REGION --username $PGUSERNAME )"
+    - cd backend
+    - npm i -g sequelize-cli
+    - npm i
+
+migrate_test_infrastructure:
+  extends: ".migrate database"
+  stage: end_to_end_test
+  needs:
+    - "deploy_test_infrastucture"
+  script:
+    - echo "Migrate database"
+    - export NODE_ENV=test
+    - sequelize-cli db:migrate
+
+migrate_production_infrastructure:
+  extends: ".migrate database"
+  stage: production_infrastructure
+  needs:
+    - "deploy_production_infrastucture"
+  script:
+    - echo "Migrate database"
+    - export NODE_ENV=production
+    - sequelize-cli db:migrate
 
 common_infrastructure:
   stage: common_infra_deploy
@@ -140,50 +171,42 @@ common_infrastructure:
     - terraform -chdir=infrastructure/common plan -out "planfile"
     - terraform -chdir=infrastructure/common apply -input=false "planfile"
 
-deploy_test_infrastructure:
-  stage: end_to_end_test
-  dependencies:
-    - "build_test_frontend"
-    - "build_backend"
+.deploy_infrastructure:
   image:
     name: hashicorp/terraform:light
     entrypoint:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  environment:
-    name: test
   script:
     - echo  ${AWS_ACCESS_KEY_ID}
     - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
     - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    - ls -l backend/node_modules/
     - terraform --version
     - terraform -chdir=infrastructure/test init
     - terraform -chdir=infrastructure/test validate
     - terraform -chdir=infrastructure/test plan -out "planfile"
     - terraform -chdir=infrastructure/test apply -input=false "planfile"
-    - ls -la infrastructure
-    - ls -la infrastructure/test
-    - ls -la infrastructure/database
 
-production_infrastucture:
-  stage: infrastructure
+deploy_test_infrastructure:
+  extends: ".deploy_infrastructure"
+  stage: end_to_end_test
+  dependencies:
+    - "build_test_frontend"
+    - "build_backend"
+  environment:
+    name: test
+  artifacts:
+    reports:
+      dotenv: infrastructure/test/database.env
+
+deploy_production_infrastucture:
+  extends: ".deploy_infrastructure"
+  stage: production_infrastructure
   dependencies:
     - "build_prod_frontend"
     - "build_backend"
-  image:
-    name: hashicorp/terraform:light
-    entrypoint:
-      - "/usr/bin/env"
-      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   environment:
     name: production
-  script:
-    - echo  ${AWS_ACCESS_KEY_ID}
-    - export AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
-    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-    - terraform --version
-    - terraform -chdir=infrastructure/production init
-    - terraform -chdir=infrastructure/production validate
-    - terraform -chdir=infrastructure/production plan -out "planfile"
-    - terraform -chdir=infrastructure/production apply -input=false "planfile"
+  artifacts:
+    reports:
+      dotenv: infrastructure/production/database.env
