@@ -50,12 +50,9 @@ resource "local_file" "database_env" {
     content = <<EOF
 DB_HOST=${aws_db_instance.footprint.address}
 TF_VAR_db_host=${aws_db_instance.footprint.address}
+PGPASSWORD="${aws_db_instance.footprint.password}"
         EOF
     filename = "database.env"
-}
-
-output "instance_ip_addr" {
-  value = aws_db_instance.footprint.password
 }
 
 output "db_host" {

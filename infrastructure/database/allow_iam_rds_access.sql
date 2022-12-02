@@ -1,0 +1,1 @@
+GRANT rds_iam TO db_user;

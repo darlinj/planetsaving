@@ -173,6 +173,15 @@ common_infrastructure:
     reports:
       dotenv: infrastructure/common/database.env
 
+set_up_database_roles:
+  stage: common_infra_deploy
+  image:
+    name: governmentpaas/psql
+  dependencies:
+    - "common_infrastructure"
+  script:
+    - psql -h ${DB_HOST} "port=5432 dbname=postgres sslmode=verify-full sslrootcert=backend/config/eu-west-2-bundle.pem user=db_user" < infrastructure/database/allow_iam_rds_access.sql
+
 .deploy_infrastructure:
   image:
     name: hashicorp/terraform:light
