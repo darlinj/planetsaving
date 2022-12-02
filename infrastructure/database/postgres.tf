@@ -47,7 +47,10 @@ resource "aws_db_instance" "footprint" {
 }
 
 resource "local_file" "database_env" {
-    content  = "DB_HOST=${aws_db_instance.footprint.address}"
+    content = <<EOF
+DB_HOST=${aws_db_instance.footprint.address}
+TF_VAR_db_host=${aws_db_instance.footprint.address}
+        EOF
     filename = "database.env"
 }
 

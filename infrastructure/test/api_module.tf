@@ -7,5 +7,5 @@ module "api" {
   common_tags = {
     Project = "Planet saving expert test api resource"
   } 
-  db_host = module.database.db_host
+  db_host = var.db_host
 }
