@@ -5,7 +5,7 @@ data "aws_vpc" "default" {
 }
 
 resource "aws_security_group" "rds" {
-  name       = "footprint-rds-${var.environment}"
+  name       = "footprint-rds"
   vpc_id = "${data.aws_vpc.default.id}"
 
   ingress {
@@ -33,7 +33,7 @@ resource "random_password" "password" {
 
 
 resource "aws_db_instance" "footprint" {
-  identifier                          = "footprint-${var.environment}"
+  identifier                          = "footprint"
   instance_class                      = "db.t3.micro"
   allocated_storage                   = 5
   engine                              = "postgres"

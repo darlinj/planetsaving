@@ -19,10 +19,12 @@ module.exports = {
     },
   },
   production: {
-    username: "root",
-    password: null,
-    database: "database_production",
-    host: "127.0.0.1",
-    dialect: "mysql",
+    database: "footprint_production",
+    username: "db_user",
+    host: process.env.DB_HOST,
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: {ca: rdsCa},
+    },
   },
 };

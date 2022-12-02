@@ -9,5 +9,4 @@ RUN  mkdir -p /usr/local/lib/nodejs
 RUN  curl https://nodejs.org/dist/v18.12.1/node-v18.12.1-linux-x64.tar.xz --output node-v18.12.1-linux-x64.tar.xz
 RUN  apt install xz-utils
 RUN  tar -xJvf ./node-v18.12.1-linux-x64.tar.xz -C /usr/local/lib/nodejs
-RUN  echo "export PATH=/usr/local/lib/nodejs/node-v18.12.1-linux-x64/bin:$PATH" >> ~/.bashrc 
-CMD ["bash"]
+ENV PATH "$PATH:/usr/local/lib/nodejs/node-v18.12.1-linux-x64/bin"
