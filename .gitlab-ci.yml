@@ -192,21 +192,19 @@ common_infrastructure:
 deploy_test_infrastructure:
   extends: ".deploy_infrastructure"
   stage: end_to_end_test
-  needs:
-    - common_infrastructure
   dependencies:
-    - "build_test_frontend"
-    - "build_backend"
+    - common_infrastructure
+    - build_test_frontend
+    - build_backend
   environment:
     name: test
 
 deploy_production_infrastucture:
   extends: ".deploy_infrastructure"
-  needs:
-    - common_infrastructure
   stage: production_infrastructure
   dependencies:
-    - "build_prod_frontend"
-    - "build_backend"
+    - common_infrastructure
+    - build_prod_frontend
+    - build_backend
   environment:
     name: production
