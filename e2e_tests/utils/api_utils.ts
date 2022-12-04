@@ -41,7 +41,7 @@ export const addActions = async (actionList) => {
           title: "${action.title}",
           cost: ${action.cost},
           carbonSaved: ${action.carbonSaved},
-          type: "${action.type}"
+          category: "${action.category}"
           )
           {
             id

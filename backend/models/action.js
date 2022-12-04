@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       cost: DataTypes.FLOAT,
       carbonSaved: DataTypes.FLOAT,
-      type: DataTypes.STRING,
+      category: DataTypes.STRING,
     },
     {
       sequelize,

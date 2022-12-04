@@ -14,7 +14,7 @@ function useActionsList() {
             title
             cost
             carbonSaved
-            type
+            category
           }
         }
       `

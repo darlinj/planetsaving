@@ -16,25 +16,25 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
       title: "Reduce your thermostat by one degree",
       cost: 0,
       carbonSaved: 0.3,
-      type: "energy",
+      category: "energy",
     },
     {
       title: "Buy an electric car",
       cost: 30000,
       carbonSaved: 1.0,
-      type: "transport",
+      category: "transport",
     },
     {
       title: "Stop buying air freighted food",
       cost: 0,
       carbonSaved: 0.3,
-      type: "food",
+      category: "food",
     },
     {
       title: "Buy more second hand things",
       cost: 0,
       carbonSaved: 0.4,
-      type: "purchasing",
+      category: "purchasing",
     },
   ];
   await addActions(actions);

@@ -17,7 +17,7 @@ describe("the actions API", () => {
           title: "Buy an electric car",
           cost: 30000,
           carbonSaved: 1.0,
-          type: "transport",
+          category: "transport",
        ) {
         id
         title
@@ -30,7 +30,7 @@ describe("the actions API", () => {
           title: "Reduce your thermostat by one degree",
           cost: 0,
           carbonSaved: 0.3,
-          type: "energy",
+          category: "energy",
        ){
         id
         title
@@ -38,7 +38,7 @@ describe("the actions API", () => {
       }`,
     });
     const result = await server.executeOperation({
-      query: "query { getActionsList { id title cost carbonSaved type} }",
+      query: "query { getActionsList { id title cost carbonSaved category} }",
     });
 
     expect(result.data.getActionsList.length).toEqual(2);

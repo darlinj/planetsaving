@@ -15,7 +15,7 @@ test("renders the loading message", () => {
     {
       title: "Reduce your thermostat by ten degree",
       id: 123,
-      type: "energy",
+      category: "energy",
       carbonSaved: 3.0,
       cost: 6.0,
     },
@@ -38,7 +38,7 @@ test("renders the foot", () => {
     {
       title: "Reduce your thermostat by ten degree",
       id: 123,
-      type: "energy",
+      category: "energy",
       carbonSaved: 3.0,
       cost: 6.0,
     },
