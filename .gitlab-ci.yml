@@ -126,7 +126,7 @@ deploy_to_production:
 .migrate database:
   image:
     name: darlinj/sequelize-cli-iam-auth
-  requires:
+  dependencies:
     - "common_infrastructure"
   before_script:
     - export RDSHOST=${DB_HOST}
