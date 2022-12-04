@@ -10,27 +10,27 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
   const climateCategory = [
     {
       label: "Things you buy",
-      color: "Red",
+      category: "purchasing",
       amount: 3.2,
     },
     {
       label: "Transport",
-      color: "Green",
+      category: "transport",
       amount: 2.4,
     },
     {
       label: "Energy",
-      color: "Orange",
+      category: "energy",
       amount: 2,
     },
     {
       label: "Schools and hospitals",
-      color: "Yellow",
+      category: "government",
       amount: 1.1,
     },
     {
       label: "Food",
-      color: "Blue",
+      category: "food",
       amount: 1.9,
     },
   ];

@@ -25,7 +25,8 @@ npx sequelize-cli db:seed:all
 From the root of the project
 
 ```
-. test.env
+export NODE_ENV=[test|production]
+. pg.env
 cd backend
 npx sequelize-cli db:seed:all
 ```
@@ -42,15 +43,16 @@ npm start
 
 ## Against the test database
 
-This runs the front end and backend locally but talks to the remote AWS RDS postgres instance. This uses the settings in test.env to set up the relevant environment variables that point to the test database on AWS.
+This runs the front end and backend locally but talks to the remote AWS RDS postgres instance. This uses the settings in pg.env to set up the relevant environment variables that point to the test database on AWS.
 
 ```
+export NODE_ENV=test
 npm run against_test
 ```
 
 ## Set environment variables
 
-If you are running the backend locally or maybe some of the migration commands, it is necessary to set up some local variables. These are all in the test.env or production.env files in the root of the project.
+If you are running the backend locally or maybe some of the migration commands, it is necessary to set up some local variables. These are all in the db.env in the root of the project.
 
 ```
 export DB_HOST=<URL of the RDS instance>

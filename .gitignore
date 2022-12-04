@@ -4,4 +4,4 @@ build/
 junit.xml
 **/.terraform
 **/.terraform.lock*
-test.env
+pg.env

@@ -14,7 +14,7 @@ describe("the climateChange API", () => {
       query: `mutation { 
         addClimateChangeData(
           label: "Food",
-          color: "Red",
+          category: "food",
           amount: 10,
        )
        {
@@ -27,7 +27,7 @@ describe("the climateChange API", () => {
       query: `mutation { 
         addClimateChangeData(
           label: "consumables",
-          color: "Green",
+          category: "purchasing",
           amount: 20,
        )
        {
@@ -37,7 +37,7 @@ describe("the climateChange API", () => {
       }`,
     });
     const result = await server.executeOperation({
-      query: "query { getClimateData { id label color amount} }",
+      query: "query { getClimateData { id label category amount} }",
     });
 
     expect(result.data.getClimateData.length).toEqual(2);

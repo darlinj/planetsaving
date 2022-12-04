@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import useFootprintData from "../api/useFootprintData";
+import categoryColorMap from "../categoryColorMap";
 
 const Footprint = () => {
   const {status, data, isLoading, isError, error} = useFootprintData();
@@ -38,7 +39,7 @@ const Footprint = () => {
                 y={stripeOffset}
                 height={stripeHeight}
                 style={{
-                  fill: stripe.color,
+                  fill: categoryColorMap[stripe.category][500],
                 }}
               />
               <text x="0" y={midStripe} fill="black">

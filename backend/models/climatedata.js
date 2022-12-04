@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   ClimateData.init(
     {
       label: DataTypes.STRING,
-      color: DataTypes.STRING,
+      category: DataTypes.STRING,
       amount: DataTypes.FLOAT,
     },
     {

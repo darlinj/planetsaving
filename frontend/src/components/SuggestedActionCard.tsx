@@ -11,17 +11,9 @@ import {
 } from "@mui/material";
 import {ActionData} from "../types";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import {green, red, blue, orange, yellow} from "@mui/material/colors";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ImpactWell from "./ImpactWell";
-
-const categoryColorMap = {
-  energy: yellow,
-  transport: orange,
-  food: blue,
-  government: green,
-  purchasing: red,
-};
+import categoryColorMap from "../categoryColorMap";
 
 const SuggestedActionCard = ({action}: {action: ActionData}) => {
   const colorArray = categoryColorMap[action.type];

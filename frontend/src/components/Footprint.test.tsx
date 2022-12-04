@@ -12,7 +12,7 @@ test("renders the foot", () => {
     typeof useFootprintData
   >;
   const climateData = [
-    {label: "Item 1", amount: 3, color: "#000000", subSection: null},
+    {label: "Item 1", amount: 3, category: "food", subSection: null},
   ];
   mockUseFootprintData.mockImplementation(() => {
     return {

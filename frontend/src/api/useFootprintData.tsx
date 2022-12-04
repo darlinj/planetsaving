@@ -11,7 +11,7 @@ function useFootprintData() {
         query GetClimateData {
           getClimateData {
             amount
-            color
+            category
             label
           }
         }

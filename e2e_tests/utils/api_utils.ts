@@ -22,7 +22,7 @@ export const addClimateChangeData = async (climateChangeDataList) => {
       `mutation {
         addClimateChangeData(
           label: "${data.label}"
-          color: "${data.color}"
+          category: "${data.category}"
           amount: ${data.amount}
           ) {
             id

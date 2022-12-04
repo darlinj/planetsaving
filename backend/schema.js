@@ -15,14 +15,14 @@ module.exports = gql`
     ): Action
     addClimateChangeData(
       label: String
-      color: String
+      category: String
       amount: Float
     ): ClimateData
   }
   type ClimateData {
     id: Float
     label: String
-    color: String
+    category: String
     amount: Float
   }
   type Action {
