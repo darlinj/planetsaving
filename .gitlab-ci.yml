@@ -126,8 +126,6 @@ deploy_to_production:
 .migrate database:
   image:
     name: darlinj/sequelize-cli-iam-auth
-  dependencies:
-    - "common_infrastructure"
   before_script:
     - export RDSHOST=${DB_HOST}
     - export PGUSERNAME=db_user
@@ -147,8 +145,6 @@ migrate_test_infrastructure:
 
 migrate_production_infrastructure:
   extends: ".migrate database"
-  needs:
-    - run_e2e_tests
   stage: production_infrastructure
   script:
     - echo "Migrate database"
