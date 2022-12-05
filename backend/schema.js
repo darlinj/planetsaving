@@ -26,6 +26,7 @@ module.exports = gql`
     category: String
     amount: Float
     parentId: Int
+    subCategories: [ClimateData]
   }
   type Action {
     id: Float

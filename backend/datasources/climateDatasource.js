@@ -8,7 +8,19 @@ class ClimateDatasource extends DataSource {
   async initialize(config) {}
 
   async getClimateData(args) {
-    return Category.findAll();
+    return Category.findAll({
+      where: {
+        parentId: null,
+      },
+    });
+  }
+
+  async getSubCategories(parentId) {
+    return Category.findAll({
+      where: {
+        parentId: parentId,
+      },
+    });
   }
 
   async clearClimateData() {

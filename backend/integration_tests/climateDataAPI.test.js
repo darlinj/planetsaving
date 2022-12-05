@@ -49,9 +49,8 @@ describe("the climateChange API", () => {
     expect(result.data.getClimateData[0].label).toEqual("Food");
   });
 
-  test("it sets the parent ID if supplied", async () => {
+  test("Returns the nested categories if supplied", async () => {
     const foodId = await addClimateChangeData({label: "Food"});
-    addClimateChangeData();
     addClimateChangeData({parentId: foodId, label: "Sub Food"});
     const result = await server.executeOperation({
       query: `query {
@@ -59,33 +58,19 @@ describe("the climateChange API", () => {
           {
             id
             label
-            category
-            amount
-            parentId
+            subCategories
+            {
+              id
+              label
+            }
           }
         }`,
     });
 
-    expect(result.data.getClimateData[2].parentId).toEqual(foodId);
+    expect(result.data.getClimateData.length).toEqual(1);
+    expect(result.data.getClimateData[0].label).toEqual("Food");
+    expect(result.data.getClimateData[0].subCategories[0].label).toEqual(
+      "Sub Food"
+    );
   });
-
-  // test("it sets the parent ID if supplied", async () => {
-  //   const foodId = await addClimateChangeData({label: "Food"});
-  //   addClimateChangeData();
-  //   addClimateChangeData({parentId: foodId, label: "Sub Food"});
-  //   const result = await server.executeOperation({
-  //     query: `query {
-  //       getClimateData
-  //         {
-  //           id
-  //           label
-  //           category
-  //           amount
-  //           parentId
-  //         }
-  //       }`,
-  //   });
-
-  //   expect(result.data.getClimateData[2].parentId).toEqual(foodId);
-  // });
 });
