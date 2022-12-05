@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       label: DataTypes.STRING,
       category: DataTypes.STRING,
       amount: DataTypes.FLOAT,
+      parentId: DataTypes.INTEGER,
     },
     {
       sequelize,

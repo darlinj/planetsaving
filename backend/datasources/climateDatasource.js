@@ -18,13 +18,7 @@ class ClimateDatasource extends DataSource {
   }
 
   async addClimateChangeData(args) {
-    Category.create(args)
-      .then((item) => {
-        return item;
-      })
-      .catch((error) => {
-        console.log(`FAILED to write climate change data for ${args}`);
-      });
+    return await Category.create(args);
   }
 }
 
