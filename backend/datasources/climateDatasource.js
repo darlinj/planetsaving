@@ -1,5 +1,5 @@
 const {DataSource} = require("apollo-datasource");
-const {ClimateData} = require("../models");
+const {Category} = require("../models");
 
 class ClimateDatasource extends DataSource {
   constructor() {
@@ -8,17 +8,17 @@ class ClimateDatasource extends DataSource {
   async initialize(config) {}
 
   async getClimateData(args) {
-    return ClimateData.findAll();
+    return Category.findAll();
   }
 
   async clearClimateData() {
-    ClimateData.destroy({
+    Category.destroy({
       truncate: true,
     });
   }
 
   async addClimateChangeData(args) {
-    return await ClimateData.create(args);
+    return await Category.create(args);
   }
 }
 
