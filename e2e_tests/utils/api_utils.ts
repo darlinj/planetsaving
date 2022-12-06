@@ -1,41 +1,56 @@
-require("isomorphic-fetch");
+import {request, gql} from "graphql-request";
 
 const API_URL = process.env.API_URL
   ? process.env.API_URL
   : "http://localhost:4000/";
 
-console.log("API_URL:", API_URL);
+const sendQuery = async (query) => {
+  const result = await request(API_URL, query);
+  return result;
+}
 
 export const clearActions = async () => {
-  await sendFetch(`mutation { clearActions }`);
+  await sendQuery(gql`mutation { clearActions }`);
   await new Promise((r) => setTimeout(r, 2000));
 };
 
 export const clearClimateData = async () => {
-  await sendFetch(`mutation { clearClimateData }`);
+  await sendQuery(gql`mutation { clearClimateData }`);
   await new Promise((r) => setTimeout(r, 2000));
 };
 
-export const addClimateChangeData = async (climateChangeDataList) => {
-  climateChangeDataList.forEach(async (data) => {
-    await sendFetch(
-      `mutation {
+export const addClimateChangeRecord = async (data, parentId = null) => {
+  const query = sendQuery(gql`mutation {
         addClimateChangeData(
           label: "${data.label}"
           category: "${data.category}"
           amount: ${data.amount}
+          parentId: ${parentId}
           ) {
             id
             label
           }
-        }`
-    );
+        }`);
+  return query;
+};
+
+export const addClimateChangeData = async (
+  climateChangeDataList,
+  parentId = null
+) => {
+  climateChangeDataList.forEach(async (data) => {
+    const rootRecord = await addClimateChangeRecord(data, parentId);
+    if (data.subCategories)
+      addClimateChangeData(
+        data.subCategories,
+        rootRecord.addClimateChangeData.id
+      );
   });
 };
 
 export const addActions = async (actionList) => {
   actionList.forEach(async (action) => {
-    await sendFetch(
+    await sendQuery(gql
       `mutation {
         addAction(
           title: "${action.title}",
@@ -50,18 +65,4 @@ export const addActions = async (actionList) => {
         }`
     );
   });
-};
-
-const sendFetch = async (graphqlRequest) => {
-  fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      query: graphqlRequest,
-    }),
-  })
-    .then((res) => res.json())
-    .then((result) => console.log(result));
 };

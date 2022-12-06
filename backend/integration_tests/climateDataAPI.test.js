@@ -26,7 +26,6 @@ const addClimateChangeData = async (args = {}) => {
        }
       }`,
   });
-  console.log(result);
   return result.data.addClimateChangeData.id;
 };
 

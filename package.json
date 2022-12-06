@@ -29,6 +29,6 @@
     "concurrently": "^7.4.0"
   },
   "dependencies": {
-    "isomorphic-fetch": "^3.0.0"
+    "graphql-request": "^5.0.0"
   }
 }
