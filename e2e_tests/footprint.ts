@@ -1,4 +1,4 @@
-import {Selector, ClientFunction} from "testcafe";
+import {Selector, ClientFunction, test} from "testcafe";
 import {clearClimateData, addClimateChangeData} from "./utils/api_utils";
 
 const URL = process.env.FRONTEND_URL
@@ -17,6 +17,23 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
       label: "Transport",
       category: "transport",
       amount: 2.4,
+      categories: [
+         {
+            label: "Driving",
+            category: "driving",
+            amount: 1,
+         },
+         {
+            label: "Flying",
+            category: "flying",
+            amount: 1,
+         },
+         {
+            label: "Train",
+            category: "train",
+            amount: 0.4,
+         },
+      ]
     },
     {
       label: "Energy",
@@ -39,10 +56,19 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
 });
 
 test("Check default footprint", async (t) => {
-  const title = Selector("#footprint");
-  await t.expect(title.textContent).contains("Things you buy(3.2 Tons)");
-  await t.expect(title.textContent).contains("Transport(2.4 Tons)");
-  await t.expect(title.textContent).contains("Energy(2 Tons)");
-  await t.expect(title.textContent).contains("Schools and hospitals(1.1 Tons)");
-  await t.expect(title.textContent).contains("Food(1.9 Tons)");
+  const footprint = Selector("#footprint");
+  await t.expect(footprint.textContent).contains("Things you buy(3.2 Tons)");
+  await t.expect(footprint.textContent).contains("Transport(2.4 Tons)");
+  await t.expect(footprint.textContent).contains("Energy(2 Tons)");
+  await t.expect(footprint.textContent).contains("Schools and hospitals(1.1 Tons)");
+  await t.expect(footprint.textContent).contains("Food(1.9 Tons)");
 });
+
+test("Clicking on a category opens up the sub category footprint", async(t) => {
+  const transportLink = Selector("#transport");  
+  await t.click(transportLink)
+  const footprint = Selector("#footprint");
+  await t.expect(footprint.textContent).contains("Driving");
+  await t.expect(footprint.textContent).contains("Flying");
+  await t.expect(footprint.textContent).contains("Train");
+})
