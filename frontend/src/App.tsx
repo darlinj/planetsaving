@@ -11,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainContent />} />
+          <Route path="/f/:category" element={<MainContent />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

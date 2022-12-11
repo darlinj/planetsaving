@@ -2,9 +2,11 @@ import React from "react";
 import Box from "@mui/material/Box";
 import useFootprintData from "../api/useFootprintData";
 import categoryColorMap from "../categoryColorMap";
+import {Link, useParams} from "react-router-dom";
 
 const Footprint = () => {
   const {status, data, isLoading, isError, error} = useFootprintData();
+  const {category} = useParams();
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -33,15 +35,21 @@ const Footprint = () => {
           lastStripeHeight = stripeHeight;
           return (
             <g key={index}>
-              <rect
-                clipPath="url('#foot')"
-                width="500"
-                y={stripeOffset}
-                height={stripeHeight}
-                style={{
-                  fill: categoryColorMap[stripe.category][500],
-                }}
-              />
+              <Link
+                to={`/f/${stripe.category}`}
+                id={stripe.category}
+                key={index}
+              >
+                <rect
+                  clipPath="url('#foot')"
+                  width="500"
+                  y={stripeOffset}
+                  height={stripeHeight}
+                  style={{
+                    fill: categoryColorMap[stripe.category][500],
+                  }}
+                />
+              </Link>
               <text x="0" y={midStripe} fill="black">
                 {stripe.label}
               </text>

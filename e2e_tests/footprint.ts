@@ -18,22 +18,22 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
       category: "transport",
       amount: 2.4,
       categories: [
-         {
-            label: "Driving",
-            category: "driving",
-            amount: 1,
-         },
-         {
-            label: "Flying",
-            category: "flying",
-            amount: 1,
-         },
-         {
-            label: "Train",
-            category: "train",
-            amount: 0.4,
-         },
-      ]
+        {
+          label: "Driving",
+          category: "driving",
+          amount: 1,
+        },
+        {
+          label: "Flying",
+          category: "flying",
+          amount: 1,
+        },
+        {
+          label: "Train",
+          category: "train",
+          amount: 0.4,
+        },
+      ],
     },
     {
       label: "Energy",
@@ -60,15 +60,17 @@ test("Check default footprint", async (t) => {
   await t.expect(footprint.textContent).contains("Things you buy(3.2 Tons)");
   await t.expect(footprint.textContent).contains("Transport(2.4 Tons)");
   await t.expect(footprint.textContent).contains("Energy(2 Tons)");
-  await t.expect(footprint.textContent).contains("Schools and hospitals(1.1 Tons)");
+  await t
+    .expect(footprint.textContent)
+    .contains("Schools and hospitals(1.1 Tons)");
   await t.expect(footprint.textContent).contains("Food(1.9 Tons)");
 });
 
-test("Clicking on a category opens up the sub category footprint", async(t) => {
-  const transportLink = Selector("#transport");  
-  await t.click(transportLink)
+test("Clicking on a category opens up the sub category footprint", async (t) => {
+  const transportLink = Selector("#transport");
+  await t.click(transportLink);
   const footprint = Selector("#footprint");
   await t.expect(footprint.textContent).contains("Driving");
   await t.expect(footprint.textContent).contains("Flying");
   await t.expect(footprint.textContent).contains("Train");
-})
+});
