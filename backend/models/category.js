@@ -23,5 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Category",
     }
   );
+  Category.belongsTo(Category, {foreignKey: "parentId", as: "parent"});
   return Category;
 };

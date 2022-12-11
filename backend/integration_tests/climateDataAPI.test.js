@@ -72,4 +72,29 @@ describe("the climateChange API", () => {
       "Sub Food"
     );
   });
+
+  test("Returns the nested categories if the category is provided as a parameter", async () => {
+    const foodId = await addClimateChangeData({
+      label: "Food",
+      category: "Food",
+    });
+    addClimateChangeData({parentId: foodId, label: "Sub Food"});
+    const result = await server.executeOperation({
+      query: `query {
+        getClimateData(parentCategory: "Food")
+          {
+            id
+            label
+            subCategories
+            {
+              id
+              label
+            }
+          }
+        }`,
+    });
+
+    expect(result.data.getClimateData.length).toEqual(1);
+    expect(result.data.getClimateData[0].label).toEqual("Sub Food");
+  });
 });

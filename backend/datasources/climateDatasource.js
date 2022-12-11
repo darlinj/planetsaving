@@ -8,6 +8,21 @@ class ClimateDatasource extends DataSource {
   async initialize(config) {}
 
   async getClimateData(args) {
+    if (args?.parentCategory) {
+      return Category.findAll({
+        include: [
+          {
+            model: Category,
+            required: true,
+            as: "parent",
+            where: {
+              category: args.parentCategory,
+            },
+          },
+        ],
+      });
+    }
+
     return Category.findAll({
       where: {
         parentId: null,
