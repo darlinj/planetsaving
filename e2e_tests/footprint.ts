@@ -17,7 +17,7 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
       label: "Transport",
       category: "transport",
       amount: 2.4,
-      categories: [
+      subCategories: [
         {
           label: "Driving",
           category: "driving",
