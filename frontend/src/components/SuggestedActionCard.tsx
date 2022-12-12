@@ -13,10 +13,11 @@ import {ActionData} from "../types";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import ImpactWell from "./ImpactWell";
-import categoryColorMap from "../categoryColorMap";
+import {getCategoryColorArray} from "../categoryColorMap";
 
 const SuggestedActionCard = ({action}: {action: ActionData}) => {
-  const colorArray = categoryColorMap[action.category];
+  const colorArray = getCategoryColorArray(action.category);
+  console.log("cat", action.category);
   return (
     <Card
       sx={{

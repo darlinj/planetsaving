@@ -3,22 +3,26 @@ import {request, gql} from "graphql-request";
 import {ClimateData} from "../types";
 import backendUrl from "./backend_url";
 
-function useFootprintData() {
-  return useQuery<[ClimateData]>(["GetClimateData"], async () => {
-    const data = await request(
-      backendUrl,
-      gql`
-        query GetClimateData {
-          getClimateData {
-            amount
-            category
-            label
-          }
-        }
-      `
-    );
-    return data.getClimateData;
-  });
+const getClimateDataQuery = gql`
+  query GetClimateData($parentCategory: String) {
+    getClimateData(parentCategory: $parentCategory) {
+      amount
+      category
+      label
+    }
+  }
+`;
+
+function useFootprintData(parentCategory: string | undefined) {
+  return useQuery<[ClimateData]>(
+    ["GetClimateData", parentCategory],
+    async () => {
+      const data = await request(backendUrl, getClimateDataQuery, {
+        parentCategory: parentCategory,
+      });
+      return data.getClimateData;
+    }
+  );
 }
 
 export default useFootprintData;

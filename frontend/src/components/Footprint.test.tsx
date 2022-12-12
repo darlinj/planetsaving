@@ -4,6 +4,7 @@ import Footprint from "./Footprint";
 import useFootprintData from "../api/useFootprintData";
 import {UseQueryResult} from "@tanstack/react-query";
 import {ClimateData} from "../types";
+import {BrowserRouter, MemoryRouter} from "react-router-dom";
 
 jest.mock("../api/useFootprintData");
 
@@ -22,7 +23,7 @@ test("renders the foot", () => {
       isLoading: false,
     } as UseQueryResult<[ClimateData]>;
   });
-  render(<Footprint />);
+  render(<Footprint />, {wrapper: BrowserRouter});
   const linkElement = screen.getByText(/Item 1/i);
   expect(linkElement).toBeInTheDocument();
 });
