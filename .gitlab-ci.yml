@@ -106,7 +106,7 @@ run_e2e_tests:
     name: test
   script:
     - npm install
-    - /opt/testcafe/docker/testcafe-docker.sh firefox:headless,chromium e2e_tests/
+    - /opt/testcafe/docker/testcafe-docker.sh firefox:headless,chromium e2e_tests/ -e
 
 deploy_to_production:
   stage: deploy
