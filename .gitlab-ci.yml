@@ -101,7 +101,7 @@ run_e2e_tests:
     NODE_ENV: test
   image:
     name: testcafe/testcafe:2.0.2
-    entrypoint: ["/bin/sh", "-c"]
+    entrypoint: [""]
   environment:
     name: test
   script:
