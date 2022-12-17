@@ -7,15 +7,27 @@ const API_URL = process.env.API_URL
 const sendQuery = async (query) => {
   const result = await request(API_URL, query);
   return result;
-}
+};
 
 export const clearActions = async () => {
-  await sendQuery(gql`mutation { clearActions }`);
+  await sendQuery(
+    gql`
+      mutation {
+        clearActions
+      }
+    `
+  );
   await new Promise((r) => setTimeout(r, 2000));
 };
 
 export const clearClimateData = async () => {
-  await sendQuery(gql`mutation { clearClimateData }`);
+  await sendQuery(
+    gql`
+      mutation {
+        clearClimateData
+      }
+    `
+  );
   await new Promise((r) => setTimeout(r, 2000));
 };
 
@@ -26,6 +38,8 @@ export const addClimateChangeRecord = async (data, parentId = null) => {
           category: "${data.category}"
           amount: ${data.amount}
           parentId: ${parentId}
+          color: "${data.color}"
+          colorIntensity: ${data.colorIntensity}
           ) {
             id
             label
@@ -50,8 +64,7 @@ export const addClimateChangeData = async (
 
 export const addActions = async (actionList) => {
   actionList.forEach(async (action) => {
-    await sendQuery(gql
-      `mutation {
+    await sendQuery(gql`mutation {
         addAction(
           title: "${action.title}",
           cost: ${action.cost},
@@ -62,7 +75,6 @@ export const addActions = async (actionList) => {
             id
             title
           }
-        }`
-    );
+        }`);
   });
 };

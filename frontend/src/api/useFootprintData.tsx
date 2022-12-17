@@ -9,6 +9,8 @@ const getClimateDataQuery = gql`
       amount
       category
       label
+      color
+      colorIntensity
     }
   }
 `;

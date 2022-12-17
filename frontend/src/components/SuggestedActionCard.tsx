@@ -17,7 +17,6 @@ import {getCategoryColorArray} from "../categoryColorMap";
 
 const SuggestedActionCard = ({action}: {action: ActionData}) => {
   const colorArray = getCategoryColorArray(action.category);
-  console.log("cat", action.category);
   return (
     <Card
       sx={{

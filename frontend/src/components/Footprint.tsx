@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import useFootprintData from "../api/useFootprintData";
-import {getCategoryColor} from "../categoryColorMap";
+import {getCategoryColorArray} from "../categoryColorMap";
 import {Link, useParams} from "react-router-dom";
 import {useQueryClient} from "@tanstack/react-query";
 
@@ -9,7 +9,6 @@ const Footprint = () => {
   //   const queryClient = useQueryClient();
   //   queryClient.invalidateQueries({queryKey: ["GetClimateData"]});
   const {category} = useParams();
-  console.log(category);
   const {status, data, isLoading, isError, error} = useFootprintData(category);
   if (isLoading) {
     return <div>Loading...</div>;
@@ -50,7 +49,9 @@ const Footprint = () => {
                   y={stripeOffset}
                   height={stripeHeight}
                   style={{
-                    fill: getCategoryColor(stripe.category),
+                    fill: getCategoryColorArray(stripe.color)[
+                      stripe.colorIntensity
+                    ],
                   }}
                 />
               </Link>

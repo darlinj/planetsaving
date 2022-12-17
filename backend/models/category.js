@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       category: DataTypes.STRING,
       amount: DataTypes.FLOAT,
       parentId: DataTypes.INTEGER,
+      color: DataTypes.STRING,
+      colorIntensity: DataTypes.INTEGER,
     },
     {
       sequelize,
