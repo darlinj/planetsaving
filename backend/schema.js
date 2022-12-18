@@ -12,7 +12,7 @@ module.exports = gql`
       title: String
       cost: Float
       carbonSaved: Float
-      category: String
+      categoryId: Int
     ): Action
 
     addClimateChangeData(
@@ -41,6 +41,6 @@ module.exports = gql`
     title: String
     cost: Float
     carbonSaved: Float
-    category: String
+    category: ClimateData
   }
 `;

@@ -8,15 +8,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Action.belongsTo(models.Category, {as: "category"});
     }
   }
   Action.init(
     {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
       title: DataTypes.STRING,
       cost: DataTypes.FLOAT,
+      categoryId: DataTypes.INTEGER,
       carbonSaved: DataTypes.FLOAT,
-      category: DataTypes.STRING,
     },
     {
       sequelize,

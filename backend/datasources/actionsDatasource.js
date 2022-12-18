@@ -1,5 +1,5 @@
 const {DataSource} = require("apollo-datasource");
-const {Action} = require("../models");
+const {Category, Action} = require("../models");
 
 class ActionsDatasource extends DataSource {
   constructor() {
@@ -8,7 +8,9 @@ class ActionsDatasource extends DataSource {
   async initialize(config) {}
 
   async getActions() {
-    return Action.findAll();
+    return Action.findAll({
+      include: {model: Category, as: "category"},
+    });
   }
 
   async clearActions() {

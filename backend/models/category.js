@@ -8,11 +8,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Category.belongsTo(models.Category, {
+        foreignKey: "parentId",
+        as: "parent",
+      });
     }
   }
   Category.init(
     {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
       label: DataTypes.STRING,
       category: DataTypes.STRING,
       amount: DataTypes.FLOAT,
@@ -25,6 +34,5 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Category",
     }
   );
-  Category.belongsTo(Category, {foreignKey: "parentId", as: "parent"});
   return Category;
 };
