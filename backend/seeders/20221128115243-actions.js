@@ -3,6 +3,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const transportCategory = await queryInterface.sequelize.query(
+      `select id from "Categories" where category='transport';`
+    );
     await queryInterface.bulkInsert(
       "Actions",
       [
@@ -10,7 +13,7 @@ module.exports = {
           title: "Do a thihng",
           cost: 3.2,
           carbonSaved: 4.5,
-          category: "transport",
+          categoryId: transportCategory[0][0].id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -18,7 +21,7 @@ module.exports = {
           title: "Do another thihng",
           cost: 3.2,
           carbonSaved: 4.5,
-          category: "transport",
+          categoryId: transportCategory[0][0].id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
