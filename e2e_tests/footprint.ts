@@ -90,3 +90,10 @@ test("Clicking on a category opens up the sub category footprint", async (t) => 
   await t.expect(footprint.textContent).contains("Flying");
   await t.expect(footprint.textContent).contains("Train");
 });
+
+test("The amount of C02 equiv under the footprint is correct", async (t) => {
+  const footprint = Selector("#footprint-footer");
+  await t
+    .expect(footprint.textContent)
+    .contains("Total 10.6 Tons of CO2 equivalent");
+});

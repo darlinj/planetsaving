@@ -18,9 +18,6 @@ const MainContent = () => {
             Annual Carbon footprint of the average UK citizen
           </Typography>
           <Footprint />
-          <Typography variant="h4" component="div" gutterBottom>
-            Total 10.6 Tons of CO2 equivalent
-          </Typography>
         </Paper>
       </Grid>
       <Grid item xs={12} md={4}>
