@@ -12,5 +12,5 @@ export interface ActionData {
   title: string;
   cost: number;
   carbonSaved: number;
-  category: "energy" | "food" | "transport" | "government" | "purchasing";
+  category: ClimateData;
 }

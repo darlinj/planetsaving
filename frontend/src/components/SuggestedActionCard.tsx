@@ -16,7 +16,9 @@ import ImpactWell from "./ImpactWell";
 import {getCategoryColorArray} from "../categoryColorMap";
 
 const SuggestedActionCard = ({action}: {action: ActionData}) => {
-  const colorArray = getCategoryColorArray(action.category);
+  const colorArray = getCategoryColorArray(
+    action.category ? action.category.color : action.category
+  );
   return (
     <Card
       sx={{

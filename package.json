@@ -8,6 +8,10 @@
     "start:backend": "npm --prefix backend start",
     "start:frontend": "REACT_APP_BACKEND_URL=http://localhost:4000/ npm --prefix frontend start",
     "test": "testcafe chrome ./e2e_tests -e",
+    "test_all": "run-s test:backend test:frontend test:e2e",
+    "test:e2e": "testcafe chrome ./e2e_tests -e",
+    "test:backend": "cd backend && NODE_ENV=development jest --watchAll=false",
+    "test:frontend": "cd frontend && npm test -- --watchAll=false",
     "against_test": "NODE_ENV=test export $(cat db.env | xargs) && npm start"
   },
   "repository": {
@@ -26,7 +30,8 @@
   },
   "homepage": "https://gitlab.com/joe.darling/footprint#readme",
   "devDependencies": {
-    "concurrently": "^7.4.0"
+    "concurrently": "^7.4.0",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
     "graphql": "^16.6.0",

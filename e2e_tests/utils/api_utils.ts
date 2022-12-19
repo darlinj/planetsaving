@@ -32,7 +32,7 @@ export const clearClimateData = async () => {
 };
 
 export const addClimateChangeRecord = async (data, parentId = null) => {
-  const query = sendQuery(gql`mutation {
+  const query = await sendQuery(gql`mutation {
         addClimateChangeData(
           label: "${data.label}"
           category: "${data.category}"
@@ -45,7 +45,7 @@ export const addClimateChangeRecord = async (data, parentId = null) => {
             label
           }
         }`);
-  return query;
+  return query.addClimateChangeData;
 };
 
 export const addClimateChangeData = async (
@@ -55,10 +55,7 @@ export const addClimateChangeData = async (
   climateChangeDataList.forEach(async (data) => {
     const rootRecord = await addClimateChangeRecord(data, parentId);
     if (data.subCategories)
-      addClimateChangeData(
-        data.subCategories,
-        rootRecord.addClimateChangeData.id
-      );
+      addClimateChangeData(data.subCategories, rootRecord.id);
   });
 };
 
@@ -69,7 +66,7 @@ export const addActions = async (actionList) => {
           title: "${action.title}",
           cost: ${action.cost},
           carbonSaved: ${action.carbonSaved},
-          category: "${action.category}"
+          categoryId: ${action.categoryId}
           )
           {
             id
