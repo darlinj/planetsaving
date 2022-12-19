@@ -45,6 +45,9 @@ const Footprint = () => {
 
   return (
     <>
+      <Typography variant="h4" component="div" gutterBottom align="center">
+        Annual {category} Carbon footprint of the average UK citizen
+      </Typography>
       <Box
         id="footprint"
         sx={{display: "flex", alignContent: "center", justifyContent: "center"}}

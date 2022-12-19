@@ -14,9 +14,6 @@ const MainContent = () => {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h4" component="div" gutterBottom align="center">
-            Annual Carbon footprint of the average UK citizen
-          </Typography>
           <Footprint />
         </Paper>
       </Grid>
