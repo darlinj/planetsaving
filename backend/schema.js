@@ -2,7 +2,7 @@ const {gql} = require("apollo-server-lambda");
 module.exports = gql`
   type Query {
     getClimateData(parentCategory: String): [ClimateData]
-    getActionsList: [Action]
+    getActionsList(parentCategory: String): [Action]
   }
   type Mutation {
     clearActions: Boolean

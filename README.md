@@ -114,3 +114,11 @@ terraform apply
 ```
 docker run -it --rm --name e2etests -v ${PWD}:/app --entrypoint "" testcafe/testcafe:2.0.2 sh
 ```
+
+# Running Sequelize commands in a REPL
+
+```
+npx sequelize-tinker
+```
+
+then require your models and off you go

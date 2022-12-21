@@ -25,6 +25,13 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
     amount: 4,
     colorIntensity: 400,
   });
+  const categoryTwo = await addClimateChangeRecord({
+    category: "drink",
+    label: "Drink",
+    color: "blue",
+    amount: 4,
+    colorIntensity: 400,
+  });
   console.log("CAT", category);
   const actions = [
     {
@@ -49,7 +56,7 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
       title: "Buy more second hand things",
       cost: 0,
       carbonSaved: 0.4,
-      categoryId: category.id,
+      categoryId: categoryTwo.id,
     },
   ];
   await addActions(actions);
@@ -67,4 +74,16 @@ test("Check default actions list", async (t) => {
   await t
     .expect(actionsList.textContent)
     .contains("Buy more second hand things");
+});
+
+test("Clicking on a category shows the actions associated with that category", async (t) => {
+  const category = Selector("#food");
+  await t.click(category);
+  const actionList = Selector("#actions");
+  await t
+    .expect(actionList.textContent)
+    .contains("Reduce your thermostat by one degree");
+  await t
+    .expect(actionList.textContent)
+    .notContains("Buy more second hand things");
 });

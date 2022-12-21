@@ -7,7 +7,27 @@ class ActionsDatasource extends DataSource {
   }
   async initialize(config) {}
 
-  async getActions() {
+  async getActions(args) {
+    if (args?.parentCategory) {
+      return Action.findAll({
+        include: [
+          {
+            model: Category,
+            as: "category",
+            required: true,
+            include: [
+              {
+                model: Category,
+                as: "parent",
+                where: {
+                  category: args.parentCategory,
+                },
+              },
+            ],
+          },
+        ],
+      });
+    }
     return Action.findAll({
       include: {model: Category, as: "category"},
     });
