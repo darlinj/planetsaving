@@ -4,7 +4,7 @@ export interface ClimateData {
   label: string;
   color: string;
   colorIntensity: number;
-  subSection: ClimateData[] | null;
+  subSection?: ClimateData[] | null;
 }
 
 export interface ActionData {

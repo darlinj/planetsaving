@@ -4,6 +4,7 @@ import {
   clearActions,
   addActions,
   addClimateChangeRecord,
+  addClimateChangeData,
 } from "./utils/api_utils";
 
 const URL = process.env.FRONTEND_URL
@@ -18,13 +19,23 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
   await clearActions();
   await clearClimateData();
 
-  const category = await addClimateChangeRecord({
-    category: "food",
-    label: "Food",
+  const parentCategory = await addClimateChangeRecord({
+    category: "eatables",
+    label: "Eatables",
     color: "red",
     amount: 4,
     colorIntensity: 400,
   });
+  const category = await addClimateChangeRecord(
+    {
+      category: "food",
+      label: "Food",
+      color: "red",
+      amount: 4,
+      colorIntensity: 400,
+    },
+    parentCategory.id
+  );
   const categoryTwo = await addClimateChangeRecord({
     category: "drink",
     label: "Drink",
@@ -32,7 +43,6 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
     amount: 4,
     colorIntensity: 400,
   });
-  console.log("CAT", category);
   const actions = [
     {
       title: "Reduce your thermostat by one degree",
@@ -77,7 +87,7 @@ test("Check default actions list", async (t) => {
 });
 
 test("Clicking on a category shows the actions associated with that category", async (t) => {
-  const category = Selector("#food");
+  const category = Selector("#eatables");
   await t.click(category);
   const actionList = Selector("#actions");
   await t

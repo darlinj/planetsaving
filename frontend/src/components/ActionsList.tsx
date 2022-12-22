@@ -2,14 +2,16 @@ import React from "react";
 import {Paper, Typography} from "@mui/material";
 import SuggestedActionCard from "./SuggestedActionCard";
 import useActionsList from "../api/useActionsList";
+import {useParams} from "react-router-dom";
 
 const ActionsList = () => {
-  const {data, isLoading} = useActionsList();
+  const {category} = useParams();
+  const {data, isLoading} = useActionsList(category);
   if (isLoading) {
     return <div>Loading...</div>;
   }
   if (!data) {
-    return <div>Not data returned</div>;
+    return <div>No Actions</div>;
   }
   return (
     <Paper

@@ -4,8 +4,16 @@ import ActionList from "./ActionsList";
 import useActionsList from "../api/useActionsList";
 import {UseQueryResult} from "@tanstack/react-query";
 import {ActionData} from "../types";
+import {BrowserRouter, MemoryRouter} from "react-router-dom";
 
 jest.mock("../api/useActionsList");
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: () => ({
+    category: "someCategory",
+  }),
+}));
 
 test("renders the loading message", () => {
   const mockUseActionsList = useActionsList as jest.MockedFunction<
@@ -15,7 +23,13 @@ test("renders the loading message", () => {
     {
       title: "Reduce your thermostat by ten degree",
       id: 123,
-      category: "energy",
+      category: {
+        category: "food",
+        label: "Food",
+        amount: 2,
+        color: "red",
+        colorIntensity: 300,
+      },
       carbonSaved: 3.0,
       cost: 6.0,
     },
@@ -30,7 +44,7 @@ test("renders the loading message", () => {
   expect(element).toBeInTheDocument();
 });
 
-test("renders the foot", () => {
+test("renders the actions", () => {
   const mockUseActionsList = useActionsList as jest.MockedFunction<
     typeof useActionsList
   >;
@@ -38,7 +52,13 @@ test("renders the foot", () => {
     {
       title: "Reduce your thermostat by ten degree",
       id: 123,
-      category: "energy",
+      category: {
+        category: "food",
+        label: "Food",
+        amount: 2,
+        color: "red",
+        colorIntensity: 300,
+      },
       carbonSaved: 3.0,
       cost: 6.0,
     },
@@ -54,4 +74,16 @@ test("renders the foot", () => {
   render(<ActionList />);
   const element = screen.getByText(/Reduce your thermostat by ten degree/i);
   expect(element).toBeInTheDocument();
+});
+
+test("If the category is supplied then it only shows the actions attached to that category", () => {
+  const mockUseActionsList = useActionsList as jest.MockedFunction<
+    typeof useActionsList
+  >;
+  render(
+    <MemoryRouter initialEntries={["/f/category?foo=bar"]}>
+      <ActionList />
+    </MemoryRouter>
+  );
+  expect(mockUseActionsList.mock.calls[0][0]).toBe("someCategory");
 });
