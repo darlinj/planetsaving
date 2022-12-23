@@ -96,6 +96,46 @@ module.exports = {
       {}
     );
 
+    // import government categories
+    const govenmentCategory = await queryInterface.sequelize.query(
+      `select id from "Categories" where category='government';`
+    );
+    await queryInterface.bulkInsert(
+      "Categories",
+      [
+        {
+          label: "Defence",
+          category: "defence",
+          amount: 0.4,
+          color: "green",
+          colorIntensity: "700",
+          parentId: govenmentCategory[0][0].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          label: "Hospitals",
+          category: "hospitals",
+          amount: 0.4,
+          color: "green",
+          colorIntensity: "500",
+          parentId: govenmentCategory[0][0].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          label: "Roads",
+          category: "roads",
+          amount: 0.6,
+          color: "green",
+          colorIntensity: "300",
+          parentId: govenmentCategory[0][0].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
     // import purchasing categories
     const purchasingCategory = await queryInterface.sequelize.query(
       `select id from "Categories" where category='purchasing';`
@@ -124,8 +164,8 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          label: "Cloths",
-          category: "cloths",
+          label: "Clothes",
+          category: "clothes",
           amount: 0.6,
           color: "red",
           colorIntensity: "300",

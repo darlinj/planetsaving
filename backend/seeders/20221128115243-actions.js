@@ -3,25 +3,48 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const transportCategory = await queryInterface.sequelize.query(
-      `select id from "Categories" where category='transport';`
+    const categories = await queryInterface.sequelize.query(
+      `select id, category from "Categories";`
     );
+    const categoryLookupId = (categoryToFind) => {
+      const foundCategory = categories[0].filter((category) => {
+        return category.category == categoryToFind;
+      });
+      return foundCategory[0].id;
+    };
+
     await queryInterface.bulkInsert(
       "Actions",
       [
         {
-          title: "Do a thihng",
-          cost: 3.2,
-          carbonSaved: 4.5,
-          categoryId: transportCategory[0][0].id,
+          title: "Buy an electric car",
+          cost: 30000,
+          carbonSaved: 1.2,
+          categoryId: categoryLookupId("car"),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          title: "Do another thihng",
-          cost: 3.2,
-          carbonSaved: 4.5,
-          categoryId: transportCategory[0][0].id,
+          title: "Take 1 fewer airplane trips",
+          cost: 0,
+          carbonSaved: 0.5,
+          categoryId: categoryLookupId("air"),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          title: "Seek out brands with low carbon footprint",
+          cost: 0,
+          carbonSaved: 0.5,
+          categoryId: categoryLookupId("appliances"),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          title: "Buy second hand clothes",
+          cost: 0,
+          carbonSaved: 0.2,
+          categoryId: categoryLookupId("clothes"),
           createdAt: new Date(),
           updatedAt: new Date(),
         },
