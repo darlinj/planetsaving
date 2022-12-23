@@ -5,6 +5,7 @@ import {getCategoryColorArray} from "../categoryColorMap";
 import {Link, useParams} from "react-router-dom";
 import {useQueryClient} from "@tanstack/react-query";
 import {Typography} from "@mui/material";
+import {ClimateData} from "../types";
 
 const Footprint = () => {
   //   const queryClient = useQueryClient();
@@ -43,6 +44,56 @@ const Footprint = () => {
     );
   };
 
+  const BackLink = () => {
+    if (!category) {
+      return <></>;
+    }
+    return (
+      <Link to="/">
+        <text x="0" y="20" fill="black">
+          &#171; Back
+        </text>
+      </Link>
+    );
+  };
+
+  const Stripe = ({
+    stripe,
+    stripeOffset,
+    stripeHeight,
+  }: {
+    stripe: ClimateData;
+    stripeOffset: number;
+    stripeHeight: number;
+  }) => {
+    if (stripe.subCategories && stripe.subCategories.length === 0) {
+      return (
+        <rect
+          clipPath="url('#foot')"
+          width="500"
+          y={stripeOffset}
+          height={stripeHeight}
+          style={{
+            fill: getCategoryColorArray(stripe.color)[stripe.colorIntensity],
+          }}
+        />
+      );
+    }
+    return (
+      <Link to={`/f/${stripe.category}`} id={stripe.category}>
+        <rect
+          clipPath="url('#foot')"
+          width="500"
+          y={stripeOffset}
+          height={stripeHeight}
+          style={{
+            fill: getCategoryColorArray(stripe.color)[stripe.colorIntensity],
+          }}
+        />
+      </Link>
+    );
+  };
+
   return (
     <>
       <Typography variant="h4" component="div" gutterBottom align="center">
@@ -53,6 +104,7 @@ const Footprint = () => {
         sx={{display: "flex", alignContent: "center", justifyContent: "center"}}
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+          <BackLink />
           {data.map((stripe, index) => {
             const stripeHeight = (stripe.amount / totalAmount) * footHeight;
             stripeOffset += lastStripeHeight;
@@ -60,23 +112,11 @@ const Footprint = () => {
             lastStripeHeight = stripeHeight;
             return (
               <g key={index}>
-                <Link
-                  to={`/f/${stripe.category}`}
-                  id={stripe.category}
-                  key={index}
-                >
-                  <rect
-                    clipPath="url('#foot')"
-                    width="500"
-                    y={stripeOffset}
-                    height={stripeHeight}
-                    style={{
-                      fill: getCategoryColorArray(stripe.color)[
-                        stripe.colorIntensity
-                      ],
-                    }}
-                  />
-                </Link>
+                <Stripe
+                  stripe={stripe}
+                  stripeOffset={stripeOffset}
+                  stripeHeight={stripeHeight}
+                />
                 <text x="0" y={midStripe} fill="black">
                   {stripe.label}
                 </text>

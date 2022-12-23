@@ -11,6 +11,9 @@ const getClimateDataQuery = gql`
       label
       color
       colorIntensity
+      subCategories {
+        label
+      }
     }
   }
 `;
