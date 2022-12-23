@@ -122,3 +122,40 @@ npx sequelize-tinker
 ```
 
 then require your models and off you go
+
+# Connecting to RDS database for the first time
+
+Download the cert bundle for London from here https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html
+
+You are looking for eu-west-2-bundle.pem
+
+set RDSHOST and PGPASSWORD to the right values
+
+```
+export RDSHOST=footprint-test.something.eu-west-2.rds.amazonaws.com
+export PGPASSWORD=postgres
+```
+
+Log in
+
+```
+psql -h ${RDSHOST} "user=db_user port=5432 dbname=postgres sslmode=verify-full sslrootcert=/Users/jd5/Downloads/eu-west-2-bundle.pem"
+```
+
+enable rds_iam for the user from inside postgres
+
+```
+GRANT rds_iam TO db_user;
+```
+
+Log out of postgres (\q)
+
+Copy the pg.env.example to pg.env and set the RDS_HOST to the URL of the RDS host.
+
+# Normal login with AWS IAM auth
+
+```
+export NODE_ENV=test
+source pg.env
+psql -h ${RDSHOST} "user=db_user port=5432 dbname=postgres sslmode=verify-full sslrootcert=/Users/jd5/code/footprint/backend/config/eu-west-2-bundle.pem"
+```
