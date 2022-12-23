@@ -29,9 +29,11 @@ const Footprint = () => {
     .reduce((acc, val) => acc + val, 0);
 
   const FootprintFooter = () => {
-    const totalCo2 = data.reduce((total, item) => {
-      return total + item.amount;
-    }, 0);
+    const totalCo2 = data
+      .reduce((total, item) => {
+        return total + item.amount;
+      }, 0)
+      .toFixed(1);
     return (
       <Typography
         id="footprint-footer"
