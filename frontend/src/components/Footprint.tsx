@@ -8,8 +8,6 @@ import {Typography} from "@mui/material";
 import {ClimateData} from "../types";
 
 const Footprint = () => {
-  //   const queryClient = useQueryClient();
-  //   queryClient.invalidateQueries({queryKey: ["GetClimateData"]});
   const {category} = useParams();
   const {status, data, isLoading, isError, error} = useFootprintData(category);
   if (isLoading) {
