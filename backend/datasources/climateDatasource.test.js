@@ -63,9 +63,8 @@ describe("The interactions with the database", () => {
 
     const dataSource = new ClimateData();
 
-    const data = await dataSource.getClimateData();
-    expect(data.amount).toEqual(3);
-    expect(data.subCategories[0].amount).toEqual(3);
+    const data = await dataSource.getAmount(cat2.id);
+    expect(data).toEqual(3);
   });
 
   it("returns an empty record if the category does not exist", async () => {

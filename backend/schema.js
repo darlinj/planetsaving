@@ -6,6 +6,7 @@ module.exports = gql`
   }
   type Mutation {
     clearActions: Boolean
+    clearEmitions: Boolean
     clearClimateData: Boolean
 
     addAction(

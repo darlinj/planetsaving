@@ -5,6 +5,9 @@ module.exports = {
   clearActions: (parent, args, {dataSources}, info) => {
     return dataSources.actions.clearActions();
   },
+  clearEmitions: (parent, args, {dataSources}, info) => {
+    return dataSources.emitions.clearEmitions();
+  },
   addClimateChangeData: (parent, args, {dataSources}, info) => {
     return dataSources.climateData.addClimateChangeData(args);
   },

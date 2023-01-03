@@ -71,7 +71,7 @@ describe("the climateChange API", () => {
 
   test("Returns the nested categories if supplied", async () => {
     const foodId = await addClimateChangeData({label: "Food"});
-    addClimateChangeData({parentId: foodId, label: "Sub Food"});
+    await addClimateChangeData({parentId: foodId, label: "Sub Food"});
     const result = await server.executeOperation({
       query: `query {
         getClimateData
@@ -99,7 +99,7 @@ describe("the climateChange API", () => {
       label: "Food",
       category: "Food",
     });
-    addClimateChangeData({parentId: foodId, label: "Sub Food"});
+    await addClimateChangeData({parentId: foodId, label: "Sub Food"});
     const result = await server.executeOperation({
       query: `query {
         getClimateData(parentCategory: "Food")
@@ -121,8 +121,8 @@ describe("the climateChange API", () => {
 
   test("It adds up the emitions for the category correctly", async () => {
     const topCat = await addClimateChangeData();
-    const subCat1 = await addClimateChangeData();
-    const subCat2 = await addClimateChangeData();
+    const subCat1 = await addClimateChangeData({parentId: topCat});
+    const subCat2 = await addClimateChangeData({parentId: topCat});
     addEmition({categoryId: subCat1, totalCarbonEmited: 1});
     addEmition({categoryId: subCat1, totalCarbonEmited: 1});
     addEmition({categoryId: subCat2, totalCarbonEmited: 1});
@@ -142,7 +142,7 @@ describe("the climateChange API", () => {
             }`,
     });
 
-    expect(result.data.getClimateData[0].amount).toEqual(4);
     expect(result.data.getClimateData[0].subCategories[0].amount).toEqual(2);
+    expect(result.data.getClimateData[0].amount).toEqual(4);
   });
 });

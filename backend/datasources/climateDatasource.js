@@ -30,6 +30,27 @@ class ClimateDatasource extends DataSource {
     });
   }
 
+  async getAmount(parentId) {
+    const result = await Emition.findAll({
+      attributes: [
+        [
+          Emition.sequelize.fn(
+            "sum",
+            Emition.sequelize.col("totalCarbonEmited")
+          ),
+          "amount",
+        ],
+      ],
+      group: ["categoryId"],
+      where: {
+        categoryId: parentId,
+      },
+      raw: true,
+    });
+    const amount = result[0] ? result[0].amount : null;
+    return amount;
+  }
+
   async getSubCategories(parentId) {
     return Category.findAll({
       where: {
