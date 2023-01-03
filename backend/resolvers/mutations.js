@@ -11,4 +11,7 @@ module.exports = {
   addAction: (parent, args, {dataSources}, info) => {
     return dataSources.actions.addAction(args);
   },
+  addEmition: (parent, args, {dataSources}, info) => {
+    return dataSources.emitions.addEmition(args);
+  },
 };

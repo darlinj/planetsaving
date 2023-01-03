@@ -23,6 +23,13 @@ module.exports = gql`
       color: String
       colorIntensity: Int
     ): ClimateData
+
+    addEmition(
+      name: String
+      categoryId: Int
+      totalCarbonEmited: Float
+      calculationType: String
+    ): Emition
   }
 
   type ClimateData {
@@ -34,6 +41,14 @@ module.exports = gql`
     color: String
     colorIntensity: Int
     subCategories: [ClimateData]
+  }
+
+  type Emition {
+    id: Float
+    name: String
+    categoryId: Int
+    totalCarbonEmited: Float
+    calculationType: String
   }
 
   type Action {

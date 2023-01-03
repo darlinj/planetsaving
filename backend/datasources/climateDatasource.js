@@ -1,5 +1,5 @@
 const {DataSource} = require("apollo-datasource");
-const {Category} = require("../models");
+const {Category, Emition} = require("../models");
 
 class ClimateDatasource extends DataSource {
   constructor() {

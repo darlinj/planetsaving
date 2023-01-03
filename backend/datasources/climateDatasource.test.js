@@ -1,10 +1,14 @@
-const {Category} = require("../models");
+const {Category, Emition} = require("../models");
 const ClimateData = require("./climateDatasource");
 const {faker} = require("@faker-js/faker");
 
 describe("The interactions with the database", () => {
   beforeEach(async () => {
     await Category.destroy({
+      where: {},
+      truncate: true,
+    });
+    await Emition.destroy({
       where: {},
       truncate: true,
     });
@@ -45,6 +49,23 @@ describe("The interactions with the database", () => {
     const data = await dataSource.getClimateData({parentCategory: "top1"});
     expect(data.length).toEqual(1);
     expect(data.map((c) => c.label)).toEqual(["cat3"]);
+  });
+
+  it("Returns the amounts as calculated from the emitions", async () => {
+    const cat1 = await Category.create({label: "cat1", category: "top1"});
+    const cat2 = await Category.create({
+      label: "cat2",
+      category: "sub2",
+      parentId: cat1.id,
+    });
+    await Emition.create({totalCarbonEmited: 1, categoryId: cat2.id});
+    await Emition.create({totalCarbonEmited: 2, categoryId: cat2.id});
+
+    const dataSource = new ClimateData();
+
+    const data = await dataSource.getClimateData();
+    expect(data.amount).toEqual(3);
+    expect(data.subCategories[0].amount).toEqual(3);
   });
 
   it("returns an empty record if the category does not exist", async () => {

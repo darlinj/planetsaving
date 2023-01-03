@@ -20,16 +20,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       totalCarbonEmited: {
-        type: Sequelize.FLOAT,
+        type: DataTypes.FLOAT,
       },
       calculationType: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
       },
       categoryId: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
     },
     {
