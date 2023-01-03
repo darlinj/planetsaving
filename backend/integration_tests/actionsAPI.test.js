@@ -63,7 +63,6 @@ describe("the actions API", () => {
       query:
         "query { getActionsList { id title cost carbonSaved category{ label }} }",
     });
-    console.log(result);
     expect(
       result.data.getActionsList.map((action) => action.category.label)
     ).toContain("Energy");

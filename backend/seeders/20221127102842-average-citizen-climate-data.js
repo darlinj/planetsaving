@@ -9,7 +9,6 @@ module.exports = {
         {
           label: "Transport",
           category: "transport",
-          amount: 2.4,
           color: "orange",
           colorIntensity: "500",
           createdAt: new Date(),
@@ -18,7 +17,6 @@ module.exports = {
         {
           label: "Things you buy",
           category: "purchasing",
-          amount: 3.2,
           color: "red",
           colorIntensity: "500",
           createdAt: new Date(),
@@ -27,7 +25,6 @@ module.exports = {
         {
           label: "Schools and hospitals",
           category: "government",
-          amount: 1.1,
           color: "green",
           colorIntensity: "500",
           createdAt: new Date(),
@@ -36,7 +33,6 @@ module.exports = {
         {
           label: "Energy",
           category: "energy",
-          amount: 2,
           color: "yellow",
           colorIntensity: "500",
           createdAt: new Date(),
@@ -45,7 +41,6 @@ module.exports = {
         {
           label: "Food",
           category: "food",
-          amount: 1.9,
           color: "blue",
           colorIntensity: "500",
           createdAt: new Date(),
@@ -65,7 +60,6 @@ module.exports = {
         {
           label: "car",
           category: "car",
-          amount: 1.4,
           color: "orange",
           colorIntensity: "700",
           parentId: transportCategory[0][0].id,
@@ -75,7 +69,6 @@ module.exports = {
         {
           label: "train",
           category: "train",
-          amount: 0.4,
           color: "orange",
           colorIntensity: "500",
           parentId: transportCategory[0][0].id,
@@ -85,8 +78,6 @@ module.exports = {
         {
           label: "air",
           category: "air",
-          amount: 0.6,
-          color: "orange",
           colorIntensity: "300",
           parentId: transportCategory[0][0].id,
           createdAt: new Date(),
@@ -106,7 +97,6 @@ module.exports = {
         {
           label: "Defence",
           category: "defence",
-          amount: 0.4,
           color: "green",
           colorIntensity: "700",
           parentId: govenmentCategory[0][0].id,
@@ -116,7 +106,6 @@ module.exports = {
         {
           label: "Hospitals",
           category: "hospitals",
-          amount: 0.4,
           color: "green",
           colorIntensity: "500",
           parentId: govenmentCategory[0][0].id,
@@ -126,7 +115,6 @@ module.exports = {
         {
           label: "Roads",
           category: "roads",
-          amount: 0.6,
           color: "green",
           colorIntensity: "300",
           parentId: govenmentCategory[0][0].id,
@@ -146,7 +134,6 @@ module.exports = {
         {
           label: "Home Appliances",
           category: "appliances",
-          amount: 1.4,
           color: "red",
           colorIntensity: "700",
           parentId: purchasingCategory[0][0].id,
@@ -156,7 +143,6 @@ module.exports = {
         {
           label: "Electronics",
           category: "electronics",
-          amount: 0.4,
           color: "red",
           colorIntensity: "500",
           parentId: purchasingCategory[0][0].id,
@@ -166,7 +152,6 @@ module.exports = {
         {
           label: "Clothes",
           category: "clothes",
-          amount: 0.6,
           color: "red",
           colorIntensity: "300",
           parentId: purchasingCategory[0][0].id,

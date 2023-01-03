@@ -13,11 +13,6 @@ const addClimateChangeData = async (args = {}) => {
                 ? args.category
                 : ["food", "government"][Math.floor(Math.random() * 2)]
             }",
-            amount: ${
-              args.amount
-                ? args.amount
-                : faker.datatype.number({max: 10, precision: 0.1})
-            },
             parentId: ${args.parentId ? args.parentId : null}
           )
        {

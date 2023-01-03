@@ -18,7 +18,6 @@ module.exports = gql`
     addClimateChangeData(
       label: String
       category: String
-      amount: Float
       parentId: Int
       color: String
       colorIntensity: Int
