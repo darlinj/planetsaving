@@ -1,5 +1,6 @@
 const {DataSource} = require("apollo-datasource");
 const {Category, Emition} = require("../models");
+const {result} = require("lodash");
 
 class ClimateDatasource extends DataSource {
   constructor() {
@@ -30,7 +31,44 @@ class ClimateDatasource extends DataSource {
     });
   }
 
-  async getAmount(parentId) {
+  async getAmount(id) {
+    const category = await Category.findByPk(id, {
+      include: ["children"],
+    });
+    if (category.children.length == 0) {
+      return this.sumEmitionsForCategory(id);
+    } else {
+      return this.sumEmitionsForChildCategories(id);
+    }
+  }
+
+  async sumEmitionsForChildCategories(id) {
+    const result = await Category.findByPk(1, {
+      raw: true,
+      attributes: {
+        include: [
+          [
+            Category.sequelize.fn(
+              "sum",
+              Category.sequelize.col("children.emitions.totalCarbonEmited")
+            ),
+            "amount",
+          ],
+        ],
+      },
+      include: [
+        {
+          model: Category,
+          as: "children",
+          include: [{model: Emition, as: "emitions"}],
+        },
+      ],
+    });
+    const amount = result ? result.amount : null;
+    return amount;
+  }
+
+  async sumEmitionsForCategory(id) {
     const result = await Emition.findAll({
       attributes: [
         [
@@ -43,7 +81,7 @@ class ClimateDatasource extends DataSource {
       ],
       group: ["categoryId"],
       where: {
-        categoryId: parentId,
+        categoryId: id,
       },
       raw: true,
     });
