@@ -11,60 +11,134 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
     {
       label: "Things you buy",
       category: "purchasing",
-      amount: 3.2,
       color: "orange",
       colorIntensity: 500,
+      subCategories: [
+        {
+          label: "Imported good",
+          category: "import",
+          color: "orange",
+          colorIntensity: 300,
+          emitions: [
+            {
+              totalCarbonEmited: 3.2,
+              name: "All imported goods average",
+            },
+          ],
+        },
+      ],
     },
     {
       label: "Transport",
       category: "transport",
-      amount: 2.4,
       color: "red",
       colorIntensity: 500,
       subCategories: [
         {
           label: "Driving",
           category: "driving",
-          amount: 1,
           color: "red",
           colorIntensity: 300,
+          emitions: [
+            {
+              totalCarbonEmited: 0.5,
+              name: "Manufacturing the car",
+            },
+            {
+              totalCarbonEmited: 1,
+              name: "Tail pipe emitions",
+            },
+          ],
         },
         {
           label: "Flying",
           category: "flying",
-          amount: 1,
           color: "red",
           colorIntensity: 500,
+          emitions: [
+            {
+              totalCarbonEmited: 1,
+              name: "Aviation fuel",
+            },
+            {
+              totalCarbonEmited: 1,
+              name: "Running the airport",
+            },
+          ],
         },
         {
           label: "Train",
           category: "train",
-          amount: 0.4,
           color: "red",
           colorIntensity: 700,
+          emitions: [
+            {
+              totalCarbonEmited: 0.3,
+              name: "Average Train useage",
+            },
+          ],
         },
       ],
     },
     {
       label: "Energy",
       category: "energy",
-      amount: 2,
       color: "yellow",
       colorIntensity: 500,
+      subCategories: [
+        {
+          label: "Gas",
+          category: "gas",
+          color: "yellow",
+          colorIntensity: 300,
+          emitions: [
+            {
+              totalCarbonEmited: 3.2,
+              name: "All gas",
+            },
+          ],
+        },
+      ],
     },
     {
       label: "Schools and hospitals",
       category: "government",
-      amount: 1.1,
       color: "green",
       colorIntensity: 500,
+      subCategories: [
+        {
+          label: "Government",
+          category: "all_gov",
+          color: "green",
+          colorIntensity: 300,
+          emitions: [
+            {
+              totalCarbonEmited: 3.2,
+              name: "All government",
+            },
+          ],
+        },
+      ],
     },
     {
       label: "Food",
       category: "food",
-      amount: 1.9,
       color: "blue",
       colorIntensity: 500,
+      subCategories: [
+        {
+          label: "All food",
+          category: "all_food",
+          color: "blue",
+          colorIntensity: 300,
+          emitions: [
+            {
+              totalCarbonEmited: 3.2,
+              name: "all food",
+            },
+          ],
+        },
+      ],
     },
   ];
   await addClimateChangeData(climateCategory);
@@ -74,12 +148,12 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
 test("Check default footprint", async (t) => {
   const footprint = Selector("#footprint");
   await t.expect(footprint.textContent).contains("Things you buy(3.2 Tons)");
-  await t.expect(footprint.textContent).contains("Transport(2.4 Tons)");
-  await t.expect(footprint.textContent).contains("Energy(2 Tons)");
+  await t.expect(footprint.textContent).contains("Transport(3.8 Tons)");
+  await t.expect(footprint.textContent).contains("Energy(3.2 Tons)");
   await t
     .expect(footprint.textContent)
-    .contains("Schools and hospitals(1.1 Tons)");
-  await t.expect(footprint.textContent).contains("Food(1.9 Tons)");
+    .contains("Schools and hospitals(3.2 Tons)");
+  await t.expect(footprint.textContent).contains("Food(3.2 Tons)");
 });
 
 test("Clicking on a category opens up the sub category footprint", async (t) => {
@@ -95,5 +169,5 @@ test("The amount of C02 equiv under the footprint is correct", async (t) => {
   const footprint = Selector("#footprint-footer");
   await t
     .expect(footprint.textContent)
-    .contains("Total 10.6 Tons of CO2 equivalent");
+    .contains("Total 16.6 Tons of CO2 equivalent");
 });

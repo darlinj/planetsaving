@@ -25,10 +25,26 @@ export const clearClimateData = async () => {
     gql`
       mutation {
         clearClimateData
+        clearEmitions
       }
     `
   );
   await new Promise((r) => setTimeout(r, 2000));
+};
+
+const addEmitionsRecord = async (emitions, categoryId) => {
+  emitions.forEach(async (emition) => {
+    const query = await sendQuery(gql`mutation {
+        addEmition(
+            name: "${emition.name}" 
+            categoryId: ${categoryId} 
+            totalCarbonEmited: ${emition.totalCarbonEmited}
+            ) {
+                id
+                totalCarbonEmited
+            }
+        }`);
+  });
 };
 
 export const addClimateChangeRecord = async (data, parentId = null) => {
@@ -36,7 +52,6 @@ export const addClimateChangeRecord = async (data, parentId = null) => {
         addClimateChangeData(
           label: "${data.label}"
           category: "${data.category}"
-          amount: ${data.amount}
           parentId: ${parentId}
           color: "${data.color}"
           colorIntensity: ${data.colorIntensity}
@@ -45,6 +60,9 @@ export const addClimateChangeRecord = async (data, parentId = null) => {
             label
           }
         }`);
+  if (data.emitions) {
+    await addEmitionsRecord(data.emitions, query.addClimateChangeData.id);
+  }
   return query.addClimateChangeData;
 };
 

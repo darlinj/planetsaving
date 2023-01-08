@@ -118,7 +118,8 @@ docker run -it --rm --name e2etests -v ${PWD}:/app --entrypoint "" testcafe/test
 # Running Sequelize commands in a REPL
 
 ```
-npx sequelize-tinker
+npm -g install sequelize-tinker
+sequelize-tinker
 ```
 
 then require your models and off you go

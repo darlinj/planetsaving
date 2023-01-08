@@ -23,16 +23,26 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
     category: "eatables",
     label: "Eatables",
     color: "red",
-    amount: 4,
     colorIntensity: 400,
+    emitions: [
+      {
+        totalCarbonEmited: 1,
+        name: "Some emition",
+      },
+    ],
   });
   const category = await addClimateChangeRecord(
     {
       category: "food",
       label: "Food",
       color: "red",
-      amount: 4,
       colorIntensity: 400,
+      emitions: [
+        {
+          totalCarbonEmited: 1,
+          name: "Some emition",
+        },
+      ],
     },
     parentCategory.id
   );
@@ -40,8 +50,13 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
     category: "drink",
     label: "Drink",
     color: "blue",
-    amount: 4,
     colorIntensity: 400,
+    emitions: [
+      {
+        totalCarbonEmited: 1,
+        name: "Some emition",
+      },
+    ],
   });
   const actions = [
     {

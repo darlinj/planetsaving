@@ -43,7 +43,7 @@ class ClimateDatasource extends DataSource {
   }
 
   async sumEmitionsForChildCategories(id) {
-    const result = await Category.findByPk(1, {
+    const result = await Category.findByPk(id, {
       raw: true,
       attributes: {
         include: [
