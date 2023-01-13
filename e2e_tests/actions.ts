@@ -28,7 +28,7 @@ test("Check default actions list", async (t) => {
 });
 
 test("Clicking on a category shows the actions associated with that category", async (t) => {
-  const category = Selector("#eatables");
+  const category = Selector("#energy");
   await t.click(category);
   const actionList = Selector("#actions");
   await t
