@@ -7,6 +7,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.addColumn("Categories", "amount");
+    await queryInterface.addColumn("Categories", "amount", Sequelize.FLOAT);
   },
 };
