@@ -1,11 +1,5 @@
 import {Selector, ClientFunction} from "testcafe";
-import {
-  clearClimateData,
-  clearActions,
-  addActions,
-  addClimateChangeRecord,
-  addClimateChangeData,
-} from "./utils/api_utils";
+import ClimateData from "../data/api_utils";
 
 const URL = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL
@@ -16,75 +10,7 @@ function sleep(ms) {
 }
 
 fixture`Footprint tests`.page(URL).before(async (t) => {
-  await clearActions();
-  await clearClimateData();
-
-  const parentCategory = await addClimateChangeRecord({
-    category: "eatables",
-    label: "Eatables",
-    color: "red",
-    colorIntensity: 400,
-    emitions: [
-      {
-        totalCarbonEmited: 1,
-        name: "Some emition",
-      },
-    ],
-  });
-  const category = await addClimateChangeRecord(
-    {
-      category: "food",
-      label: "Food",
-      color: "red",
-      colorIntensity: 400,
-      emitions: [
-        {
-          totalCarbonEmited: 1,
-          name: "Some emition",
-        },
-      ],
-    },
-    parentCategory.id
-  );
-  const categoryTwo = await addClimateChangeRecord({
-    category: "drink",
-    label: "Drink",
-    color: "blue",
-    colorIntensity: 400,
-    emitions: [
-      {
-        totalCarbonEmited: 1,
-        name: "Some emition",
-      },
-    ],
-  });
-  const actions = [
-    {
-      title: "Reduce your thermostat by one degree",
-      cost: 0,
-      carbonSaved: 0.3,
-      categoryId: category.id,
-    },
-    {
-      title: "Buy an electric car",
-      cost: 30000,
-      carbonSaved: 1.0,
-      categoryId: category.id,
-    },
-    {
-      title: "Stop buying air freighted food",
-      cost: 0,
-      carbonSaved: 0.3,
-      categoryId: category.id,
-    },
-    {
-      title: "Buy more second hand things",
-      cost: 0,
-      carbonSaved: 0.4,
-      categoryId: categoryTwo.id,
-    },
-  ];
-  await addActions(actions);
+  new ClimateData().setup();
 });
 
 test("Check default actions list", async (t) => {

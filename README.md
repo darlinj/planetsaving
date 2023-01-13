@@ -160,3 +160,11 @@ export NODE_ENV=test
 source pg.env
 psql -h ${RDSHOST} "user=db_user port=5432 dbname=postgres sslmode=verify-full sslrootcert=/Users/jd5/code/footprint/backend/config/eu-west-2-bundle.pem"
 ```
+
+# To reset the database
+
+set the URL of the environment you are trying to hit **export API_URL=http://blah** then:
+
+```
+npx ts-node ./data/reset_database.ts
+```
