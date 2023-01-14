@@ -14,14 +14,14 @@ const actions = [
   {
     title: "Stop buying air freighted food",
     cost: 0,
-    carbonSaved: 0.3,
-    category: "all_food",
+    carbonSaved: 0.2,
+    category: "food_transport",
   },
   {
     title: "Buy more second hand things",
     cost: 0,
     carbonSaved: 0.4,
-    category: "import",
+    category: "all_misc",
   },
 ];
 
