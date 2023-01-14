@@ -111,8 +111,9 @@ class ClimateData {
   async setup() {
     await this.clearClimateData();
     const res = await this.addClimateChangeData(climateData);
+    await this.addActions(actions);
+    // await new Promise((r) => setTimeout(r, 2000));
     console.log("createdRecords", this.createdRecords);
-    this.addActions(actions);
   }
 }
 
