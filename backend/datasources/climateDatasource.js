@@ -44,18 +44,6 @@ class ClimateDatasource extends DataSource {
 
   async sumEmitionsForChildCategories(id) {
     const result = await Category.findByPk(id, {
-      raw: true,
-      attributes: {
-        include: [
-          [
-            Category.sequelize.fn(
-              "sum",
-              Category.sequelize.col("children.emitions.totalCarbonEmited")
-            ),
-            "amount",
-          ],
-        ],
-      },
       include: [
         {
           model: Category,
@@ -64,7 +52,15 @@ class ClimateDatasource extends DataSource {
         },
       ],
     });
-    const amount = result ? result.amount : null;
+    const amount = result.children.reduce(
+      (total, c) =>
+        total +
+        c.emitions.reduce(
+          (subtotal, emition) => subtotal + emition.totalCarbonEmited,
+          0
+        ),
+      0
+    );
     return amount;
   }
 
