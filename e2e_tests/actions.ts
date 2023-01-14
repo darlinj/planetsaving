@@ -5,12 +5,9 @@ const URL = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL
   : "http://localhost:3000/";
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 fixture`Footprint tests`.page(URL).before(async (t) => {
   new ClimateData().setup();
+  await new Promise((r) => setTimeout(r, 2000));
 });
 
 test("Check default actions list", async (t) => {

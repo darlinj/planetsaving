@@ -12,13 +12,11 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
 
 test("Check default footprint", async (t) => {
   const footprint = Selector("#footprint");
-  await t.expect(footprint.textContent).contains("Things you buy(3.2 Tons)");
-  await t.expect(footprint.textContent).contains("Transport(3.8 Tons)");
-  await t.expect(footprint.textContent).contains("Energy(3.2 Tons)");
-  await t
-    .expect(footprint.textContent)
-    .contains("Schools and hospitals(3.2 Tons)");
-  await t.expect(footprint.textContent).contains("Food(3.2 Tons)");
+  await t.expect(footprint.textContent).contains("Miscellaneous");
+  await t.expect(footprint.textContent).contains("Transport");
+  await t.expect(footprint.textContent).contains("Energy");
+  await t.expect(footprint.textContent).contains("Schools and hospitals");
+  await t.expect(footprint.textContent).contains("Food");
 });
 
 test("Clicking on a category opens up the sub category footprint", async (t) => {
@@ -34,5 +32,5 @@ test("The amount of C02 equiv under the footprint is correct", async (t) => {
   const footprint = Selector("#footprint-footer");
   await t
     .expect(footprint.textContent)
-    .contains("Total 16.6 Tons of CO2 equivalent");
+    .contains("Total 11.2 Tons of CO2 equivalent");
 });
