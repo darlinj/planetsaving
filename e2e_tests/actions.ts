@@ -8,7 +8,7 @@ const URL = process.env.FRONTEND_URL
 let didSetup = false;
 fixture`Footprint tests`.page(URL).before(async (t) => {
   if (!didSetup) {
-    new ClimateData().setup();
+    await new ClimateData().setup();
     didSetup = true;
   }
 });
