@@ -47,12 +47,13 @@ class ClimateData {
     });
   }
 
-  addActions(actionList: any) {
-    actionList.forEach((action: any) => {
-      const category = this.createdRecords.filter(
-        (cat: any) => cat.category == action.category
-      )[0];
-      this.sendQuery(gql`mutation {
+  async addActions(actionList: any) {
+    return await Promise.all(
+      actionList.map((action: any) => {
+        const category = this.createdRecords.filter(
+          (cat: any) => cat.category == action.category
+        )[0];
+        this.sendQuery(gql`mutation {
           addAction(
             title: "${action.title}",
             cost: ${action.cost},
@@ -64,7 +65,8 @@ class ClimateData {
               title
             }
           }`);
-    });
+      })
+    );
   }
 
   addCategory(category: any, parentId: string | null) {
