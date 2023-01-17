@@ -21,6 +21,7 @@ class ClimateDatasource extends DataSource {
             },
           },
         ],
+        order: [["colorIntensity", "ASC"]],
       });
     }
 

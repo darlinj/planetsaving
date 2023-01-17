@@ -97,6 +97,40 @@ const Footprint = () => {
     );
   };
 
+  const StripeLabel = ({
+    height,
+    stripe,
+    stripeOffset,
+  }: {
+    height: number;
+    stripe: ClimateData;
+    stripeOffset: number;
+  }) => {
+    const midStripe = stripeOffset + height / 2;
+    if (height < 20) {
+      return <div></div>;
+    }
+    if (height < 45) {
+      return (
+        <>
+          <text x="0" y={midStripe} fill="black">
+            {stripe.label} ({stripe.amount.toFixed(2)} Tons)
+          </text>{" "}
+        </>
+      );
+    }
+    return (
+      <>
+        <text x="0" y={midStripe} fill="black">
+          {stripe.label}
+        </text>
+        <text x="0" y={midStripe + 20} fill="black">
+          ({stripe.amount.toFixed(2)} Tons)
+        </text>{" "}
+      </>
+    );
+  };
+
   return (
     <>
       <Typography variant="h4" component="div" gutterBottom align="center">
@@ -111,7 +145,6 @@ const Footprint = () => {
           {data.map((stripe, index) => {
             const stripeHeight = (stripe.amount / totalAmount) * footHeight;
             stripeOffset += lastStripeHeight;
-            const midStripe = stripeOffset + stripeHeight / 2;
             lastStripeHeight = stripeHeight;
             return (
               <g key={index}>
@@ -120,12 +153,11 @@ const Footprint = () => {
                   stripeOffset={stripeOffset}
                   stripeHeight={stripeHeight}
                 />
-                <text x="0" y={midStripe} fill="black">
-                  {stripe.label}
-                </text>
-                <text x="0" y={midStripe + 20} fill="black">
-                  ({stripe.amount.toFixed(2)} Tons)
-                </text>
+                <StripeLabel
+                  height={stripeHeight}
+                  stripe={stripe}
+                  stripeOffset={stripeOffset}
+                />
               </g>
             );
           })}
