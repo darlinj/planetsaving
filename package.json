@@ -12,7 +12,8 @@
     "test:e2e": "testcafe chrome ./e2e_tests -e",
     "test:backend": "cd backend && NODE_ENV=development jest --watchAll=false",
     "test:frontend": "cd frontend && npm test -- --watchAll=false",
-    "against_test": "NODE_ENV=test source pg.env && npm start"
+    "against_test": "NODE_ENV=test source pg.env && npm start",
+    "reset_database": "npx ts-node ./data/reset_database.ts"
   },
   "repository": {
     "type": "git",
