@@ -12,9 +12,7 @@ test("renders the foot", () => {
   const mockUseFootprintData = useFootprintData as jest.MockedFunction<
     typeof useFootprintData
   >;
-  const climateData = [
-    {label: "Item 1", amount: 3, category: "food", subSection: null},
-  ];
+  const climateData = [{label: "Item 1", amount: 3.599, category: "food"}];
   mockUseFootprintData.mockImplementation(() => {
     return {
       status: "success",
@@ -24,8 +22,8 @@ test("renders the foot", () => {
     } as UseQueryResult<[ClimateData]>;
   });
   render(<Footprint />, {wrapper: MemoryRouter});
-  const linkElement = screen.getByText(/Item 1/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/Item 1/i)).toBeInTheDocument();
+  expect(screen.getByText("(3.60 Tons)")).toBeInTheDocument();
 });
 
 test("renders the loading message while loading is in progress", () => {
@@ -42,7 +40,7 @@ test("renders the loading message while loading is in progress", () => {
     return foo as UseQueryResult<[ClimateData]>;
   });
   render(<Footprint />);
-  const linkElement = screen.getByText(/Loading/i);
+  const linkElement = screen.getByRole("progressbar");
   expect(linkElement).toBeInTheDocument();
 });
 

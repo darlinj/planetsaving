@@ -3,15 +3,18 @@ import Box from "@mui/material/Box";
 import useFootprintData from "../api/useFootprintData";
 import {getCategoryColorArray} from "../categoryColorMap";
 import {Link, useParams} from "react-router-dom";
-import {useQueryClient} from "@tanstack/react-query";
-import {Typography} from "@mui/material";
+import {CircularProgress, Typography} from "@mui/material";
 import {ClimateData} from "../types";
 
 const Footprint = () => {
   const {category} = useParams();
   const {status, data, isLoading, isError, error} = useFootprintData(category);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <CircularProgress role="progressbar" />
+      </div>
+    );
   }
   if (isError && error instanceof Error) {
     return <div>{error.message}</div>;
@@ -121,7 +124,7 @@ const Footprint = () => {
                   {stripe.label}
                 </text>
                 <text x="0" y={midStripe + 20} fill="black">
-                  ({stripe.amount} Tons)
+                  ({stripe.amount.toFixed(2)} Tons)
                 </text>
               </g>
             );

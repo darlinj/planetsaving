@@ -1,5 +1,5 @@
 import React from "react";
-import {Paper, Typography} from "@mui/material";
+import {CircularProgress, Paper, Typography} from "@mui/material";
 import SuggestedActionCard from "./SuggestedActionCard";
 import useActionsList from "../api/useActionsList";
 import {useParams} from "react-router-dom";
@@ -8,7 +8,11 @@ const ActionsList = () => {
   const {category} = useParams();
   const {data, isLoading} = useActionsList(category);
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <CircularProgress />
+      </div>
+    );
   }
   if (!data) {
     return <div>No Actions</div>;

@@ -40,8 +40,7 @@ test("renders the loading message", () => {
     } as UseQueryResult<[ActionData]>;
   });
   render(<ActionList />);
-  const element = screen.getByText(/Loading.../i);
-  expect(element).toBeInTheDocument();
+  expect(screen.getByRole("progressbar")).toBeInTheDocument();
 });
 
 test("renders the actions", () => {
