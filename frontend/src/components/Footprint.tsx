@@ -41,6 +41,7 @@ const Footprint = () => {
         variant="h4"
         component="div"
         gutterBottom
+        align="center"
       >
         Total {totalCo2} Tons of CO2 equivalent
       </Typography>
