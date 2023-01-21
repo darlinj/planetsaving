@@ -14,7 +14,7 @@ fixture`Footprint tests`.page(URL).before(async (t) => {
 });
 
 test("Check default actions list", async (t) => {
-  const actionsList = Selector("#actions");
+  const actionsList = Selector("#main-content");
   await t
     .expect(actionsList.textContent)
     .contains("Reduce your thermostat by one degree");
@@ -30,7 +30,7 @@ test("Check default actions list", async (t) => {
 test("Clicking on a category shows the actions associated with that category", async (t) => {
   const category = Selector("#energy");
   await t.click(category);
-  const actionList = Selector("#actions");
+  const actionList = Selector("#main-content");
   await t
     .expect(actionList.textContent)
     .contains("Reduce your thermostat by one degree");

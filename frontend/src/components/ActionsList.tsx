@@ -1,8 +1,9 @@
 import React from "react";
-import {CircularProgress, Paper, Typography} from "@mui/material";
+import {CircularProgress, Grid, Paper, Typography} from "@mui/material";
 import SuggestedActionCard from "./SuggestedActionCard";
 import useActionsList from "../api/useActionsList";
 import {useParams} from "react-router-dom";
+import {ActionData} from "../types";
 
 const ActionsList = () => {
   const {category} = useParams();
@@ -18,21 +19,11 @@ const ActionsList = () => {
     return <div>No Actions</div>;
   }
   return (
-    <Paper
-      sx={{
-        paddingLeft: 2,
-        paddingRight: 2,
-        paddingBottom: 2,
-      }}
-      id="actions"
-    >
-      <Typography variant="h4" component="div" gutterBottom align="center">
-        Top actions you can take
-      </Typography>
-      {data.map((action) => {
+    <>
+      {data.map((action: ActionData) => {
         return <SuggestedActionCard action={action} key={action.id} />;
       })}
-    </Paper>
+    </>
   );
 };
 export default ActionsList;
