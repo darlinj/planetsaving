@@ -4,7 +4,7 @@ import ActionList from "./ActionsList";
 import useActionsList from "../api/useActionsList";
 import {UseQueryResult} from "@tanstack/react-query";
 import {ActionData} from "../types";
-import {BrowserRouter, MemoryRouter} from "react-router-dom";
+import {MemoryRouter} from "react-router-dom";
 
 jest.mock("../api/useActionsList");
 

@@ -31,6 +31,13 @@ test("Clicking on a category opens up the sub category footprint", async (t) => 
   await t.expect(footprint.textContent).contains("Train");
 });
 
+test("Clicking on a category opens up the right side panel", async (t) => {
+  const transportLink = Selector("#transport");
+  await t.click(transportLink);
+  const footprint = Selector("#detail");
+  await t.expect(footprint.textContent).contains("Transport");
+});
+
 test("The amount of C02 equiv under the footprint is correct", async (t) => {
   const footprint = Selector("#footprint-footer");
   await t
