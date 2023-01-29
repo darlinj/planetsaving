@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=development jest --watchAll",
+    "test": "NODE_ENV=development jest --watchAll --runInBand",
     "start": "nodemon api/index.js",
-    "ci": "NODE_ENV=test jest --watchAll"
+    "ci": "NODE_ENV=test jest --watchAll --runInBand"
   },
   "keywords": [],
   "author": "",
