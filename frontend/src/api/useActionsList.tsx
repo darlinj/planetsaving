@@ -24,7 +24,6 @@ function useActionsList(parentCategory: string | undefined) {
       const data = await request(backendUrl, getActionQuery, {
         parentCategory: parentCategory,
       });
-      console.log(data);
       return data.getActionsList;
     }
   );

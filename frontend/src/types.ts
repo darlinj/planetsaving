@@ -8,9 +8,10 @@ export interface ClimateData {
 }
 
 export interface CategoryData {
-  category: "energy" | "food" | "transport" | "government" | "purchasing";
+  category: string;
   label: string;
   color: string;
+  amount: number;
   colorIntensity: number;
 }
 

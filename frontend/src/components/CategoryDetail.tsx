@@ -10,7 +10,10 @@ const CategoryDetail = ({category}: {category: string}) => {
       </div>
     );
   }
-  return <div>{data?.label}</div>;
+  if (!data) {
+    return <div>No category data found</div>;
+  }
+  return <div>{data.label}</div>;
 };
 
 export default CategoryDetail;
