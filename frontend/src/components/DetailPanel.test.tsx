@@ -1,37 +1,53 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import DetailPanel from "./DetailPanel";
-// import useCategoryDetail from "../api/useCategoryDetail";
-// import {UseQueryResult} from "@tanstack/react-query";
-// import {ClimateData} from "../types";
-import {MemoryRouter} from "react-router-dom";
+import useCategoryData from "../api/useCategoryData";
+import {UseQueryResult} from "@tanstack/react-query";
+import {CategoryData} from "../types";
+import {MemoryRouter, useParams} from "react-router-dom";
 
-// jest.mock("../api/useCategoryDetail");
+jest.mock("../api/useCategoryData");
 
-test("By default it renders the top level description", () => {
-  render(<DetailPanel />, {wrapper: MemoryRouter});
-  expect(screen.getByText(/What it means/i)).toBeInTheDocument();
+jest.mock("react-router-dom", () => {
+  return {
+    ...jest.requireActual("react-router-dom"),
+    useParams: jest.fn(),
+  };
 });
 
-test("renders the detail page if the category is supplied", () => {
-  jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"),
-    useParams: () => ({
-      category: "someCategory",
-    }),
-  }));
-  //   const mockUseCategoryDetail = useCategoryDetail as jest.MockedFunction<
-  //     typeof useCategoryDetail
-  //   >;
-  //   const categoryDetail = [{label: "Item 1"}];
-  //   mockUseCategoryDetail.mockImplementation(() => {
-  //     return {
-  //       status: "success",
-  //       data: categoryDetail,
-  //       isFetching: false,
-  //       isLoading: false,
-  //     } as UseQueryResult<[CategoryDetail]>;
-  //   });
-  render(<DetailPanel />, {wrapper: MemoryRouter});
-  expect(screen.findByText(/someCategory/i)).toBeInTheDocument();
+const mockUseParams = useParams as jest.MockedFunction<typeof useParams>;
+
+describe("the detail panel", () => {
+  test("By default it renders the top level description", () => {
+    mockUseParams.mockImplementationOnce(() => {
+      return {};
+    });
+    render(<DetailPanel />, {wrapper: MemoryRouter});
+    expect(screen.getByText(/What it means/i)).toBeInTheDocument();
+  });
+
+  test("renders the detail page if the category is supplied", () => {
+    mockUseParams.mockImplementationOnce(() => {
+      return {category: "category1"};
+    });
+    const mockUseCategoryDetail = useCategoryData as jest.MockedFunction<
+      typeof useCategoryData
+    >;
+    const categoryDetail: CategoryData = {
+      label: "Item 1",
+      category: "food",
+      color: "red",
+      colorIntensity: 500,
+    };
+    mockUseCategoryDetail.mockImplementation(() => {
+      return {
+        status: "success",
+        data: categoryDetail,
+        isFetching: false,
+        isLoading: false,
+      } as UseQueryResult<CategoryData>;
+    });
+    render(<DetailPanel />, {wrapper: MemoryRouter});
+    expect(screen.getByText(/Item 1/i)).toBeInTheDocument();
+  });
 });

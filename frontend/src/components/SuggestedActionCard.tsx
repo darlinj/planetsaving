@@ -21,7 +21,7 @@ const SuggestedActionCard = ({action}: {action: ActionData}) => {
     action.category ? action.category.color : action.category
   );
   return (
-    <Grid xs={12} sm={4}>
+    <Grid item={true} xs={12} sm={4}>
       <Card
         sx={{
           borderRadius: "16px",

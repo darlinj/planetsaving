@@ -7,6 +7,13 @@ export interface ClimateData {
   subCategories?: ClimateData[] | null;
 }
 
+export interface CategoryData {
+  category: "energy" | "food" | "transport" | "government" | "purchasing";
+  label: string;
+  color: string;
+  colorIntensity: number;
+}
+
 export interface ActionData {
   id: number;
   title: string;
