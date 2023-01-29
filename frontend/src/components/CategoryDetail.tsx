@@ -7,6 +7,7 @@ const CategoryDetail = ({category}: {category: string}) => {
     return (
       <div>
         <CircularProgress />
+        Loading...
       </div>
     );
   }
