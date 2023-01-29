@@ -77,6 +77,7 @@ class ClimateData {
             category: "${category.category}"
             parentId: ${parentId}
             color: "${category.color}"
+            description: "${category.description}"
             colorIntensity: ${category.colorIntensity}
             ) {
               id

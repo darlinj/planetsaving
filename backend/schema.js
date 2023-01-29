@@ -23,6 +23,7 @@ module.exports = gql`
       parentId: Int
       color: String
       colorIntensity: Int
+      description: String
     ): ClimateData
 
     addEmition(
@@ -40,6 +41,7 @@ module.exports = gql`
     parentId: Int
     color: String
     colorIntensity: Int
+    description: String
   }
 
   type ClimateData {
