@@ -4,16 +4,12 @@ import {CategoryData} from "../types";
 import backendUrl from "./backend_url";
 
 const getCategoryDataQuery = gql`
-  query GetCategoryData($parentCategory: String) {
-    getCategoryData(parentCategory: $parentCategory) {
-      amount
+  query GetCategoryData($category: String) {
+    getCategoryData(category: $category) {
       category
       label
       color
       colorIntensity
-      subCategories {
-        label
-      }
     }
   }
 `;

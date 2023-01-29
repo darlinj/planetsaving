@@ -13,6 +13,8 @@ const addClimateChangeData = async (args = {}) => {
                 ? args.category
                 : ["food", "government"][Math.floor(Math.random() * 2)]
             }",
+            color: "${args.color ? args.color : faker.color.human()}"
+            colorIntensity: ${args.colorIntensity ? args.colorIntensity : 666}
             parentId: ${args.parentId ? args.parentId : null}
           )
        {
@@ -36,17 +38,28 @@ describe("the category API", () => {
   });
 
   test("It returns the expected category data", async () => {
-    addClimateChangeData({label: "Flying"});
-    addClimateChangeData();
+    await addClimateChangeData({
+      category: "flying",
+      label: "Flying",
+      color: "red",
+      colorIntensity: 500,
+    });
+    await addClimateChangeData();
     const result = await server.executeOperation({
-      query: `getCategoryData(category: "Flying") {
-        label
-        color
-        colorIntensity
+      query: `query GetCategoryData {
+        getCategoryData(category: "flying") {
+          category
+          color
+          colorIntensity
+          label
+        }
       }
       `,
     });
 
     expect(result.data.getCategoryData.label).toEqual("Flying");
+    expect(result.data.getCategoryData.color).toEqual("red");
+    expect(result.data.getCategoryData.colorIntensity).toEqual(500);
+    expect(result.data.getCategoryData.category).toEqual("flying");
   });
 });
