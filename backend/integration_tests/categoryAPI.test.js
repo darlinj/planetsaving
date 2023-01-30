@@ -16,6 +16,9 @@ const addClimateChangeData = async (args = {}) => {
             color: "${args.color ? args.color : faker.color.human()}"
             colorIntensity: ${args.colorIntensity ? args.colorIntensity : 666}
             parentId: ${args.parentId ? args.parentId : null}
+            description: "${
+              args.description ? args.description : "Some words of description"
+            }"
           )
        {
         id
@@ -43,6 +46,7 @@ describe("the category API", () => {
       label: "Flying",
       color: "red",
       colorIntensity: 500,
+      description: "Some description",
     });
     await addClimateChangeData();
     const result = await server.executeOperation({
@@ -52,6 +56,7 @@ describe("the category API", () => {
           color
           colorIntensity
           label
+          description
         }
       }
       `,
@@ -61,5 +66,34 @@ describe("the category API", () => {
     expect(result.data.getCategoryData.color).toEqual("red");
     expect(result.data.getCategoryData.colorIntensity).toEqual(500);
     expect(result.data.getCategoryData.category).toEqual("flying");
+    expect(result.data.getCategoryData.description).toEqual("Some description");
+  });
+
+  test("It returns the sub category data", async () => {
+    const parentId = await addClimateChangeData({
+      category: "findme",
+      label: "Food",
+    });
+    await addClimateChangeData({parentId, label: "Sub Food"});
+    await addClimateChangeData({parentId, label: "Sub Drink"});
+    await addClimateChangeData();
+    const result = await server.executeOperation({
+      query: `query GetCategoryData {
+        getCategoryData(category: "findme") {
+          category
+          children {
+            label
+          }
+        }
+      }
+      `,
+    });
+
+    expect(
+      result.data.getCategoryData.children.map((sub) => sub.label)
+    ).toContain("Sub Food");
+    expect(
+      result.data.getCategoryData.children.map((sub) => sub.label)
+    ).toContain("Sub Drink");
   });
 });

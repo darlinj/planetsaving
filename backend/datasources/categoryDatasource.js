@@ -9,6 +9,12 @@ class CategoryDatasource extends DataSource {
 
   async getCategoryData(args) {
     return Category.findOne({
+      include: [
+        {
+          model: Category,
+          as: "children",
+        },
+      ],
       where: {
         category: args.category,
       },

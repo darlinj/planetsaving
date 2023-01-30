@@ -42,6 +42,7 @@ module.exports = gql`
     color: String
     colorIntensity: Int
     description: String
+    children: [Category]
   }
 
   type ClimateData {
