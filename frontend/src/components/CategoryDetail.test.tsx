@@ -55,4 +55,41 @@ describe("the detail panel", () => {
     render(<CategoryDetail category="food" />);
     expect(screen.getByText(/Item 1/i)).toBeInTheDocument();
   });
+
+  test("renders the children of the category", () => {
+    const categoryDetail: CategoryData = {
+      label: "Item 1",
+      category: "food",
+      color: "red",
+      amount: 10,
+      colorIntensity: 500,
+      children: [
+        {
+          label: "Child Item 1",
+          category: "sub food",
+          color: "red",
+          amount: 5,
+          colorIntensity: 400,
+        },
+        {
+          label: "Child Item 2",
+          category: "sub drink",
+          color: "red",
+          amount: 5,
+          colorIntensity: 300,
+        },
+      ],
+    };
+    mockUseCategoryDetail.mockImplementation(() => {
+      return {
+        status: "success",
+        data: categoryDetail,
+        isFetching: false,
+        isLoading: false,
+      } as UseQueryResult<CategoryData>;
+    });
+    render(<CategoryDetail category="food" />);
+    expect(screen.getByText(/Child Item 1/i)).toBeInTheDocument();
+    expect(screen.getByText(/Child Item 2/i)).toBeInTheDocument();
+  });
 });

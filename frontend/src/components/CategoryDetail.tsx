@@ -14,7 +14,17 @@ const CategoryDetail = ({category}: {category: string}) => {
   if (!data) {
     return <div>No category data found</div>;
   }
-  return <div>{data.label}</div>;
+  return (
+    <div>
+      {data.label}
+      <ul>
+        {data.children &&
+          data.children.map((child) => {
+            return <li key={child.category}>{child.label}</li>;
+          })}
+      </ul>
+    </div>
+  );
 };
 
 export default CategoryDetail;

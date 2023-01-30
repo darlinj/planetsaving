@@ -10,6 +10,14 @@ const getCategoryDataQuery = gql`
       label
       color
       colorIntensity
+      description
+      children {
+        category
+        label
+        color
+        colorIntensity
+        description
+      }
     }
   }
 `;

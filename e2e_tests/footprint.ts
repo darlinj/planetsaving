@@ -31,6 +31,15 @@ test("Clicking on a category opens up the sub category footprint", async (t) => 
   await t.expect(footprint.textContent).contains("Train");
 });
 
+test("Clicking on a category opens up the detail for the sub category", async (t) => {
+  const transportLink = Selector("#transport");
+  await t.click(transportLink);
+  const footprint = Selector("#detail");
+  await t.expect(footprint.textContent).contains("Driving");
+  await t.expect(footprint.textContent).contains("Flying");
+  await t.expect(footprint.textContent).contains("Train");
+});
+
 test("Clicking on a category opens up the right side panel", async (t) => {
   const transportLink = Selector("#transport");
   await t.click(transportLink);
