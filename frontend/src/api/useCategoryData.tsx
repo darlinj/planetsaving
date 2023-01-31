@@ -23,7 +23,6 @@ const getCategoryDataQuery = gql`
 `;
 
 function useCategoryData(category: string | undefined) {
-  console.log("getting:", category);
   return useQuery<CategoryData>(["GetCategoryData", category], async () => {
     const data = await request(backendUrl, getCategoryDataQuery, {
       category: category,

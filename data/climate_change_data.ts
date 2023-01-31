@@ -164,7 +164,7 @@ const climateData = [
         color: "blue",
         colorIntensity: 100,
         description:
-          "Fertilizer is one of the worst food based C02 contributers due to the Haber bosch process which releases a lot of C02 and requires methane.  Buying organic produce reduces the CO2 emited",
+          "Fertilizer is one of the worst food based problems.  It releases a lot of C02 and requires methane.  Buying organic produce reduces the damage",
         emitions: [
           {
             totalCarbonEmited: 0.7,
@@ -178,7 +178,7 @@ const climateData = [
         color: "blue",
         colorIntensity: 200,
         description:
-          "Cows and sheep are the most C02 intensive animals to rear and they produce methane in their farts.  Maybe consider reducing the amount of red meat that you eat or even go veggie",
+          "Cows and sheep are the most damaging animals to rear.  Maybe consider reducing the amount of red meat that you eat or even go veggie",
         emitions: [
           {
             totalCarbonEmited: 0.4,
@@ -192,7 +192,7 @@ const climateData = [
         color: "blue",
         colorIntensity: 300,
         description:
-          "Generally the further your food is transported the worse it is for the climate.  Air freighted delicate foods like soft fruit from South America is terrible for the environment.  Try and eat local",
+          "Generally the further your food is transported the worse it is for the climate.  Air freighted delicate foods like soft fruit from South America are the worst offenders",
         emitions: [
           {
             totalCarbonEmited: 0.3,
@@ -205,12 +205,11 @@ const climateData = [
         category: "packaging",
         color: "blue",
         colorIntensity: 400,
-        description:
-          "This is simple, the less packaging the better.  Avoid food in lots of non recyclable packaging",
+        description: "This is simple, the less packaging the better.",
         emitions: [
           {
             totalCarbonEmited: 0.23,
-            name: "Fertilizer",
+            name: "Packaging",
           },
         ],
       },
@@ -233,8 +232,7 @@ const climateData = [
         category: "food_waste",
         color: "blue",
         colorIntensity: 600,
-        description:
-          "Throwing food away means that it rots and releases C02.  This also means all the other food related C02 emitions are greater because we need to make more food",
+        description: "Throwing food away means that it rots and releases C02.",
         emitions: [
           {
             totalCarbonEmited: 0.22,

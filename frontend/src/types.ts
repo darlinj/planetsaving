@@ -13,6 +13,7 @@ export interface CategoryData {
   color: string;
   amount: number;
   colorIntensity: number;
+  description: string;
   children?: CategoryData[];
 }
 
