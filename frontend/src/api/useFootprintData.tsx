@@ -11,6 +11,7 @@ const getClimateDataQuery = gql`
       label
       color
       colorIntensity
+      description
       subCategories {
         label
       }

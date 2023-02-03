@@ -15,6 +15,7 @@ import TrainIcon from "@mui/icons-material/Train";
 import {grey} from "@mui/material/colors";
 import {getCategoryColorArray} from "../categoryColorMap";
 import {GasMeter} from "@mui/icons-material";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 
 const CategoryIcon = ({category}: {category: CategoryData}) => {
   const color = getCategoryColorArray(category.color)[category.colorIntensity];
@@ -40,8 +41,14 @@ const CategoryIcon = ({category}: {category: CategoryData}) => {
     case "food_other": {
       return <MiscellaneousServicesIcon style={{color}} />;
     }
+    case "misc": {
+      return <MiscellaneousServicesIcon style={{color}} />;
+    }
     case "all_misc": {
       return <MiscellaneousServicesIcon style={{color}} />;
+    }
+    case "transport": {
+      return <DirectionsCarIcon style={{color}} />;
     }
     case "driving": {
       return <DirectionsCarIcon style={{color}} />;
@@ -58,11 +65,20 @@ const CategoryIcon = ({category}: {category: CategoryData}) => {
     case "gas": {
       return <GasMeterIcon style={{color}} />;
     }
+    case "energy": {
+      return <ElectricBoltIcon style={{color}} />;
+    }
     case "electricity": {
       return <ElectricBoltIcon style={{color}} />;
     }
+    case "government": {
+      return <AssuredWorkloadIcon style={{color}} />;
+    }
     case "all_gov": {
-      return <ElectricBoltIcon style={{color}} />;
+      return <AssuredWorkloadIcon style={{color}} />;
+    }
+    case "food": {
+      return <RestaurantIcon style={{color}} />;
     }
   }
   return <MiscellaneousServicesIcon style={{color: grey[500]}} />;

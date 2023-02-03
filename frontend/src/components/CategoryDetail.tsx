@@ -1,5 +1,4 @@
 import React from "react";
-import useCategoryData from "../api/useCategoryData";
 import {
   CircularProgress,
   List,
@@ -8,9 +7,10 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
+  Link,
   Typography,
 } from "@mui/material";
-import {orange} from "@mui/material/colors";
+import useCategoryData from "../api/useCategoryData";
 import CategoryIcon from "./CategoryIcon";
 const CategoryDetail = ({category}: {category: string}) => {
   const {data, isLoading} = useCategoryData(category);
@@ -36,6 +36,12 @@ const CategoryDetail = ({category}: {category: string}) => {
         {data.children &&
           data.children.map((child) => {
             return (
+              //   <Link
+              //     href={`/f/${child.category}`}
+              //     id={child.category}
+              //     underline="none"
+              //     color="inherit"
+              //   >
               <ListItem disablePadding key={child.category}>
                 <ListItemButton>
                   <ListItemIcon>
@@ -51,6 +57,7 @@ const CategoryDetail = ({category}: {category: string}) => {
                   />
                 </ListItemButton>
               </ListItem>
+              //   </Link>
             );
           })}
       </List>

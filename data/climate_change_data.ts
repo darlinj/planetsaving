@@ -4,8 +4,7 @@ const climateData = [
     category: "misc",
     color: "orange",
     colorIntensity: 500,
-    description:
-      "Everything else that causes carbon to be emited.  This includes everything from the things you buy to your leisure activities",
+    description: "Everything else. From things you buy to leisure activities",
     subCategories: [
       {
         label: "All Miscellaneous",
@@ -28,8 +27,7 @@ const climateData = [
     category: "transport",
     color: "red",
     colorIntensity: 500,
-    description:
-      "The climate cost of getting from A to B including planes, trains and automobiles",
+    description: "Planes, trains and automobiles etc.",
     subCategories: [
       {
         label: "Driving",
@@ -132,7 +130,7 @@ const climateData = [
     color: "green",
     colorIntensity: 500,
     description:
-      "This category represents the emitions from everything that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
+      "All government activities including schools, hospitals, the army etc",
     subCategories: [
       {
         label: "All government activity",

@@ -53,6 +53,7 @@ module.exports = gql`
     parentId: Int
     color: String
     colorIntensity: Int
+    description: String
     subCategories: [ClimateData]
   }
 
