@@ -72,15 +72,20 @@ const Footprint = () => {
   }) => {
     if (stripe.subCategories && stripe.subCategories.length === 0) {
       return (
-        <rect
-          clipPath="url('#foot')"
-          width="500"
-          y={stripeOffset}
-          height={stripeHeight}
-          style={{
-            fill: getCategoryColorArray(stripe.color)[stripe.colorIntensity],
-          }}
-        />
+        <Link
+          to={`/category-detail/${stripe.category}`}
+          id={`${stripe.category}-footprint`}
+        >
+          <rect
+            clipPath="url('#foot')"
+            width="500"
+            y={stripeOffset}
+            height={stripeHeight}
+            style={{
+              fill: getCategoryColorArray(stripe.color)[stripe.colorIntensity],
+            }}
+          />
+        </Link>
       );
     }
     return (
