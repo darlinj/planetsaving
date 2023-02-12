@@ -10,7 +10,7 @@
     "test": "testcafe chrome ./e2e_tests -e",
     "test_all": "run-s test:backend test:frontend test:e2e",
     "test:e2e": "testcafe chrome ./e2e_tests -e",
-    "test:backend": "cd backend && NODE_ENV=development jest --watchAll=false",
+    "test:backend": "cd backend && NODE_ENV=development jest --watchAll=false --runInBand",
     "test:frontend": "cd frontend && npm test -- --watchAll=false",
     "against_test": "NODE_ENV=test source pg.env && npm start",
     "reset_database": "npx ts-node ./data/reset_database.ts"
