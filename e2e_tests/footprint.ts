@@ -48,6 +48,24 @@ test("Clicking on a category opens up the right side panel", async (t) => {
   await t.expect(footprint.textContent).contains("Flying");
 });
 
+test("Clicking on a child category shows the detail for that child category in the detail panel", async (t) => {
+  const transportLink = Selector("#transport");
+  await t.click(transportLink);
+  const drivingLink = Selector("#driving-footprint");
+  await t.click(drivingLink);
+  const footprint = Selector("#detail");
+  await t.expect(footprint.textContent).contains("Driving detail");
+});
+
+test("Clicking on a child category shows the detail for that child category in the detail panel", async (t) => {
+  const transportLink = Selector("#transport");
+  await t.click(transportLink);
+  const drivingLink = Selector("#driving-detail");
+  await t.click(drivingLink);
+  const footprint = Selector("#detail");
+  await t.expect(footprint.textContent).contains("Driving detail");
+});
+
 test("The amount of C02 equiv under the footprint is correct", async (t) => {
   const footprint = Selector("#footprint-footer");
   await t
