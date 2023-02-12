@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "start_mocked": "REACT_APP_ENABLE_MSW=true react-scripts start",
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "react-scripts  start",
     "integration": "testcafe chrome e2e_tests",
     "test-ci": "npm run test -- --collectCoverage --ci --reporters=default --reporters=jest-junit --watchAll=false"
   },

@@ -55,13 +55,13 @@ const TopLevelDetailSection = () => {
         {data &&
           data.map((child) => {
             return (
-              <Link
-                href={`/f/${child.category}`}
-                id={child.category}
-                underline="none"
-                color="inherit"
-              >
-                <ListItem disablePadding key={child.category}>
+              <ListItem disablePadding key={child.category}>
+                <Link
+                  href={`/f/${child.category}`}
+                  id={child.category}
+                  underline="none"
+                  color="inherit"
+                >
                   <ListItemButton>
                     <ListItemIcon>
                       <CategoryIcon category={child} />
@@ -75,8 +75,8 @@ const TopLevelDetailSection = () => {
                       }
                     />
                   </ListItemButton>
-                </ListItem>
-              </Link>
+                </Link>
+              </ListItem>
             );
           })}
       </List>

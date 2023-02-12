@@ -7,12 +7,12 @@ jest.mock("./components/ActionsList", () => () => {
   return <div data-testid="actions_list" />;
 });
 
-jest.mock("./components/Footprint", () => () => {
-  return <div data-testid="footprint" />;
+jest.mock("./components/MainContent", () => () => {
+  return <div data-testid="main-content">Main Content</div>;
 });
 
 test("renders the front page", () => {
   render(<App />, {wrapper: BrowserRouter});
-  const linkElement = screen.getByText(/planet saving expert/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/planet saving expert/i)).toBeInTheDocument();
+  expect(screen.getByText(/Main content/i)).toBeInTheDocument();
 });

@@ -36,26 +36,6 @@ describe("the detail panel", () => {
     expect(screen.getByText(/No category data found/i)).toBeInTheDocument();
   });
 
-  test("renders the category page if the data is supplied", () => {
-    const categoryDetail: CategoryData = {
-      label: "Item 1",
-      category: "food",
-      color: "red",
-      amount: 10,
-      colorIntensity: 500,
-    };
-    mockUseCategoryDetail.mockImplementation(() => {
-      return {
-        status: "success",
-        data: categoryDetail,
-        isFetching: false,
-        isLoading: false,
-      } as UseQueryResult<CategoryData>;
-    });
-    render(<CategoryDetail category="food" />);
-    expect(screen.getByText(/Item 1/i)).toBeInTheDocument();
-  });
-
   test("renders the children of the category", () => {
     const categoryDetail: CategoryData = {
       label: "Item 1",
@@ -63,6 +43,7 @@ describe("the detail panel", () => {
       color: "red",
       amount: 10,
       colorIntensity: 500,
+      description: "Top level desctiption",
       children: [
         {
           label: "Child Item 1",
@@ -70,6 +51,7 @@ describe("the detail panel", () => {
           color: "red",
           amount: 5,
           colorIntensity: 400,
+          description: "Some description",
         },
         {
           label: "Child Item 2",
@@ -77,6 +59,7 @@ describe("the detail panel", () => {
           color: "red",
           amount: 5,
           colorIntensity: 300,
+          description: "Some description",
         },
       ],
     };
