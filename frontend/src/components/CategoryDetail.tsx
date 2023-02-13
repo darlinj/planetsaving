@@ -36,13 +36,13 @@ const CategoryDetail = ({category}: {category: string}) => {
         {data.children &&
           data.children.map((child) => {
             return (
-              <Link
-                href={`/category-detail/${child.category}`}
-                id={`${child.category}-detail`}
-                underline="none"
-                color="inherit"
-              >
-                <ListItem disablePadding key={child.category}>
+              <ListItem disablePadding key={child.category}>
+                <Link
+                  href={`/f/${data.category}/${child.category}`}
+                  id={`${child.category}-detail`}
+                  underline="none"
+                  color="inherit"
+                >
                   <ListItemButton>
                     <ListItemIcon>
                       <CategoryIcon category={child} />
@@ -56,8 +56,8 @@ const CategoryDetail = ({category}: {category: string}) => {
                       }
                     />
                   </ListItemButton>
-                </ListItem>
-              </Link>
+                </Link>
+              </ListItem>
             );
           })}
       </List>

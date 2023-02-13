@@ -18,6 +18,10 @@ jest.mock("./CategoryDetail", () => () => {
   return <div>Category Level Component is here</div>;
 });
 
+jest.mock("./SubCategoryDetail", () => () => {
+  return <div>Sub Category Level Component is here</div>;
+});
+
 const mockUseParams = useParams as jest.MockedFunction<typeof useParams>;
 
 describe("the detail panel", () => {
@@ -28,6 +32,16 @@ describe("the detail panel", () => {
     render(<DetailPanel />, {wrapper: MemoryRouter});
     expect(
       screen.getByText(/Top Level Component is here/i)
+    ).toBeInTheDocument();
+  });
+
+  test("renders the deeper detail page if the sub category is supplied", () => {
+    mockUseParams.mockImplementation(() => {
+      return {subcategory: "subcategory1"};
+    });
+    render(<DetailPanel />, {wrapper: MemoryRouter});
+    expect(
+      screen.getByText(/Sub Category Level Component is here/i)
     ).toBeInTheDocument();
   });
 

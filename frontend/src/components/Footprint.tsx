@@ -73,7 +73,7 @@ const Footprint = () => {
     if (stripe.subCategories && stripe.subCategories.length === 0) {
       return (
         <Link
-          to={`/category-detail/${stripe.category}`}
+          to={`/f/${category}/${stripe.category}`}
           id={`${stripe.category}-footprint`}
         >
           <rect
