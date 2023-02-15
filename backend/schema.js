@@ -24,6 +24,7 @@ module.exports = gql`
       color: String
       colorIntensity: Int
       description: String
+      detailed_description: String
     ): ClimateData
 
     addEmition(
@@ -42,6 +43,7 @@ module.exports = gql`
     color: String
     colorIntensity: Int
     description: String
+    detailed_description: String
     children: [Category]
   }
 
@@ -54,6 +56,7 @@ module.exports = gql`
     color: String
     colorIntensity: Int
     description: String
+    detailed_description: String
     subCategories: [ClimateData]
   }
 

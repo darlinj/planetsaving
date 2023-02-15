@@ -19,6 +19,11 @@ const addClimateChangeData = async (args = {}) => {
             description: "${
               args.description ? args.description : "Some words of description"
             }"
+            detailed_description: "${
+              args.detailed_description
+                ? args.detailed_description
+                : "Some more words of description"
+            }"
           )
        {
         id
@@ -47,6 +52,7 @@ describe("the category API", () => {
       color: "red",
       colorIntensity: 500,
       description: "Some description",
+      detailed_description: "Some more description",
     });
     await addClimateChangeData();
     const result = await server.executeOperation({
@@ -67,6 +73,9 @@ describe("the category API", () => {
     expect(result.data.getCategoryData.colorIntensity).toEqual(500);
     expect(result.data.getCategoryData.category).toEqual("flying");
     expect(result.data.getCategoryData.description).toEqual("Some description");
+    expect(result.data.getCategoryData.detailed_description).toEqual(
+      "Some more description"
+    );
   });
 
   test("It returns the sub category data", async () => {
