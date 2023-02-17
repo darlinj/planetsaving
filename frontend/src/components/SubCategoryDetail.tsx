@@ -1,17 +1,5 @@
 import React from "react";
-import {
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Paper,
-  Link,
-  Typography,
-  Box,
-  Divider,
-} from "@mui/material";
+import {CircularProgress, Paper, Typography, Box, Divider} from "@mui/material";
 import useCategoryData from "../api/useCategoryData";
 import CategoryIcon from "./CategoryIcon";
 const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
@@ -42,7 +30,7 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
       </Box>
       <Divider sx={{paddingTop: 1}} />
       <Typography sx={{paddingTop: 2}} variant="body1">
-        {data.description}
+        {data.detailed_description}
       </Typography>
     </Paper>
   );

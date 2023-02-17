@@ -63,6 +63,7 @@ describe("the category API", () => {
           colorIntensity
           label
           description
+          detailed_description
         }
       }
       `,

@@ -5,6 +5,7 @@ export interface ClimateData {
   color: string;
   colorIntensity: number;
   description: string;
+  detailed_description: string;
   subCategories?: ClimateData[] | null;
 }
 
@@ -15,6 +16,7 @@ export interface CategoryData {
   amount: number;
   colorIntensity: number;
   description: string;
+  detailed_description: string;
   children?: CategoryData[];
 }
 

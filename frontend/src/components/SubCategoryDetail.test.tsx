@@ -44,6 +44,7 @@ describe("the sub category detail panel", () => {
       amount: 10,
       colorIntensity: 500,
       description: "Top level description",
+      detailed_description: "detailed description",
     };
     mockUseCategoryDetail.mockImplementation(() => {
       return {
@@ -55,6 +56,6 @@ describe("the sub category detail panel", () => {
     });
     render(<SubCategoryDetail subCategory="food" />);
     expect(screen.getByText(/Item 1/i)).toBeInTheDocument();
-    expect(screen.getByText(/Top level description/i)).toBeInTheDocument();
+    expect(screen.getByText(/detailed description/i)).toBeInTheDocument();
   });
 });
