@@ -39,6 +39,19 @@ class ClimateDatasource extends DataSource {
     return category.children;
   }
 
+  async getCategoryChildrenWithEmitions(id) {
+    const category = await Category.findByPk(id, {
+      include: [
+        {
+          model: Category,
+          as: "children",
+          include: [{model: Emition, as: "emitions"}],
+        },
+      ],
+    });
+    return category.children;
+  }
+
   async sumEmitionsForChildCategories(id) {
     const result = await Category.findByPk(id, {
       include: [
