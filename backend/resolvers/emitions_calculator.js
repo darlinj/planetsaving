@@ -1,3 +1,5 @@
+const template = (tpl, args) => tpl.replace(/\${(\w+)}/g, (_, v) => args[v]);
+
 const calculateCategoryAmount = (category) => {
   if (category.children.length == 0) {
     return calculateEmitionsTotal(category.emitions);
@@ -11,10 +13,9 @@ const calculateCategoryAmount = (category) => {
 
 const calculateEmitionsTotal = (emitions) => {
   return emitions.reduce((subtotal, emition) => {
-    const template = (tpl, args) =>
-      tpl.replace(/\${(\w+)}/g, (_, v) => args[v]);
-    const calculation_template = "${totalCarbonEmited}*1.0";
-    const calculation = template(calculation_template, {
+    const calculationTemplate =
+      emition.dataValues.calculationTemplate || "${totalCarbonEmited}*1.0";
+    const calculation = template(calculationTemplate, {
       ...emition.dataValues,
     });
     return subtotal + eval(calculation);
