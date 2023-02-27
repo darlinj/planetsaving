@@ -29,6 +29,25 @@ describe("the emitions calculation", () => {
     const totalEmitions = emitionsCalculator.calculateEmitionsTotal(emitions);
     expect(totalEmitions).toEqual(20);
   });
+
+  it("can use the user info if that is available", () => {
+    const emitions = [
+      {
+        dataValues: {
+          totalCarbonEmited: 9,
+          calculationTemplate: "${totalCarbonEmited} / ${peopleInHousehold}",
+        },
+        user: {
+          dataValues: {
+            peopleInHousehold: 3,
+          },
+        },
+      },
+      {dataValues: {totalCarbonEmited: 3}},
+    ];
+    const totalEmitions = emitionsCalculator.calculateEmitionsTotal(emitions);
+    expect(totalEmitions).toEqual(6);
+  });
 });
 
 describe("the category calculation", () => {

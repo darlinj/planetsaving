@@ -13,10 +13,12 @@ const calculateCategoryAmount = (category) => {
 
 const calculateEmitionsTotal = (emitions) => {
   return emitions.reduce((subtotal, emition) => {
+    const userValues = emition?.user?.dataValues;
     const calculationTemplate =
       emition.dataValues.calculationTemplate || "${totalCarbonEmited}*1.0";
     const calculation = template(calculationTemplate, {
       ...emition.dataValues,
+      ...userValues,
     });
     return subtotal + eval(calculation);
   }, 0);
