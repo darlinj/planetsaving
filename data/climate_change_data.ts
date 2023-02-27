@@ -5,8 +5,7 @@ const climateData = [
     color: "orange",
     colorIntensity: 500,
     description: "Everything else. From things you buy to leisure activities",
-    detailed_description:
-      "Everything else. From things you buy to leisure activities",
+    detailed_description: "Todo: fill this in",
     subCategories: [
       {
         label: "All Miscellaneous",
@@ -15,8 +14,7 @@ const climateData = [
         colorIntensity: 300,
         description:
           "Everything else that causes carbon to be emited.  This includes everything from the things you buy to your leisure activities",
-        detailed_description:
-          "Everything else that causes carbon to be emited.  This includes everything from the things you buy to your leisure activities",
+        detailed_description: "Todo: fill this in",
         emitions: [
           {
             totalCarbonEmited: 3.19,
@@ -154,17 +152,33 @@ const climateData = [
       "All government activities including schools, hospitals, the army etc",
     subCategories: [
       {
+        label: "The Military",
+        category: "military",
+        color: "green",
+        colorIntensity: 500,
+        description:
+          "The GHG emissions of UK military spending in 2018 – using the consumption-based approach – was approximately 11 million tonnes of CO2 equivalent.",
+        detailed_description:
+          "The green house gas emissions of UK military spending in 2018 was approximately 11 million tonnes of CO2 equivalent. This includes all lifecycle emissions, such as those arising abroad from raw material extraction. This is more than 3.5 times larger than the total direct GHG emissions of the MOD, and more than 11 times larger than the GHG figures quoted in the main text of MOD annual reports. It is also equivalent to the total CO2 emitted by the annual average mileage driven by over six million UK cars.  These figures do not include the GHG emissions related to impacts of weapons use on the battlefield. Such emissions could potentially be large, but are highly uncertain. Source: https://www.sgr.org.uk/sites/default/files/2020-05/SGR-DUK_UK_Military_Env_Impacts.pdf",
+        emitions: [
+          {
+            totalCarbonEmited: 0.175,
+            name: "All Military",
+          },
+        ],
+      },
+      {
         label: "All government activity",
         category: "all_gov",
         color: "green",
         colorIntensity: 300,
         description:
-          "This category will be broken down soon. This category represents the emitions from everything that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
+          "This category will be broken down soon. This category represents the emitions from everything else that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
         detailed_description:
           "This category will be broken down soon. This category represents the emitions from everything that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
         emitions: [
           {
-            totalCarbonEmited: 1.1,
+            totalCarbonEmited: 1.0,
             name: "All government",
           },
         ],
