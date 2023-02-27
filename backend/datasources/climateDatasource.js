@@ -32,14 +32,7 @@ class ClimateDatasource extends DataSource {
     });
   }
 
-  async getCategoryChildren(id) {
-    const category = await Category.findByPk(id, {
-      include: ["children"],
-    });
-    return category.children;
-  }
-
-  async getCategoryChildrenWithEmitions(id) {
+  async getCategoryWithChildrenAndEmitions(id) {
     const category = await Category.findByPk(id, {
       include: [
         {
@@ -47,18 +40,10 @@ class ClimateDatasource extends DataSource {
           as: "children",
           include: [{model: Emition, as: "emitions"}],
         },
+        {model: Emition, as: "emitions"},
       ],
     });
-    return category.children;
-  }
-
-  async getEmitionsForCategory(id) {
-    const result = await Emition.findAll({
-      where: {
-        categoryId: id,
-      },
-    });
-    return result;
+    return category;
   }
 
   async getSubCategories(parentId) {

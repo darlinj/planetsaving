@@ -4,25 +4,24 @@ module.exports = {
       return dataSources.climateData.getSubCategories(parent.id);
     },
     async amount(parent, args, {dataSources}, info) {
-      const categoryChildren =
-        await dataSources.climateData.getCategoryChildren(parent.id);
-      if (categoryChildren.length == 0) {
-        const emitions = await dataSources.climateData.getEmitionsForCategory(
+      const category =
+        await dataSources.climateData.getCategoryWithChildrenAndEmitions(
           parent.id
         );
-        return calculateEmitionsTotal(emitions);
-      } else {
-        const categoryChildrenWithEmitions =
-          await dataSources.climateData.getCategoryChildrenWithEmitions(
-            parent.id
-          );
-        return categoryChildrenWithEmitions.reduce(
-          (total, c) => total + calculateEmitionsTotal(c.emitions),
-          0
-        );
-      }
+      return calculateCategoryAmount(category);
     },
   },
+};
+
+const calculateCategoryAmount = (category) => {
+  if (category.children.length == 0) {
+    return calculateEmitionsTotal(category.emitions);
+  } else {
+    return category.children.reduce(
+      (total, c) => total + calculateEmitionsTotal(c.emitions),
+      0
+    );
+  }
 };
 
 const calculateEmitionsTotal = (emitions) => {
@@ -30,9 +29,8 @@ const calculateEmitionsTotal = (emitions) => {
     const template = (tpl, args) =>
       tpl.replace(/\${(\w+)}/g, (_, v) => args[v]);
     const calculation_template = "${totalCarbonEmited}*1.0";
-    console.log({...emition.dataValues});
     const calculation = template(calculation_template, {
-      totalCarbonEmited: emition.totalCarbonEmited,
+      ...emition.dataValues,
     });
     return subtotal + eval(calculation);
   }, 0);

@@ -51,27 +51,6 @@ describe("The interactions with the database", () => {
     expect(data.map((c) => c.label)).toEqual(["cat3"]);
   });
 
-  it("Returns the amounts as calculated from the emitions", async () => {
-    const cat1 = await Category.create({label: "cat1", category: "top1"});
-    const cat2 = await Category.create({
-      label: "cat2",
-      category: "sub2",
-      parentId: cat1.id,
-    });
-    const cat3 = await Category.create({
-      label: "cat3",
-      category: "sub3",
-      parentId: cat1.id,
-    });
-    await Emition.create({totalCarbonEmited: 1, categoryId: cat2.id});
-    await Emition.create({totalCarbonEmited: 2, categoryId: cat2.id});
-
-    const dataSource = new ClimateData();
-
-    const data = await dataSource.getCategoryChildren(cat1.id);
-    expect(data.length).toEqual(2);
-  });
-
   it("returns an empty record if the category does not exist", async () => {
     const cat1 = await Category.create({label: "cat1", category: "top1"});
     const cat3 = await Category.create({
