@@ -7,7 +7,10 @@ module.exports = {
       const categoryChildren =
         await dataSources.climateData.getCategoryChildren(parent.id);
       if (categoryChildren.length == 0) {
-        return dataSources.climateData.sumEmitionsForCategory(parent.id);
+        const emitions = await dataSources.climateData.getEmitionsForCategory(
+          parent.id
+        );
+        return calculateEmitionsTotal(emitions);
       } else {
         const categoryChildrenWithEmitions =
           await dataSources.climateData.getCategoryChildrenWithEmitions(
