@@ -58,13 +58,18 @@ describe("The interactions with the database", () => {
       category: "sub2",
       parentId: cat1.id,
     });
+    const cat3 = await Category.create({
+      label: "cat3",
+      category: "sub3",
+      parentId: cat1.id,
+    });
     await Emition.create({totalCarbonEmited: 1, categoryId: cat2.id});
     await Emition.create({totalCarbonEmited: 2, categoryId: cat2.id});
 
     const dataSource = new ClimateData();
 
-    const data = await dataSource.getAmount(cat2.id);
-    expect(data).toEqual(3);
+    const data = await dataSource.getCategoryChildren(cat1.id);
+    expect(data.length).toEqual(2);
   });
 
   it("returns an empty record if the category does not exist", async () => {

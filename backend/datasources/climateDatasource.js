@@ -32,15 +32,11 @@ class ClimateDatasource extends DataSource {
     });
   }
 
-  async getAmount(id) {
+  async getCategoryChildren(id) {
     const category = await Category.findByPk(id, {
       include: ["children"],
     });
-    if (category.children.length == 0) {
-      return this.sumEmitionsForCategory(id);
-    } else {
-      return this.sumEmitionsForChildCategories(id);
-    }
+    return category.children;
   }
 
   async sumEmitionsForChildCategories(id) {
@@ -54,15 +50,23 @@ class ClimateDatasource extends DataSource {
       ],
     });
     const amount = result.children.reduce(
-      (total, c) =>
-        total +
-        c.emitions.reduce(
-          (subtotal, emition) => subtotal + emition.totalCarbonEmited,
-          0
-        ),
+      (total, c) => total + this.calculateEmitionsTotal(c.emitions),
       0
     );
     return amount;
+  }
+
+  calculateEmitionsTotal(emitions) {
+    return emitions.reduce((subtotal, emition) => {
+      const template = (tpl, args) =>
+        tpl.replace(/\${(\w+)}/g, (_, v) => args[v]);
+      const calculation_template = "${totalCarbonEmited}*1.0";
+      console.log({...emition.dataValues});
+      const calculation = template(calculation_template, {
+        totalCarbonEmited: emition.totalCarbonEmited,
+      });
+      return subtotal + eval(calculation);
+    }, 0);
   }
 
   async sumEmitionsForCategory(id) {
