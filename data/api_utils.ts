@@ -1,7 +1,7 @@
 import {request, gql} from "graphql-request";
 import climateData from "./climate_change_data";
 import actions from "./actions";
-import {isConstValueNode} from "graphql";
+import users from "./users";
 
 const API_URL = process.env.API_URL
   ? process.env.API_URL
@@ -45,6 +45,22 @@ class ClimateData {
               }
           }`);
     });
+  }
+
+  async addUsers(userList: any) {
+    return await Promise.all(
+      userList.map((user: any) => {
+        this.sendQuery(gql`mutation {
+          addUser(
+            {...user}
+            )
+            {
+              id
+              name
+            }
+          }`);
+      })
+    );
   }
 
   async addActions(actionList: any) {
@@ -116,6 +132,7 @@ class ClimateData {
     await this.clearClimateData();
     const res = await this.addClimateChangeData(climateData);
     await this.addActions(actions);
+    await this.addUsers(users);
     await new Promise((r) => setTimeout(r, 3000));
     console.log("createdRecords", this.createdRecords);
   }
