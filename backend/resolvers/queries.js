@@ -8,4 +8,7 @@ module.exports = {
   getActionsList: (parent, args, {dataSources}, info) => {
     return dataSources.actions.getActions(args);
   },
+  getUser: (parent, args, {dataSources}, info) => {
+    return dataSources.users.getUser(args);
+  },
 };

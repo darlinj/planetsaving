@@ -4,6 +4,7 @@ module.exports = gql`
     getClimateData(parentCategory: String): [ClimateData]
     getCategoryData(category: String): Category
     getActionsList(parentCategory: String): [Action]
+    getUser(id: Int): User
   }
   type Mutation {
     clearActions: Boolean
@@ -85,7 +86,7 @@ module.exports = gql`
   }
 
   type User {
-    id: Float
+    id: Int
     name: String
     numberOfPeopleInHome: Float
     unitsOfElectricityUsedPerYear: Int

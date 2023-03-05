@@ -19,6 +19,14 @@ class UsersDatasource extends DataSource {
   async addUser(args) {
     return await User.create(args);
   }
+
+  async getUser(args) {
+    return await User.findOne({
+      where: {
+        id: args.id,
+      },
+    });
+  }
 }
 
 module.exports = UsersDatasource;
