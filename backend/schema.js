@@ -9,6 +9,7 @@ module.exports = gql`
     clearActions: Boolean
     clearEmitions: Boolean
     clearClimateData: Boolean
+    clearAverageJoeUser: Boolean
 
     addAction(
       title: String

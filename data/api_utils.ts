@@ -26,6 +26,7 @@ class ClimateData {
           clearActions
           clearClimateData
           clearEmitions
+          clearAverageJoeUser
         }
       `
     );
@@ -134,7 +135,7 @@ class ClimateData {
 
   async setup() {
     await this.clearClimateData();
-    const res = await this.addClimateChangeData(climateData);
+    await this.addClimateChangeData(climateData);
     await this.addActions(actions);
     await this.addUsers(users);
     await new Promise((r) => setTimeout(r, 3000));

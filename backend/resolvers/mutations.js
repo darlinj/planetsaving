@@ -8,6 +8,9 @@ module.exports = {
   clearEmitions: (parent, args, {dataSources}, info) => {
     return dataSources.emitions.clearEmitions();
   },
+  clearAverageJoeUser: (parent, args, {dataSources}, info) => {
+    return dataSources.users.clearAverageJoeUser();
+  },
   addClimateChangeData: (parent, args, {dataSources}, info) => {
     return dataSources.climateData.addClimateChangeData(args);
   },
