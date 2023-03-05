@@ -27,6 +27,14 @@ class UsersDatasource extends DataSource {
       },
     });
   }
+
+  async getUserByName(username) {
+    return await User.findOne({
+      where: {
+        name: username,
+      },
+    });
+  }
 }
 
 module.exports = UsersDatasource;

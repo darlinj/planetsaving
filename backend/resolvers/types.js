@@ -9,7 +9,13 @@ module.exports = {
         await dataSources.climateData.getCategoryWithChildrenAndEmitions(
           parent.id
         );
-      return emitionsCalculator.calculateCategoryAmount(category);
+      let user = null;
+      if (args.userId) {
+        user = await dataSources.users.getUser(args.userId);
+      } else {
+        user = await dataSources.users.getUserByName("AVERAGE JOE");
+      }
+      return emitionsCalculator.calculateCategoryAmount(category, user);
     },
   },
 };

@@ -1,7 +1,7 @@
 const {gql} = require("apollo-server-lambda");
 module.exports = gql`
   type Query {
-    getClimateData(parentCategory: String): [ClimateData]
+    getClimateData(parentCategory: String, userId: Int): [ClimateData]
     getCategoryData(category: String): Category
     getActionsList(parentCategory: String): [Action]
     getUser(id: Int): User
