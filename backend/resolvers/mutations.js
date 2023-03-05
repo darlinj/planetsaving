@@ -17,4 +17,7 @@ module.exports = {
   addEmition: (parent, args, {dataSources}, info) => {
     return dataSources.emitions.addEmition(args);
   },
+  addUser: (parent, args, {dataSources}, info) => {
+    return dataSources.users.addUser(args);
+  },
 };

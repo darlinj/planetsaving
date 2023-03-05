@@ -52,8 +52,12 @@ class ClimateData {
       userList.map((user: any) => {
         this.sendQuery(gql`mutation {
           addUser(
-            ${JSON.stringify({...user})}
-            )
+            ${Object.keys(user).map(
+              (key) =>
+                `${key}: ${
+                  typeof user[key] == "string" ? `"${user[key]}"` : user[key]
+                }`
+            )})
             {
               id
               name

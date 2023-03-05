@@ -33,6 +33,21 @@ module.exports = gql`
       totalCarbonEmited: Float
       calculationType: String
     ): Emition
+
+    addUser(
+      name: String
+      numberOfPeopleInHome: Float
+      unitsOfElectricityUsedPerYear: Int
+      unitsOfGasUsedPerYear: Int
+      drivingMilesPerYear: Int
+      flyingMilesPerYear: Int
+      trainMilesPerYear: Int
+      carType: String
+      greenEnergyTarriff: Boolean
+      amountOfLocalFood: String
+      amountOfOrganicFood: String
+      percentageOfFoodWaste: Int
+    ): User
   }
 
   type Category {
@@ -66,6 +81,22 @@ module.exports = gql`
     categoryId: Int
     totalCarbonEmited: Float
     calculationType: String
+  }
+
+  type User {
+    id: Float
+    name: String
+    numberOfPeopleInHome: Float
+    unitsOfElectricityUsedPerYear: Int
+    unitsOfGasUsedPerYear: Int
+    drivingMilesPerYear: Int
+    flyingMilesPerYear: Int
+    trainMilesPerYear: Int
+    carType: String
+    greenEnergyTarriff: Boolean
+    amountOfLocalFood: String
+    amountOfOrganicFood: String
+    percentageOfFoodWaste: Int
   }
 
   type Action {
