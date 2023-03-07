@@ -23,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       numberOfPeopleInHome: {
         type: DataTypes.FLOAT,
       },
-      unitsOfElectricityUsedPerYear: {
+      kwhOfElectricityUsedPerYear: {
         type: DataTypes.INTEGER,
       },
-      unitsOfGasUsedPerYear: {
+      kwhOfGasUsedPerYear: {
         type: DataTypes.INTEGER,
       },
       drivingMilesPerYear: {

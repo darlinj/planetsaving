@@ -120,6 +120,8 @@ const climateData = [
           {
             totalCarbonEmited: 1.52,
             name: "All gas",
+            calculationTemplate:
+              '"(${kwhOfGasUsedPerYear} * (203 / 1000000)) / ${numberOfPeopleInHome}"',
           },
         ],
       },
@@ -135,7 +137,9 @@ const climateData = [
         emitions: [
           {
             totalCarbonEmited: 0.62,
-            name: "All gas",
+            name: "All electricity",
+            calculationTemplate:
+              '"(${kwhOfElectricityUsedPerYear} * (309 / 1000000)) / ${numberOfPeopleInHome}"',
           },
         ],
       },

@@ -12,8 +12,8 @@ describe("the users API", () => {
         addUser(
           name: "TEST USER"
           numberOfPeopleInHome: 2.4
-          unitsOfElectricityUsedPerYear: 4800
-          unitsOfGasUsedPerYear: 18000
+          kwhOfElectricityUsedPerYear: 4800
+          kwhOfGasUsedPerYear: 18000
           drivingMilesPerYear: 9000
           flyingMilesPerYear: 500
           trainMilesPerYear: 300
@@ -37,8 +37,8 @@ describe("the users API", () => {
         addUser(
           name: "AVERAGE JOE"
           numberOfPeopleInHome: 2.4
-          unitsOfElectricityUsedPerYear: 4800
-          unitsOfGasUsedPerYear: 18000
+          kwhOfElectricityUsedPerYear: 4800
+          kwhOfGasUsedPerYear: 18000
           drivingMilesPerYear: 9000
           flyingMilesPerYear: 500
           trainMilesPerYear: 300
@@ -63,8 +63,8 @@ describe("the users API", () => {
         ) {
           name
           numberOfPeopleInHome
-          unitsOfElectricityUsedPerYear
-          unitsOfGasUsedPerYear
+          kwhOfElectricityUsedPerYear
+          kwhOfGasUsedPerYear
           drivingMilesPerYear
           flyingMilesPerYear
           trainMilesPerYear

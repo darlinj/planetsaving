@@ -15,7 +15,10 @@ module.exports = {
       } else {
         user = await dataSources.users.getUserByName("AVERAGE JOE");
       }
-      return emitionsCalculator.calculateCategoryAmount(category, user);
+      return emitionsCalculator.calculateCategoryAmount(
+        category,
+        user.dataValues
+      );
     },
   },
 };

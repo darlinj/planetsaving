@@ -34,13 +34,14 @@ module.exports = gql`
       categoryId: Int
       totalCarbonEmited: Float
       calculationType: String
+      calculationTemplate: String
     ): Emition
 
     addUser(
       name: String
       numberOfPeopleInHome: Float
-      unitsOfElectricityUsedPerYear: Int
-      unitsOfGasUsedPerYear: Int
+      kwhOfElectricityUsedPerYear: Int
+      kwhOfGasUsedPerYear: Int
       drivingMilesPerYear: Int
       flyingMilesPerYear: Int
       trainMilesPerYear: Int
@@ -83,14 +84,15 @@ module.exports = gql`
     categoryId: Int
     totalCarbonEmited: Float
     calculationType: String
+    calculationTemplate: String
   }
 
   type User {
     id: Int
     name: String
     numberOfPeopleInHome: Float
-    unitsOfElectricityUsedPerYear: Int
-    unitsOfGasUsedPerYear: Int
+    kwhOfElectricityUsedPerYear: Int
+    kwhOfGasUsedPerYear: Int
     drivingMilesPerYear: Int
     flyingMilesPerYear: Int
     trainMilesPerYear: Int

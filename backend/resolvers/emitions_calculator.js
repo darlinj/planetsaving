@@ -2,7 +2,7 @@ const template = (tpl, args) => tpl.replace(/\${(\w+)}/g, (_, v) => args[v]);
 
 const calculateCategoryAmount = (category, userValues = null) => {
   if (category.children.length == 0) {
-    return calculateEmitionsTotal(category.emitions);
+    return calculateEmitionsTotal(category.emitions, userValues);
   } else {
     return category.children.reduce(
       (total, c) => total + calculateEmitionsTotal(c.emitions, userValues),
@@ -12,7 +12,9 @@ const calculateCategoryAmount = (category, userValues = null) => {
 };
 
 const calculateEmitionsTotal = (emitions, userValues = null) => {
+  console.log("USERVALUES:", userValues);
   return emitions.reduce((subtotal, emition) => {
+    console.log("EMITION:", emition);
     const calculationTemplate =
       emition.dataValues.calculationTemplate || "${totalCarbonEmited}*1.0";
     const calculation = template(calculationTemplate, {

@@ -16,10 +16,10 @@ module.exports = {
       numberOfPeopleInHome: {
         type: Sequelize.INTEGER,
       },
-      unitsOfElectricityUsedPerYear: {
+      kwhOfElectricityUsedPerYear: {
         type: Sequelize.INTEGER,
       },
-      unitsOfGasUsedPerYear: {
+      kwhOfGasUsedPerYear: {
         type: Sequelize.INTEGER,
       },
       drivingMilesPerYear: {
