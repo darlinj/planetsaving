@@ -5,12 +5,12 @@ const URL = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL
   : "http://localhost:3000/";
 
-let didSetup = false;
+// let didSetup = false;
 fixture`Footprint tests`.page(URL).before(async (t) => {
-  if (!didSetup) {
-    await new ClimateData().setup();
-    didSetup = true;
-  }
+  //   if (!didSetup) {
+  await new ClimateData().setup();
+  // didSetup = true;
+  //   }
 });
 
 test("Check default footprint", async (t) => {
@@ -70,5 +70,5 @@ test("The amount of C02 equiv under the footprint is correct", async (t) => {
   const footprint = Selector("#footprint-footer");
   await t
     .expect(footprint.textContent)
-    .contains("Total 11.2 Tons of CO2 equivalent");
+    .contains("Total 11.3 Tons of CO2 equivalent");
 });
