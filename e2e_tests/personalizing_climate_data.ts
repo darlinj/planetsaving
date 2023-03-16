@@ -17,7 +17,7 @@ test("Clicking on a child category shows the form to allow users to edit the usa
   const footprint = Selector("#detail");
   await t.expect(footprint.textContent).contains("Driving");
   await t.expect(footprint.textContent).contains("Yearly Mileage");
-  await t.expect(Selector("#annual-mileage").exists);
-  await t.expect(footprint.textContent).contains("Type of car");
-  await t.expect(Selector("#type-of-car").exists);
+  await t.expect(Selector("#annual-mileage").exists).ok;
+  await t.expect(footprint.textContent).contains("Size of car");
+  await t.expect(Selector("#size-of-car").exists).ok;
 });

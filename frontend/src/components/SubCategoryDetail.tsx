@@ -2,6 +2,7 @@ import React from "react";
 import {CircularProgress, Paper, Typography, Box, Divider} from "@mui/material";
 import useCategoryData from "../api/useCategoryData";
 import CategoryIcon from "./CategoryIcon";
+import ComponentForm from "./CategoryForm";
 const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
   const {data, isLoading} = useCategoryData(subCategory);
   if (isLoading) {
@@ -32,6 +33,7 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
       <Typography sx={{paddingTop: 2}} variant="body1">
         {data.detailed_description}
       </Typography>
+      <ComponentForm categoryData={data} />
     </Paper>
   );
 };
