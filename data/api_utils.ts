@@ -139,8 +139,6 @@ class ClimateData {
     await this.addClimateChangeData(climateData);
     await this.addActions(actions);
     await this.addUsers(users);
-    await new Promise((r) => setTimeout(r, 3000));
-    console.log("createdRecords", this.createdRecords);
   }
 }
 
