@@ -8,12 +8,12 @@ class UsersDatasource extends DataSource {
   async initialize(config) {}
 
   async clearAverageJoeUser() {
-    const joe = await User.findOne({
+    User.destroy({
       where: {
         name: "AVERAGE JOE",
       },
+      truncate: true,
     });
-    joe && (await joe.destroy());
   }
 
   async addUser(args) {

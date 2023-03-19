@@ -5,12 +5,8 @@ const URL = process.env.FRONTEND_URL
   ? process.env.FRONTEND_URL
   : "http://localhost:3000/";
 
-// let didSetup = false;
 fixture`Footprint tests`.page(URL).before(async (t) => {
-  //   if (!didSetup) {
   await new ClimateData().setup();
-  // didSetup = true;
-  //   }
 });
 
 test("Check default footprint", async (t) => {

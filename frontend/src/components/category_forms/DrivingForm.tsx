@@ -8,10 +8,28 @@ import {
   RadioGroup,
   Divider,
   Grid,
+  CircularProgress,
 } from "@mui/material";
 import React from "react";
+import useUserData from "../../api/useUserData";
 
 const DrivingForm = () => {
+  const userId = undefined;
+  const {data, isLoading} = useUserData(userId);
+
+  if (isLoading) {
+    return (
+      <div>
+        <CircularProgress />
+        Loading...
+      </div>
+    );
+  }
+
+  if (!data) {
+    return <div>No user data found</div>;
+  }
+
   return (
     <>
       <form>
@@ -23,7 +41,7 @@ const DrivingForm = () => {
                 id="annual-mileage"
                 variant="standard"
                 required={true}
-                defaultValue={9000}
+                value={data.drivingMilesPerYear}
               />
             </FormControl>
           </FormGroup>
@@ -31,7 +49,7 @@ const DrivingForm = () => {
             <FormLabel id="engine-size">Engine Type</FormLabel>
             <RadioGroup
               aria-labelledby="engine-size"
-              defaultValue="ICE"
+              value={data.carType}
               name="engine-size"
             >
               <FormControlLabel
@@ -51,7 +69,7 @@ const DrivingForm = () => {
             <FormLabel id="size-of-car">Size of car</FormLabel>
             <RadioGroup
               aria-labelledby="size-of-car"
-              defaultValue="medium"
+              value={data.sizeOfCar}
               name="size-of-car"
             >
               <FormControlLabel

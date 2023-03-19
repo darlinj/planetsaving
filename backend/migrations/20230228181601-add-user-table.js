@@ -25,6 +25,9 @@ module.exports = {
       drivingMilesPerYear: {
         type: Sequelize.INTEGER,
       },
+      sizeOfCar: {
+        type: Sequelize.STRING,
+      },
       flyingMilesPerYear: {
         type: Sequelize.INTEGER,
       },

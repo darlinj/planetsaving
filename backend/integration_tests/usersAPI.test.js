@@ -62,41 +62,43 @@ describe("the users API", () => {
         getUser( id: ${testUserID}
         ) {
           name
-          numberOfPeopleInHome
-          kwhOfElectricityUsedPerYear
-          kwhOfGasUsedPerYear
-          drivingMilesPerYear
-          flyingMilesPerYear
-          trainMilesPerYear
-          carType
-          greenEnergyTarriff
-          amountOfLocalFood
-          amountOfOrganicFood
-          percentageOfFoodWaste
         }
       }`,
     });
-    console.log(result);
     expect(result.data.getUser.name).toEqual("TEST USER");
   });
-  //   test("It returns the user based on ID", async () => {
-  //     const result = await server.executeOperation({
-  //       query: "query { getUser(id: 1234) { id title cost carbonSaved } }",
-  //     });
 
-  //     expect(result.data.getActionsList.length).toEqual(2);
-  //     expect(result.data.getActionsList.map((action) => action.title)).toContain(
-  //       "Reduce your thermostat by one degree"
-  //     );
-  //   });
-
-  //   test("It returns the category of the action", async () => {
-  //     const result = await server.executeOperation({
-  //       query:
-  //         "query { getActionsList { id title cost carbonSaved category{ label }} }",
-  //     });
-  //     expect(
-  //       result.data.getActionsList.map((action) => action.category.label)
-  //     ).toContain("Energy");
-  //   });
+  test("returns the default user if no user ID is provided", async () => {
+    await server.executeOperation({
+      query: `mutation {
+        addUser(
+          name: "AVERAGE JOE"
+          numberOfPeopleInHome: 2.4
+          kwhOfElectricityUsedPerYear: 4800
+          kwhOfGasUsedPerYear: 18000
+          drivingMilesPerYear: 8000
+          flyingMilesPerYear: 500
+          trainMilesPerYear: 300
+          carType: "ICE"
+          greenEnergyTarriff: true
+          amountOfLocalFood: "average"
+          amountOfOrganicFood: "average"
+          percentageOfFoodWaste: 41
+        ) {
+          id
+          name
+        }
+      }`,
+    });
+    testUserID = null;
+    const result = await server.executeOperation({
+      query: `query {
+        getUser( id: ${testUserID}
+        ) {
+          name
+        }
+      }`,
+    });
+    expect(result.data.getUser.name).toEqual("AVERAGE JOE");
+  });
 });

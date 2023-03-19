@@ -6,7 +6,9 @@
   "scripts": {
     "test": "NODE_ENV=development jest --watchAll --runInBand",
     "start": "nodemon api/index.js",
-    "ci": "NODE_ENV=test jest --watchAll --runInBand"
+    "ci": "NODE_ENV=test jest --watchAll --runInBand",
+    "undo_migration": "npx sequelize-cli db:migrate:undo",
+    "migration": "npx sequelize-cli db:migrate"
   },
   "keywords": [],
   "author": "",

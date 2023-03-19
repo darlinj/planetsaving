@@ -43,6 +43,7 @@ module.exports = gql`
       kwhOfElectricityUsedPerYear: Int
       kwhOfGasUsedPerYear: Int
       drivingMilesPerYear: Int
+      sizeOfCar: String
       flyingMilesPerYear: Int
       trainMilesPerYear: Int
       carType: String
@@ -94,6 +95,7 @@ module.exports = gql`
     kwhOfElectricityUsedPerYear: Int
     kwhOfGasUsedPerYear: Int
     drivingMilesPerYear: Int
+    sizeOfCar: String
     flyingMilesPerYear: Int
     trainMilesPerYear: Int
     carType: String
