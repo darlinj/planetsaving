@@ -10,12 +10,16 @@ import {
   Grid,
   CircularProgress,
 } from "@mui/material";
-import React from "react";
+import React, {useState} from "react";
 import useUserData from "../../api/useUserData";
+import useAddOrUpdateUser from "../../api/useAddOrUpdateUser";
+import {UserDataInput} from "../../types";
 
 const DrivingForm = () => {
   const userId = undefined;
-  const {data, isLoading} = useUserData(userId);
+  const {data, isLoading, isError} = useUserData(userId);
+  const [formValues, setFormValues] = useState<UserDataInput>({});
+  const [isLoaded, setIsLoaded] = useState(false);
 
   if (isLoading) {
     return (
@@ -26,9 +30,26 @@ const DrivingForm = () => {
     );
   }
 
+  if (isError) {
+    return <div>Failed to load data</div>;
+  }
+
   if (!data) {
     return <div>No user data found</div>;
   }
+
+  if (!isLoaded) {
+    setFormValues(data);
+    setIsLoaded(true);
+  }
+
+  const updateUser = () => {
+    useAddOrUpdateUser(formValues);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormValues({...formValues, drivingMilesPerYear: +e.currentTarget.value});
+  };
 
   return (
     <>
@@ -41,7 +62,10 @@ const DrivingForm = () => {
                 id="annual-mileage"
                 variant="standard"
                 required={true}
-                value={data.drivingMilesPerYear}
+                defaultValue={data.drivingMilesPerYear}
+                value={formValues.drivingMilesPerYear}
+                onBlur={updateUser}
+                onChange={handleChange}
               />
             </FormControl>
           </FormGroup>

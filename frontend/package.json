@@ -10,7 +10,7 @@
     "@mui/material": "^5.10.0",
     "@tanstack/react-query": "^4.3.9",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
+    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.47",
@@ -21,13 +21,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.4",
-    "react-scripts": "^2.1.3",
+    "react-scripts": "^2.1.8",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "start_mocked": "REACT_APP_ENABLE_MSW=true react-scripts start",
     "start": "react-scripts  start",
     "integration": "testcafe chrome e2e_tests",
@@ -57,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "jest-environment-jsdom-sixteen": "^2.0.0",
     "jest-junit": "^14.0.1",
     "msw": "^0.47.3"
   },

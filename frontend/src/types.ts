@@ -44,3 +44,19 @@ export interface UserData {
   amountOfOrganicFood: string;
   percentageOfFoodWaste: number;
 }
+
+export interface UserDataInput {
+  name?: string;
+  numberOfPeopleInHome?: number;
+  kwhOfElectricityUsedPerYear?: number;
+  kwhOfGasUsedPerYear?: number;
+  drivingMilesPerYear?: number;
+  sizeOfCar?: string;
+  flyingMilesPerYear?: number;
+  trainMilesPerYear?: number;
+  carType?: string;
+  greenEnergyTarriff?: Boolean;
+  amountOfLocalFood?: string;
+  amountOfOrganicFood?: string;
+  percentageOfFoodWaste?: number;
+}
