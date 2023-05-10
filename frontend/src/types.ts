@@ -46,6 +46,7 @@ export interface UserData {
 }
 
 export interface UserDataInput {
+  dirty?: boolean;
   name?: string;
   numberOfPeopleInHome?: number;
   kwhOfElectricityUsedPerYear?: number;

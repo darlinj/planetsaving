@@ -4,16 +4,24 @@ import DrivingForm from "./DrivingForm";
 import useUserData from "../../api/useUserData";
 import useAddOrUpdateUser from "../../api/useAddOrUpdateUser";
 import {UseQueryResult} from "@tanstack/react-query";
-import {UserData} from "../../types";
+import {UserData, UserDataInput} from "../../types";
 import userEvent from "@testing-library/user-event";
 
+const mockMutate = jest.fn(() => {
+  return "chicklet";
+});
+
 jest.mock("../../api/useUserData");
-jest.mock("../../api/useAddOrUpdateUser");
+jest.mock("../../api/useAddOrUpdateUser", () => () => {
+  return {mutate: mockMutate};
+});
 
 const mockUseUserData = useUserData as jest.MockedFunction<typeof useUserData>;
 const mockAddOrUpdateUser = useAddOrUpdateUser as jest.MockedFunction<
   typeof useAddOrUpdateUser
 >;
+
+// useAddOrUpdateUser.mockResolvedValue({mutate: () => "foo"});
 
 let userData: UserData = {
   id: 1234,
@@ -25,7 +33,7 @@ let userData: UserData = {
   sizeOfCar: "medium",
   flyingMilesPerYear: 3,
   trainMilesPerYear: 3,
-  carType: "electric",
+  carType: "ICE",
   greenEnergyTarriff: true,
   amountOfLocalFood: "some",
   amountOfOrganicFood: "some",
@@ -33,6 +41,9 @@ let userData: UserData = {
 };
 
 describe("the driving form", () => {
+  beforeEach(() => {
+    mockMutate.mockClear();
+  });
   test("it renders the loading page", () => {
     mockUseUserData.mockImplementation(() => {
       return {
@@ -70,7 +81,9 @@ describe("the driving form", () => {
     expect(screen.getByRole("textbox", {name: "Yearly Mileage"})).toHaveValue(
       "8000"
     );
-    const electricRadioButton = screen.getByRole("radio", {name: "Electric"});
+    const electricRadioButton = screen.getByRole("radio", {
+      name: "Petrol or Diesel",
+    });
     expect(electricRadioButton).toBeChecked();
     const sizeOfCarRadioButton = screen.getByRole("radio", {name: "Medium"});
     expect(sizeOfCarRadioButton).toBeChecked();
@@ -92,6 +105,24 @@ describe("the driving form", () => {
     await userEvent.click(
       await screen.findByRole("radiogroup", {name: "Size of car"})
     );
-    expect(mockAddOrUpdateUser.mock.calls[0][0].drivingMilesPerYear).toBe(9000);
+    // jest.runOnlyPendingTimers();
+    expect(mockMutate).toHaveBeenCalled();
+    expect(mockMutate.mock.calls[0][0]?.drivingMilesPerYear).toBe("9000");
+  });
+
+  test("It updates the user when the car type is changed", async () => {
+    mockUseUserData.mockImplementation(() => {
+      return {
+        status: "success",
+        data: userData,
+        isLoading: false,
+      } as UseQueryResult<UserData>;
+    });
+    render(<DrivingForm />);
+
+    const radioButton = await screen.findByLabelText("Electric");
+    await userEvent.click(radioButton);
+    expect(mockMutate).toHaveBeenCalled();
+    expect(mockMutate.mock.calls[0][0]?.carType).toBe("electric");
   });
 });

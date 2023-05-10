@@ -7,10 +7,9 @@ import {
   Radio,
   RadioGroup,
   Divider,
-  Grid,
   CircularProgress,
 } from "@mui/material";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import useUserData from "../../api/useUserData";
 import useAddOrUpdateUser from "../../api/useAddOrUpdateUser";
 import {UserDataInput} from "../../types";
@@ -19,7 +18,14 @@ const DrivingForm = () => {
   const userId = undefined;
   const {data, isLoading, isError} = useUserData(userId);
   const [formValues, setFormValues] = useState<UserDataInput>({});
+  const {mutate} = useAddOrUpdateUser();
   const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (formValues.dirty) {
+      mutate(formValues);
+    }
+  }, [formValues]);
 
   if (isLoading) {
     return (
@@ -43,38 +49,45 @@ const DrivingForm = () => {
     setIsLoaded(true);
   }
 
-  const updateUser = () => {
-    useAddOrUpdateUser(formValues);
+  const submitChange = () => {
+    setFormValues({...formValues, dirty: true});
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValues({...formValues, drivingMilesPerYear: +e.currentTarget.value});
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = event.target;
+    setFormValues({...formValues, [name]: value});
+  };
+
+  const handleChangeAndSubmit = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const {name, value} = event.target;
+    setFormValues({...formValues, [name]: value, dirty: true});
   };
 
   return (
     <>
       <form>
-        <FormControl sx={{marginLeft: "1em", marginTop: "2em"}}>
-          <FormGroup sx={{marginBottom: "1em"}}>
-            <FormControl>
-              <TextField
-                label="Yearly Mileage"
-                id="annual-mileage"
-                variant="standard"
-                required={true}
-                defaultValue={data.drivingMilesPerYear}
-                value={formValues.drivingMilesPerYear}
-                onBlur={updateUser}
-                onChange={handleChange}
-              />
-            </FormControl>
-          </FormGroup>
-          <FormGroup>
+        <FormGroup sx={{marginBottom: "1em"}}>
+          <FormControl>
+            <TextField
+              label="Yearly Mileage"
+              id="annual-mileage"
+              variant="standard"
+              required={true}
+              name="drivingMilesPerYear"
+              value={formValues.drivingMilesPerYear}
+              onBlur={submitChange}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl>
             <FormLabel id="engine-size">Engine Type</FormLabel>
             <RadioGroup
               aria-labelledby="engine-size"
-              value={data.carType}
-              name="engine-size"
+              value={formValues.carType}
+              onChange={handleChangeAndSubmit}
+              name="carType"
             >
               <FormControlLabel
                 value="ICE"
@@ -87,14 +100,15 @@ const DrivingForm = () => {
                 label="Electric"
               />
             </RadioGroup>
-          </FormGroup>
+          </FormControl>
           <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-          <FormGroup>
+          <FormControl>
             <FormLabel id="size-of-car">Size of car</FormLabel>
             <RadioGroup
               aria-labelledby="size-of-car"
-              value={data.sizeOfCar}
-              name="size-of-car"
+              value={formValues.sizeOfCar}
+              onChange={handleChangeAndSubmit}
+              name="sizeOfCar"
             >
               <FormControlLabel
                 value="small"
@@ -112,8 +126,8 @@ const DrivingForm = () => {
                 label="Large or SUV"
               />
             </RadioGroup>
-          </FormGroup>
-        </FormControl>
+          </FormControl>
+        </FormGroup>
       </form>
     </>
   );
