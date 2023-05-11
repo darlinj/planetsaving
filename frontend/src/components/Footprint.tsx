@@ -153,7 +153,7 @@ const Footprint = () => {
             stripeOffset += lastStripeHeight;
             lastStripeHeight = stripeHeight;
             return (
-              <g key={index}>
+              <g key={index} id={`footprint-${stripe.category}`}>
                 <Stripe
                   stripe={stripe}
                   stripeOffset={stripeOffset}
