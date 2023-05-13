@@ -20,6 +20,21 @@ class UsersDatasource extends DataSource {
     return await User.create(args);
   }
 
+  async addOrUpdateUser(args) {
+    const user = await User.findOne({where: {id: args.id}});
+    if (user) {
+      for (let key in args.user) {
+        if (args.user[key] !== null) {
+          user[key] = args.user[key];
+        }
+      }
+      await user.save();
+      return user;
+    } else {
+      return await User.create(args.user);
+    }
+  }
+
   async getUser(args) {
     return await User.findOne({
       where: {

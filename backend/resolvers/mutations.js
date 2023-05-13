@@ -23,4 +23,7 @@ module.exports = {
   addUser: (parent, args, {dataSources}, info) => {
     return dataSources.users.addUser(args);
   },
+  addOrUpdateUser: (parent, args, {dataSources}, info) => {
+    return dataSources.users.addOrUpdateUser(args);
+  },
 };

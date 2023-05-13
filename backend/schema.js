@@ -52,6 +52,8 @@ module.exports = gql`
       amountOfOrganicFood: String
       percentageOfFoodWaste: Int
     ): User
+
+    addOrUpdateUser(id: Int, user: UserInput): User
   }
 
   type Category {
@@ -86,6 +88,23 @@ module.exports = gql`
     totalCarbonEmited: Float
     calculationType: String
     calculationTemplate: String
+  }
+
+  input UserInput {
+    id: Int
+    name: String
+    numberOfPeopleInHome: Float
+    kwhOfElectricityUsedPerYear: Int
+    kwhOfGasUsedPerYear: Int
+    drivingMilesPerYear: Int
+    sizeOfCar: String
+    flyingMilesPerYear: Int
+    trainMilesPerYear: Int
+    carType: String
+    greenEnergyTarriff: Boolean
+    amountOfLocalFood: String
+    amountOfOrganicFood: String
+    percentageOfFoodWaste: Int
   }
 
   type User {

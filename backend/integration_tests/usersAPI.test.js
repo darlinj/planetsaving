@@ -101,4 +101,45 @@ describe("the users API", () => {
     });
     expect(result.data.getUser.name).toEqual("AVERAGE JOE");
   });
+
+  test("Add or update user", async () => {
+    testUserID = 999;
+    const updateResult = await server.executeOperation({
+      query: `
+      mutation addOrUpdateUser($id: Int!, $user: UserInput) {
+        addOrUpdateUser(id: $id, user: $user) {
+          id
+          name
+        }
+      }`,
+      variables: {
+        id: testUserID,
+        user: {
+          id: testUserID,
+          name: "SPECIAL JOE",
+          numberOfPeopleInHome: 2.4,
+          kwhOfElectricityUsedPerYear: 4800,
+          kwhOfGasUsedPerYear: 18000,
+          drivingMilesPerYear: 90000,
+          sizeOfCar: "medium",
+          flyingMilesPerYear: 500,
+          trainMilesPerYear: 300,
+          carType: "electric",
+          greenEnergyTarriff: true,
+          amountOfLocalFood: "average",
+          amountOfOrganicFood: "average",
+          percentageOfFoodWaste: 41,
+        },
+      },
+    });
+    const result = await server.executeOperation({
+      query: `query {
+        getUser( id: ${testUserID}
+        ) {
+          name
+        }
+      }`,
+    });
+    expect(result.data.getUser.name).toEqual("SPECIAL JOE");
+  });
 });
