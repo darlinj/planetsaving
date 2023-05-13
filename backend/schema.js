@@ -91,7 +91,6 @@ module.exports = gql`
   }
 
   input UserInput {
-    id: Int
     name: String
     numberOfPeopleInHome: Float
     kwhOfElectricityUsedPerYear: Int

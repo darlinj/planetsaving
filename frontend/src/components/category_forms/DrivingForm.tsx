@@ -13,19 +13,22 @@ import React, {useEffect, useState} from "react";
 import useUserData from "../../api/useUserData";
 import useAddOrUpdateUser from "../../api/useAddOrUpdateUser";
 import {UserDataInput} from "../../types";
+import Cookies from "js-cookie";
 
 const DrivingForm = () => {
-  const userId = undefined;
+  const userIdString = Cookies.get("user-id");
+  const userId = userIdString ? +userIdString : undefined;
   const {data, isLoading, isError} = useUserData(userId);
   const [formValues, setFormValues] = useState<UserDataInput>({});
   const {mutate} = useAddOrUpdateUser();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
 
   useEffect(() => {
-    if (formValues.dirty) {
+    if (isDirty) {
       mutate(formValues);
     }
-  }, [formValues]);
+  }, [formValues, isDirty]);
 
   if (isLoading) {
     return (
@@ -45,24 +48,29 @@ const DrivingForm = () => {
   }
 
   if (!isLoaded) {
-    setFormValues(data);
+    const {id, ...formValues} = data;
+    if (formValues.name !== "AVERAGE JOE") {
+      Cookies.set("user-id", `${id}`);
+    }
+    setFormValues({...formValues, name: "SPECIAL JOE"});
     setIsLoaded(true);
   }
 
   const submitChange = () => {
-    setFormValues({...formValues, dirty: true});
+    setIsDirty(true);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
-    setFormValues({...formValues, [name]: value});
+    setFormValues({...formValues, [name]: +value});
   };
 
   const handleChangeAndSubmit = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const {name, value} = event.target;
-    setFormValues({...formValues, [name]: value, dirty: true});
+    setFormValues({...formValues, [name]: value});
+    setIsDirty(true);
   };
 
   return (
