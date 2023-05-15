@@ -14,6 +14,7 @@ import useUserData from "../../api/useUserData";
 import useAddOrUpdateUser from "../../api/useAddOrUpdateUser";
 import {UserDataInput} from "../../types";
 import Cookies from "js-cookie";
+import {useQueryClient} from "@tanstack/react-query";
 
 const DrivingForm = () => {
   const userIdString = Cookies.get("user-id");
@@ -23,10 +24,13 @@ const DrivingForm = () => {
   const {mutate} = useAddOrUpdateUser();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (isDirty) {
       mutate(formValues);
+
+      queryClient.invalidateQueries({queryKey: ["GetClimateData"]});
     }
   }, [formValues, isDirty]);
 

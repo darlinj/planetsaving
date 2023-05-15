@@ -20,19 +20,21 @@ const getClimateDataQuery = gql`
   }
 `;
 
+const getData = async (parentCategory: string | undefined) => {
+  const userIdString = Cookie.get("user-id");
+  const userId = userIdString ? +userIdString : 0;
+  const data = await request(backendUrl, getClimateDataQuery, {
+    parentCategory,
+    userId,
+  });
+  return data.getClimateData;
+};
+
 function useFootprintData(parentCategory: string | undefined) {
-  return useQuery<[ClimateData]>(
-    ["GetClimateData", parentCategory],
-    async () => {
-      const userIdString = Cookie.get("user-id");
-      const userId = userIdString ? +userIdString : 0;
-      const data = await request(backendUrl, getClimateDataQuery, {
-        parentCategory,
-        userId,
-      });
-      return data.getClimateData;
-    }
-  );
+  return useQuery<[ClimateData]>({
+    queryKey: ["GetClimateData", parentCategory],
+    queryFn: () => getData(parentCategory),
+  });
 }
 
 export default useFootprintData;
