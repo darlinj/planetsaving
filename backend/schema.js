@@ -72,7 +72,7 @@ module.exports = gql`
     id: Float
     label: String
     category: String
-    amount: Float
+    amount(userId: Int): Float
     parentId: Int
     color: String
     colorIntensity: Int

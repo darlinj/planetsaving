@@ -45,6 +45,7 @@ const climateData = [
           {
             totalCarbonEmited: 1.17,
             name: "Tail pipe emitions",
+            calculationTemplate: '"${drivingMilesPerYear} / 9000"',
           },
         ],
       },

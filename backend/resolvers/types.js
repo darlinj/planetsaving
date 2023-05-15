@@ -11,7 +11,7 @@ module.exports = {
         );
       let user = null;
       if (args.userId) {
-        user = await dataSources.users.getUser(args.userId);
+        user = await dataSources.users.getUser({id: args.userId});
       } else {
         user = await dataSources.users.getUserByName("AVERAGE JOE");
       }

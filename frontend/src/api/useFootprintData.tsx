@@ -2,11 +2,12 @@ import {useQuery} from "@tanstack/react-query";
 import {request, gql} from "graphql-request";
 import {ClimateData} from "../types";
 import backendUrl from "./backend_url";
+import Cookie from "js-cookie";
 
 const getClimateDataQuery = gql`
-  query GetClimateData($parentCategory: String) {
+  query GetClimateData($parentCategory: String, $userId: Int) {
     getClimateData(parentCategory: $parentCategory) {
-      amount
+      amount(userId: $userId)
       category
       label
       color
@@ -23,8 +24,11 @@ function useFootprintData(parentCategory: string | undefined) {
   return useQuery<[ClimateData]>(
     ["GetClimateData", parentCategory],
     async () => {
+      const userIdString = Cookie.get("user-id");
+      const userId = userIdString ? +userIdString : 0;
       const data = await request(backendUrl, getClimateDataQuery, {
-        parentCategory: parentCategory,
+        parentCategory,
+        userId,
       });
       return data.getClimateData;
     }
