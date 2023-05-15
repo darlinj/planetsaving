@@ -4,7 +4,7 @@ describe("the emissions calculation", () => {
   it("working out the amount for a single single emission", async () => {
     const emissions = [{dataValues: {totalCarbonEmited: 10}}];
     const totalEmissions =
-      emissionsCalculator.calculateEmissionsTotal(emissions);
+      emissionsCalculator.calculateEmissionsForLeafCategory(emissions);
     expect(totalEmissions).toEqual(10);
   });
 
@@ -14,7 +14,7 @@ describe("the emissions calculation", () => {
       {dataValues: {totalCarbonEmited: 10}},
     ];
     const totalEmissions =
-      emissionsCalculator.calculateEmissionsTotal(emissions);
+      emissionsCalculator.calculateEmissionsForLeafCategory(emissions);
     expect(totalEmissions).toEqual(15);
   });
 
@@ -29,10 +29,8 @@ describe("the emissions calculation", () => {
       {dataValues: {totalCarbonEmited: 3}},
     ];
     const user = {drivingMilesPerYear: 3000};
-    const totalEmissions = emissionsCalculator.calculateEmissionsTotal(
-      emissions,
-      user
-    );
+    const totalEmissions =
+      emissionsCalculator.calculateEmissionsForLeafCategory(emissions, user);
     expect(totalEmissions).toEqual(6);
   });
 });
