@@ -25,7 +25,7 @@ class ClimateData {
         mutation {
           clearActions
           clearClimateData
-          clearEmitions
+          clearEmissions
           clearAverageJoeUser
         }
       `
@@ -33,14 +33,14 @@ class ClimateData {
     await new Promise((r) => setTimeout(r, 2000));
   }
 
-  addEmitionsRecord(emitions: any, categoryId: any) {
-    emitions.forEach((emition: any) => {
+  addEmissionsRecord(emissions: any, categoryId: any) {
+    emissions.forEach((emission: any) => {
       const query = this.sendQuery(gql`mutation {
-          addEmition(
-              name: "${emition.name}"
+          addEmission(
+              name: "${emission.name}"
               categoryId: ${categoryId}
-              totalCarbonEmited: ${emition.totalCarbonEmited}
-              calculationTemplate: ${emition.calculationTemplate || null}
+              totalCarbonEmited: ${emission.totalCarbonEmited}
+              calculationTemplate: ${emission.calculationTemplate || null}
               ) {
                   id
                   totalCarbonEmited
@@ -116,9 +116,9 @@ class ClimateData {
           })
         );
       }
-      if (category.emitions) {
-        this.addEmitionsRecord(
-          category.emitions,
+      if (category.emissions) {
+        this.addEmissionsRecord(
+          category.emissions,
           result.addClimateChangeData.id
         );
       }

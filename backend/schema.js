@@ -8,7 +8,7 @@ module.exports = gql`
   }
   type Mutation {
     clearActions: Boolean
-    clearEmitions: Boolean
+    clearEmissions: Boolean
     clearClimateData: Boolean
     clearAverageJoeUser: Boolean
 
@@ -29,13 +29,13 @@ module.exports = gql`
       detailed_description: String
     ): ClimateData
 
-    addEmition(
+    addEmission(
       name: String
       categoryId: Int
       totalCarbonEmited: Float
       calculationType: String
       calculationTemplate: String
-    ): Emition
+    ): Emission
 
     addUser(
       name: String
@@ -81,7 +81,7 @@ module.exports = gql`
     subCategories: [ClimateData]
   }
 
-  type Emition {
+  type Emission {
     id: Float
     name: String
     categoryId: Int

@@ -1,4 +1,4 @@
-const {Category, Emition} = require("../models");
+const {Category, Emission} = require("../models");
 const ClimateData = require("./climateDatasource");
 const {faker} = require("@faker-js/faker");
 
@@ -8,7 +8,7 @@ describe("The interactions with the database", () => {
       where: {},
       truncate: true,
     });
-    await Emition.destroy({
+    await Emission.destroy({
       where: {},
       truncate: true,
     });

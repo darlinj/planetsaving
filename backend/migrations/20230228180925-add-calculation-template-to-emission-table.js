@@ -3,12 +3,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn("Emitions", "calculationTemplate", {
+    await queryInterface.addColumn("Emissions", "calculationTemplate", {
       type: Sequelize.STRING,
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("Emitions", "calculationTemplate");
+    await queryInterface.removeColumn("Emissions", "calculationTemplate");
   },
 };

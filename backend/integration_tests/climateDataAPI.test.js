@@ -24,10 +24,10 @@ const addClimateChangeData = async (args = {}) => {
   return result.data.addClimateChangeData.id;
 };
 
-const addEmition = async (args = {}) => {
+const addEmission = async (args = {}) => {
   const result = await server.executeOperation({
     query: `mutation { 
-        addEmition(
+        addEmission(
             name: "${args.name ? args.name : faker.lorem.word()}",
             totalCarbonEmited: ${
               args.totalCarbonEmited
@@ -44,7 +44,7 @@ const addEmition = async (args = {}) => {
        }
       }`,
   });
-  return result.data.addEmition.id;
+  return result.data.addEmission.id;
 };
 
 describe("the climateChange API", () => {
@@ -53,7 +53,7 @@ describe("the climateChange API", () => {
       query: "mutation { clearClimateData }",
     });
     await server.executeOperation({
-      query: "mutation { clearEmitions }",
+      query: "mutation { clearEmissions }",
     });
     await new Promise((r) => setTimeout(r, 1000));
   });
@@ -119,14 +119,14 @@ describe("the climateChange API", () => {
     expect(result.data.getClimateData[0].label).toEqual("Sub Food");
   });
 
-  test("It adds up the emitions for the category correctly", async () => {
+  test("It adds up the emissions for the category correctly", async () => {
     const topCat = await addClimateChangeData();
     const subCat1 = await addClimateChangeData({parentId: topCat});
     const subCat2 = await addClimateChangeData({parentId: topCat});
-    addEmition({categoryId: subCat1, totalCarbonEmited: 1});
-    addEmition({categoryId: subCat1, totalCarbonEmited: 1});
-    addEmition({categoryId: subCat2, totalCarbonEmited: 1});
-    addEmition({categoryId: subCat2, totalCarbonEmited: 1});
+    addEmission({categoryId: subCat1, totalCarbonEmited: 1});
+    addEmission({categoryId: subCat1, totalCarbonEmited: 1});
+    addEmission({categoryId: subCat2, totalCarbonEmited: 1});
+    addEmission({categoryId: subCat2, totalCarbonEmited: 1});
     const result = await server.executeOperation({
       query: `query {
             getClimateData

@@ -40,7 +40,7 @@ describe("the category API", () => {
       query: "mutation { clearClimateData }",
     });
     // await server.executeOperation({
-    //   query: "mutation { clearEmitions }",
+    //   query: "mutation { clearEmissions }",
     // });
     await new Promise((r) => setTimeout(r, 1000));
   });

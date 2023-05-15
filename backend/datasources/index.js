@@ -1,13 +1,13 @@
 const ClimateData = require("./climateDatasource");
 const Actions = require("./actionsDatasource");
-const Emitions = require("./emitionsDatasource");
+const Emissions = require("./emissionsDatasource");
 const Users = require("./usersDatasource");
 const Category = require("./categoryDatasource");
 
 const dataSources = () => ({
   climateData: new ClimateData(),
   actions: new Actions(),
-  emitions: new Emitions(),
+  emissions: new Emissions(),
   users: new Users(),
   category: new Category(),
 });

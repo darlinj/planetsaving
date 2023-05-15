@@ -5,8 +5,8 @@ module.exports = {
   clearActions: (parent, args, {dataSources}, info) => {
     return dataSources.actions.clearActions();
   },
-  clearEmitions: (parent, args, {dataSources}, info) => {
-    return dataSources.emitions.clearEmitions();
+  clearEmissions: (parent, args, {dataSources}, info) => {
+    return dataSources.emissions.clearEmissions();
   },
   clearAverageJoeUser: (parent, args, {dataSources}, info) => {
     return dataSources.users.clearAverageJoeUser();
@@ -17,8 +17,8 @@ module.exports = {
   addAction: (parent, args, {dataSources}, info) => {
     return dataSources.actions.addAction(args);
   },
-  addEmition: (parent, args, {dataSources}, info) => {
-    return dataSources.emitions.addEmition(args);
+  addEmission: (parent, args, {dataSources}, info) => {
+    return dataSources.emissions.addEmission(args);
   },
   addUser: (parent, args, {dataSources}, info) => {
     return dataSources.users.addUser(args);

@@ -1,4 +1,4 @@
-const emitionsCalculator = require("./emitions_calculator");
+const emissionsCalculator = require("./emissions_calculator");
 module.exports = {
   ClimateData: {
     subCategories(parent, args, {dataSources}, info) {
@@ -6,7 +6,7 @@ module.exports = {
     },
     async amount(parent, args, {dataSources}, info) {
       const category =
-        await dataSources.climateData.getCategoryWithChildrenAndEmitions(
+        await dataSources.climateData.getCategoryWithChildrenAndEmissions(
           parent.id
         );
       let user = null;
@@ -15,7 +15,7 @@ module.exports = {
       } else {
         user = await dataSources.users.getUserByName("AVERAGE JOE");
       }
-      return emitionsCalculator.calculateCategoryAmount(
+      return emissionsCalculator.calculateCategoryAmount(
         category,
         user.dataValues
       );

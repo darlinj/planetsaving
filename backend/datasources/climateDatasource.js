@@ -1,5 +1,5 @@
 const {DataSource} = require("apollo-datasource");
-const {Category, Emition} = require("../models");
+const {Category, Emission} = require("../models");
 const {result} = require("lodash");
 
 class ClimateDatasource extends DataSource {
@@ -32,15 +32,15 @@ class ClimateDatasource extends DataSource {
     });
   }
 
-  async getCategoryWithChildrenAndEmitions(id) {
+  async getCategoryWithChildrenAndEmissions(id) {
     const category = await Category.findByPk(id, {
       include: [
         {
           model: Category,
           as: "children",
-          include: [{model: Emition, as: "emitions"}],
+          include: [{model: Emission, as: "emissions"}],
         },
-        {model: Emition, as: "emitions"},
+        {model: Emission, as: "emissions"},
       ],
     });
     return category;

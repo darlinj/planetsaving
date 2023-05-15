@@ -15,10 +15,10 @@ const climateData = [
         description:
           "Everything else that causes carbon to be emited.  This includes everything from the things you buy to your leisure activities",
         detailed_description: "Todo: fill this in",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 3.19,
-            name: "All Miscellaneous emitions",
+            name: "All Miscellaneous emissions",
           },
         ],
       },
@@ -38,13 +38,13 @@ const climateData = [
         color: "red",
         colorIntensity: 300,
         description:
-          "Driving a car is one of the most polluting things we do.  Obviously there are carbon emitions from burning fossil fuels but also from the car manufacturing process.  The most planet friendly thing you can do here is to go electric, drive less and keep your car for longer",
+          "Driving a car is one of the most polluting things we do.  Obviously there are carbon emissions from burning fossil fuels but also from the car manufacturing process.  The most planet friendly thing you can do here is to go electric, drive less and keep your car for longer",
         detailed_description:
-          "Driving a car is one of the most polluting things we do.  Obviously there are carbon emitions from burning fossil fuels but also from the car manufacturing process.  The most planet friendly thing you can do here is to go electric, drive less and keep your car for longer",
-        emitions: [
+          "Driving a car is one of the most polluting things we do.  Obviously there are carbon emissions from burning fossil fuels but also from the car manufacturing process.  The most planet friendly thing you can do here is to go electric, drive less and keep your car for longer",
+        emissions: [
           {
             totalCarbonEmited: 1.17,
-            name: "Tail pipe emitions",
+            name: "Tail pipe emissions",
             calculationTemplate: '"${drivingMilesPerYear} / 9000"',
           },
         ],
@@ -55,10 +55,10 @@ const climateData = [
         color: "red",
         colorIntensity: 500,
         description:
-          "Flying is a big cause of carbon emitions because it takes a lot of fuel to keep a plane in the air and the C02 is emitied at a higher altitude which means it is even worse for the planet.  The main way to flying better is to do less of it.  Do you really need to take that business trip?  Could you do with one foriegn holiday this year?  Could you go by train?",
+          "Flying is a big cause of carbon emissions because it takes a lot of fuel to keep a plane in the air and the C02 is emitied at a higher altitude which means it is even worse for the planet.  The main way to flying better is to do less of it.  Do you really need to take that business trip?  Could you do with one foriegn holiday this year?  Could you go by train?",
         detailed_description:
-          "Flying is a big cause of carbon emitions because it takes a lot of fuel to keep a plane in the air and the C02 is emitied at a higher altitude which means it is even worse for the planet.  The main way to flying better is to do less of it.  Do you really need to take that business trip?  Could you do with one foriegn holiday this year?  Could you go by train?",
-        emitions: [
+          "Flying is a big cause of carbon emissions because it takes a lot of fuel to keep a plane in the air and the C02 is emitied at a higher altitude which means it is even worse for the planet.  The main way to flying better is to do less of it.  Do you really need to take that business trip?  Could you do with one foriegn holiday this year?  Could you go by train?",
+        emissions: [
           {
             totalCarbonEmited: 1.25,
             name: "Running the airport",
@@ -74,7 +74,7 @@ const climateData = [
           "Traveling by train is much less damaging than flying, especially if it is an electric powered train.  The more people on a train the more carbon efficient it is",
         detailed_description:
           "Traveling by train is much less damaging than flying, especially if it is an electric powered train.  The more people on a train the more carbon efficient it is",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.12,
             name: "Average Train useage",
@@ -90,7 +90,7 @@ const climateData = [
           "This includes buses, underground, cycling and walking which all have a carbon impact but are much lower than the other transport options",
         detailed_description:
           "This includes buses, underground, cycling and walking which all have a carbon impact but are much lower than the other transport options",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.01,
             name: "Average Train useage",
@@ -117,7 +117,7 @@ const climateData = [
           "Gas is a fossil fuel which burns and releases C02 directly out of your boiler flue. The more gas you use, the more C02e is released.  Think about insulating your house better or buying a groundsource or airsource heatpump to reduce your use of gas",
         detailed_description:
           "Gas is a fossil fuel which burns and releases C02 directly out of your boiler flue. The more gas you use, the more C02e is released.  Think about insulating your house better or buying a groundsource or airsource heatpump to reduce your use of gas",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 1.52,
             name: "All gas",
@@ -135,7 +135,7 @@ const climateData = [
           "Electricity doesn't release C02 directly but often it is generated by burning gas which does cause C02 to be released.  There are lots of things you can do to reduce your carbon impact from electricity from choosing a green tarrif to putting solar panels on your roof",
         detailed_description:
           "Electricity doesn't release C02 directly but often it is generated by burning gas which does cause C02 to be released.  There are lots of things you can do to reduce your carbon impact from electricity from choosing a green tarrif to putting solar panels on your roof",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.62,
             name: "All electricity",
@@ -165,7 +165,7 @@ const climateData = [
           "The GHG emissions of UK military spending in 2018 – using the consumption-based approach – was approximately 11 million tonnes of CO2 equivalent.",
         detailed_description:
           "The green house gas emissions of UK military spending in 2018 was approximately 11 million tonnes of CO2 equivalent. This includes all lifecycle emissions, such as those arising abroad from raw material extraction. This is more than 3.5 times larger than the total direct GHG emissions of the MOD, and more than 11 times larger than the GHG figures quoted in the main text of MOD annual reports. It is also equivalent to the total CO2 emitted by the annual average mileage driven by over six million UK cars.  These figures do not include the GHG emissions related to impacts of weapons use on the battlefield. Such emissions could potentially be large, but are highly uncertain. Source: https://www.sgr.org.uk/sites/default/files/2020-05/SGR-DUK_UK_Military_Env_Impacts.pdf",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.175,
             name: "All Military",
@@ -178,10 +178,10 @@ const climateData = [
         color: "green",
         colorIntensity: 300,
         description:
-          "This category will be broken down soon. This category represents the emitions from everything else that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
+          "This category will be broken down soon. This category represents the emissions from everything else that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
         detailed_description:
-          "This category will be broken down soon. This category represents the emitions from everything that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
-        emitions: [
+          "This category will be broken down soon. This category represents the emissions from everything that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
+        emissions: [
           {
             totalCarbonEmited: 1.0,
             name: "All government",
@@ -209,7 +209,7 @@ const climateData = [
           "Fertilizer is one of the worst food based problems.  It releases a lot of C02 and requires methane.  Buying organic produce reduces the damage",
         detailed_description:
           "Fertilizer is one of the worst food based problems.  It releases a lot of C02 and requires methane.  Buying organic produce reduces the damage",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.7,
             name: "Fertilizer",
@@ -225,7 +225,7 @@ const climateData = [
           "Cows and sheep are the most damaging animals to rear.  Maybe consider reducing the amount of red meat that you eat or even go veggie",
         detailed_description:
           "Cows and sheep are the most damaging animals to rear.  Maybe consider reducing the amount of red meat that you eat or even go veggie",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.4,
             name: "Meat and Dairy",
@@ -241,7 +241,7 @@ const climateData = [
           "Generally the further your food is transported the worse it is for the climate.  Air freighted delicate foods like soft fruit from South America are the worst offenders",
         detailed_description:
           "Generally the further your food is transported the worse it is for the climate.  Air freighted delicate foods like soft fruit from South America are the worst offenders",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.3,
             name: "Food Transportation",
@@ -255,7 +255,7 @@ const climateData = [
         colorIntensity: 400,
         description: "This is simple, the less packaging the better.",
         detailed_description: "This is simple, the less packaging the better.",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.23,
             name: "Packaging",
@@ -271,7 +271,7 @@ const climateData = [
           "Making food from raw ingredients is better for the environment and better for you",
         detailed_description:
           "Making food from raw ingredients is better for the environment and better for you",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.18,
             name: "Processing of food",
@@ -286,7 +286,7 @@ const climateData = [
         description: "Throwing food away means that it rots and releases C02.",
         detailed_description:
           "Throwing food away means that it rots and releases C02.",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.22,
             name: "food_waste",
@@ -300,10 +300,10 @@ const climateData = [
         colorIntensity: 700,
         description: "Some C02 from food is unavoidable",
         detailed_description: "Some C02 from food is unavoidable",
-        emitions: [
+        emissions: [
           {
             totalCarbonEmited: 0.18,
-            name: "Other food emitions",
+            name: "Other food emissions",
           },
         ],
       },

@@ -8,7 +8,7 @@ describe("The interactions with the database", () => {
       where: {},
       truncate: true,
     });
-    // await Emition.destroy({
+    // await Emission.destroy({
     //   where: {},
     //   truncate: true,
     // });
