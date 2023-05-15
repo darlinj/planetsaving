@@ -18,32 +18,17 @@ describe("the emissions calculation", () => {
     expect(totalEmissions).toEqual(15);
   });
 
-  it("working out the amount based on the template if supplied", async () => {
-    const emissions = [
-      {
-        dataValues: {
-          totalCarbonEmited: 5,
-          calculationTemplate: "${totalCarbonEmited} * 2",
-        },
-      },
-      {dataValues: {totalCarbonEmited: 10}},
-    ];
-    const totalEmissions =
-      emissionsCalculator.calculateEmissionsTotal(emissions);
-    expect(totalEmissions).toEqual(20);
-  });
-
   it("can use the user info if that is available", () => {
     const emissions = [
       {
         dataValues: {
           totalCarbonEmited: 9,
-          calculationTemplate: "${totalCarbonEmited} / ${peopleInHousehold}",
+          calculationIdentifier: "driving_tail_pipe",
         },
       },
       {dataValues: {totalCarbonEmited: 3}},
     ];
-    const user = {peopleInHousehold: 3};
+    const user = {drivingMilesPerYear: 3000};
     const totalEmissions = emissionsCalculator.calculateEmissionsTotal(
       emissions,
       user

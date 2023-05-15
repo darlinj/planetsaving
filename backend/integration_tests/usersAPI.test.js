@@ -103,7 +103,6 @@ describe("the users API", () => {
   });
 
   test("Add or update user", async () => {
-    testUserID = 999;
     const updateResult = await server.executeOperation({
       query: `
       mutation addOrUpdateUser($id: Int!, $user: UserInput) {
@@ -113,9 +112,8 @@ describe("the users API", () => {
         }
       }`,
       variables: {
-        id: testUserID,
+        id: 0,
         user: {
-          id: testUserID,
           name: "SPECIAL JOE",
           numberOfPeopleInHome: 2.4,
           kwhOfElectricityUsedPerYear: 4800,
@@ -132,6 +130,7 @@ describe("the users API", () => {
         },
       },
     });
+    const testUserID = updateResult.data.addOrUpdateUser.id;
     const result = await server.executeOperation({
       query: `query {
         getUser( id: ${testUserID}

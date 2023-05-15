@@ -25,7 +25,10 @@ const calculateEmissionsTotal = (emissions, userValues = null) => {
 };
 
 const calculateEmission = (calculationIdentifier, operands) => {
-  if (calculationIdentifier === "driving_tail_pipe") {
+  if (
+    calculationIdentifier === "driving_tail_pipe" &&
+    operands["drivingMilesPerYear"]
+  ) {
     return operands["drivingMilesPerYear"] / 1000;
   }
   return operands.totalCarbonEmited * 1.0;
