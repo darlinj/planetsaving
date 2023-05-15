@@ -45,7 +45,7 @@ const climateData = [
           {
             totalCarbonEmited: 1.17,
             name: "Tail pipe emissions",
-            calculationTemplate: '"${drivingMilesPerYear} / 9000"',
+            calculationIdentifier: "driving_tail_pipe",
           },
         ],
       },
@@ -121,8 +121,7 @@ const climateData = [
           {
             totalCarbonEmited: 1.52,
             name: "All gas",
-            calculationTemplate:
-              '"(${kwhOfGasUsedPerYear} * (203 / 1000000)) / ${numberOfPeopleInHome}"',
+            calculationIdentifier: "gas",
           },
         ],
       },
@@ -139,8 +138,7 @@ const climateData = [
           {
             totalCarbonEmited: 0.62,
             name: "All electricity",
-            calculationTemplate:
-              '"(${kwhOfElectricityUsedPerYear} * (309 / 1000000)) / ${numberOfPeopleInHome}"',
+            calculationIdentifier: "electricity_use",
           },
         ],
       },

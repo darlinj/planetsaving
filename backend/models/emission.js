@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       calculationType: {
         type: DataTypes.STRING,
       },
-      calculationTemplate: {
+      calculationIdentifier: {
         type: DataTypes.STRING,
       },
       categoryId: {

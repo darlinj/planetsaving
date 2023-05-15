@@ -34,7 +34,7 @@ module.exports = gql`
       categoryId: Int
       totalCarbonEmited: Float
       calculationType: String
-      calculationTemplate: String
+      calculationIdentifier: String
     ): Emission
 
     addUser(
@@ -87,7 +87,7 @@ module.exports = gql`
     categoryId: Int
     totalCarbonEmited: Float
     calculationType: String
-    calculationTemplate: String
+    calculationIdentifier: String
   }
 
   input UserInput {

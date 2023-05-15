@@ -40,7 +40,7 @@ class ClimateData {
               name: "${emission.name}"
               categoryId: ${categoryId}
               totalCarbonEmited: ${emission.totalCarbonEmited}
-              calculationTemplate: ${emission.calculationTemplate || null}
+              calculationIdentifier: "${emission.calculationIdentifier || null}"
               ) {
                   id
                   totalCarbonEmited

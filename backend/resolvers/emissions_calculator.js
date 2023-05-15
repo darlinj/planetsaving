@@ -13,14 +13,22 @@ const calculateCategoryAmount = (category, userValues = null) => {
 
 const calculateEmissionsTotal = (emissions, userValues = null) => {
   return emissions.reduce((subtotal, emission) => {
-    const calculationTemplate =
-      emission.dataValues.calculationTemplate || "${totalCarbonEmited}*1.0";
-    const calculation = template(calculationTemplate, {
-      ...emission.dataValues,
-      ...userValues,
-    });
-    return subtotal + eval(calculation);
+    const calculation = calculateEmission(
+      emission.dataValues.calculationIdentifier,
+      {
+        ...emission.dataValues,
+        ...userValues,
+      }
+    );
+    return subtotal + calculation;
   }, 0);
+};
+
+const calculateEmission = (calculationIdentifier, operands) => {
+  if (calculationIdentifier === "driving_tail_pipe") {
+    return operands["drivingMilesPerYear"] / 1000;
+  }
+  return operands.totalCarbonEmited * 1.0;
 };
 
 module.exports = {calculateCategoryAmount, calculateEmissionsTotal};
