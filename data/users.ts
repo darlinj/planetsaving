@@ -8,7 +8,7 @@ const users = [
     sizeOfCar: "medium",
     flyingMilesPerYear: 500,
     trainMilesPerYear: 300,
-    carType: "electric",
+    carType: "ICE",
     greenEnergyTarriff: true,
     amountOfLocalFood: "average",
     amountOfOrganicFood: "average",

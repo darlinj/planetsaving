@@ -26,13 +26,26 @@ const calculateEmissionsForLeafCategory = (emissions, userValues = null) => {
 };
 
 const calculateEmission = (calculationIdentifier, operands) => {
-  if (
-    calculationIdentifier === "driving_tail_pipe" &&
-    operands["drivingMilesPerYear"]
-  ) {
-    return operands["drivingMilesPerYear"] / 1000;
+  if (calculationIdentifier === "driving_tail_pipe") {
+    return tailPipeEmissionsCalc(operands);
   }
   return operands.totalCarbonEmited * 1.0;
+};
+
+const tailPipeEmissionsCalc = (operands) => {
+  if (operands["drivingMilesPerYear"]) {
+    if (operands["carType"] === "electric") {
+      return 0;
+    }
+    switch (operands.sizeOfCar) {
+      case "small":
+        return operands["drivingMilesPerYear"] * (0.28 / 1000);
+      case "large":
+        return operands["drivingMilesPerYear"] * (0.41 / 1000);
+      default:
+        return operands["drivingMilesPerYear"] * (0.31 / 1000);
+    }
+  }
 };
 
 module.exports = {calculateCategoryAmount, calculateEmissionsForLeafCategory};
