@@ -12,7 +12,8 @@ module.exports = {
       let user = null;
       if (args.userId) {
         user = await dataSources.users.getUser({id: args.userId});
-      } else {
+      }
+      if (!user) {
         user = await dataSources.users.getUserByName("AVERAGE JOE");
       }
       return emissionsCalculator.calculateCategoryAmount(

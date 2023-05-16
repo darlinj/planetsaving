@@ -1,5 +1,3 @@
-const template = (tpl, args) => tpl.replace(/\${(\w+)}/g, (_, v) => args[v]);
-
 const calculateCategoryAmount = (category, userValues = null) => {
   if (category.children.length == 0) {
     return calculateEmissionsForLeafCategory(category.emissions, userValues);
@@ -35,15 +33,15 @@ const calculateEmission = (calculationIdentifier, operands) => {
 const tailPipeEmissionsCalc = (operands) => {
   if (operands["drivingMilesPerYear"]) {
     if (operands["carType"] === "electric") {
-      return 0;
+      return operands["drivingMilesPerYear"] * (0.047 / 1000);
     }
     switch (operands.sizeOfCar) {
       case "small":
-        return operands["drivingMilesPerYear"] * (0.28 / 1000);
+        return (operands["drivingMilesPerYear"] * (0.253 * 0.7)) / 1000;
       case "large":
-        return operands["drivingMilesPerYear"] * (0.41 / 1000);
+        return (operands["drivingMilesPerYear"] * (0.253 * 1.3)) / 1000;
       default:
-        return operands["drivingMilesPerYear"] * (0.31 / 1000);
+        return operands["drivingMilesPerYear"] * (0.253 / 1000);
     }
   }
 };
