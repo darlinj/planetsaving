@@ -8,6 +8,9 @@ import {
   RadioGroup,
   Divider,
   CircularProgress,
+  OutlinedInput,
+  FormHelperText,
+  InputAdornment,
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
 import useUserData from "../../api/useUserData";
@@ -80,19 +83,25 @@ const DrivingForm = () => {
   return (
     <>
       <form>
+        <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
         <FormGroup sx={{marginBottom: "1em"}}>
           <FormControl>
             <TextField
               label="Yearly Mileage"
               id="annual-mileage"
-              variant="standard"
-              required={true}
+              variant="outlined"
               name="drivingMilesPerYear"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">miles</InputAdornment>
+                ),
+              }}
               value={formValues.drivingMilesPerYear}
               onBlur={submitChange}
               onChange={handleChange}
             />
           </FormControl>
+          <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
           <FormControl>
             <FormLabel id="engine-size">Engine Type</FormLabel>
             <RadioGroup
