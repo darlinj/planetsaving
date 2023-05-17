@@ -44,6 +44,7 @@ const tailPipeEmissionsCalc = (operands) => {
         return operands["drivingMilesPerYear"] * (0.253 / 1000);
     }
   }
+  return 0;
 };
 
 module.exports = {calculateCategoryAmount, calculateEmissionsForLeafCategory};
