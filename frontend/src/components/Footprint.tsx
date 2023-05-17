@@ -5,6 +5,7 @@ import {getCategoryColorArray} from "../categoryColorMap";
 import {Link, useParams} from "react-router-dom";
 import {CircularProgress, Typography} from "@mui/material";
 import {ClimateData} from "../types";
+import Cookie from "js-cookie";
 
 const Footprint = () => {
   const {category} = useParams();
@@ -137,10 +138,17 @@ const Footprint = () => {
     );
   };
 
+  const footprintTitle = () => {
+    if (Cookie.get("user-id")) {
+      return <>Your annual {category} Carbon footprint</>;
+    }
+    return <>Annual {category} Carbon footprint of the average UK citizen</>;
+  };
+
   return (
     <>
       <Typography variant="h4" component="div" gutterBottom align="center">
-        Annual {category} Carbon footprint of the average UK citizen
+        {footprintTitle()}
       </Typography>
       <Box
         id="footprint"
