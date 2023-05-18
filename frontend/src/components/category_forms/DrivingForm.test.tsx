@@ -3,13 +3,24 @@ import {render, screen} from "@testing-library/react";
 import DrivingForm from "./DrivingForm";
 import useUserData from "../../api/useUserData";
 import useAddOrUpdateUser from "../../api/useAddOrUpdateUser";
-import {UseQueryResult} from "@tanstack/react-query";
+import {
+  QueryClient,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
 import {UserData, UserDataInput} from "../../types";
 import userEvent from "@testing-library/user-event";
 
 const mockMutate = jest.fn(() => {
   return "chicklet";
 });
+
+jest.mock("@tanstack/react-query", () => ({
+  ...jest.requireActual("@tanstack/react-query"),
+  useQueryClient: () => ({
+    invalidateQueries: jest.fn().mockReturnValue(true),
+  }),
+}));
 
 jest.mock("../../api/useUserData");
 jest.mock("../../api/useAddOrUpdateUser", () => () => {
@@ -107,7 +118,7 @@ describe("the driving form", () => {
     );
     // jest.runOnlyPendingTimers();
     expect(mockMutate).toHaveBeenCalled();
-    expect(mockMutate.mock.calls[0][0]?.drivingMilesPerYear).toBe("9000");
+    expect(mockMutate.mock.calls[0][0]?.drivingMilesPerYear).toBe(9000);
   });
 
   test("It updates the user when the car type is changed", async () => {
