@@ -23,16 +23,14 @@ describe("the emissions calculation", () => {
       const emissions = [
         {
           dataValues: {
-            totalCarbonEmited: 9,
             calculationIdentifier: "driving_tail_pipe",
           },
         },
-        {dataValues: {totalCarbonEmited: 3}},
       ];
-      const user = {drivingMilesPerYear: 3000};
+      const user = {drivingMilesPerYear: 10000};
       const totalEmissions =
         emissionsCalculator.calculateEmissionsForLeafCategory(emissions, user);
-      expect(totalEmissions).toEqual(6);
+      expect(Math.round(totalEmissions * 100) / 100).toEqual(2.53);
     });
 
     it("if the car is electric then there are no tail pipe emisions", () => {
@@ -47,7 +45,7 @@ describe("the emissions calculation", () => {
       const user = {drivingMilesPerYear: 3000, carType: "electric"};
       const totalEmissions =
         emissionsCalculator.calculateEmissionsForLeafCategory(emissions, user);
-      expect(totalEmissions).toEqual(0);
+      expect(Math.round(totalEmissions * 100) / 100).toEqual(0.14);
     });
   });
 });
