@@ -56,6 +56,9 @@ module.exports = (sequelize, DataTypes) => {
       percentageOfFoodWaste: {
         type: DataTypes.INTEGER,
       },
+      userValueToMultiply: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,

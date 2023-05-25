@@ -2,7 +2,7 @@ const {gql} = require("apollo-server-lambda");
 module.exports = gql`
   type Query {
     getClimateData(parentCategory: String, userId: Int): [ClimateData]
-    getCategoryData(category: String): Category
+    getCategoryData(category: String, userId: Int): Category
     getActionsList(parentCategory: String): [Action]
     getUser(id: Int): User
   }
@@ -51,6 +51,7 @@ module.exports = gql`
       amountOfLocalFood: String
       amountOfOrganicFood: String
       percentageOfFoodWaste: Int
+      userValueToMultiply: Int
     ): User
 
     addOrUpdateUser(id: Int, user: UserInput): User
@@ -65,6 +66,7 @@ module.exports = gql`
     colorIntensity: Int
     description: String
     detailed_description: String
+    amount(userId: Int): Float
     children: [Category]
   }
 
@@ -104,6 +106,7 @@ module.exports = gql`
     amountOfLocalFood: String
     amountOfOrganicFood: String
     percentageOfFoodWaste: Int
+    userValueToMultiply: Int
   }
 
   type User {
@@ -121,6 +124,7 @@ module.exports = gql`
     amountOfLocalFood: String
     amountOfOrganicFood: String
     percentageOfFoodWaste: Int
+    userValueToMultiply: Int
   }
 
   type Action {

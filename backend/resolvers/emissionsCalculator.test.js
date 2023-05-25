@@ -1,4 +1,4 @@
-const emissionsCalculator = require("./emissions_calculator");
+const emissionsCalculator = require("./emissionsCalculator");
 
 describe("the emissions calculation", () => {
   it("working out the amount for a single single emission", async () => {
@@ -19,33 +19,18 @@ describe("the emissions calculation", () => {
   });
 
   describe("driving calculations", () => {
-    it("calculate the tail pipe emissions based on the mileage", () => {
+    it("calculate the tail pipe emissions for a simple multiplier", () => {
       const emissions = [
         {
           dataValues: {
-            calculationIdentifier: "driving_tail_pipe",
+            calculationIdentifier: "simple_multiplier_by_2",
           },
         },
       ];
-      const user = {drivingMilesPerYear: 10000};
+      const user = {userValueToMultiply: 10};
       const totalEmissions =
         emissionsCalculator.calculateEmissionsForLeafCategory(emissions, user);
-      expect(Math.round(totalEmissions * 100) / 100).toEqual(2.53);
-    });
-
-    it("if the car is electric then there are no tail pipe emisions", () => {
-      const emissions = [
-        {
-          dataValues: {
-            totalCarbonEmited: 9,
-            calculationIdentifier: "driving_tail_pipe",
-          },
-        },
-      ];
-      const user = {drivingMilesPerYear: 3000, carType: "electric"};
-      const totalEmissions =
-        emissionsCalculator.calculateEmissionsForLeafCategory(emissions, user);
-      expect(Math.round(totalEmissions * 100) / 100).toEqual(0.14);
+      expect(Math.round(totalEmissions * 100) / 100).toEqual(20);
     });
   });
 });

@@ -2,46 +2,16 @@ const {ApolloServer} = require("apollo-server");
 const serverOptions = require("../server_options");
 const server = new ApolloServer(serverOptions);
 const {faker} = require("@faker-js/faker");
-
-const addClimateChangeData = async (args = {}) => {
-  const result = await server.executeOperation({
-    query: `mutation { 
-        addClimateChangeData(
-            label: "${args.label ? args.label : faker.lorem.word()}",
-            category: "${
-              args.category
-                ? args.category
-                : ["food", "government"][Math.floor(Math.random() * 2)]
-            }",
-            color: "${args.color ? args.color : faker.color.human()}"
-            colorIntensity: ${args.colorIntensity ? args.colorIntensity : 666}
-            parentId: ${args.parentId ? args.parentId : null}
-            description: "${
-              args.description ? args.description : "Some words of description"
-            }"
-            detailed_description: "${
-              args.detailed_description
-                ? args.detailed_description
-                : "Some more words of description"
-            }"
-          )
-       {
-        id
-        label
-       }
-      }`,
-  });
-  return result.data.addClimateChangeData.id;
-};
+const {addClimateChangeData, addUser, addEmission} = require("./testUtils");
 
 describe("the category API", () => {
   beforeEach(async () => {
     await server.executeOperation({
       query: "mutation { clearClimateData }",
     });
-    // await server.executeOperation({
-    //   query: "mutation { clearEmissions }",
-    // });
+    await server.executeOperation({
+      query: "mutation { clearEmissions }",
+    });
     await new Promise((r) => setTimeout(r, 1000));
   });
 
@@ -105,5 +75,28 @@ describe("the category API", () => {
     expect(
       result.data.getCategoryData.children.map((sub) => sub.label)
     ).toContain("Sub Drink");
+  });
+
+  test("It returns the amount of carbon for the category", async () => {
+    const userId = await addUser({userValueToMultiply: 10});
+    const categoryId = await addClimateChangeData({
+      category: "findme",
+      label: "Test",
+    });
+    addEmission({
+      categoryId,
+      calculationIdentifier: "simple_multiplier_by_2",
+    });
+    const result = await server.executeOperation({
+      query: `query GetCategoryData {
+        getCategoryData(category: "findme") {
+          category
+          amount(userId: ${userId})
+        }
+      }
+      `,
+    });
+
+    expect(result.data.getCategoryData.amount).toEqual(20);
   });
 });
