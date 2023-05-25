@@ -34,6 +34,9 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
         {data.detailed_description}
       </Typography>
       <ComponentForm categoryData={data} />
+      <Typography sx={{paddingTop: 2}} variant="body1">
+        Total {data.label} emissions: {data.amount} Tons
+      </Typography>
     </Paper>
   );
 };
