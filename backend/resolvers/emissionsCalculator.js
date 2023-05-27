@@ -15,6 +15,7 @@ const calculateCategoryAmount = (category, userValues = null) => {
 
 const calculateEmissionsForLeafCategory = (emissions, userValues = null) => {
   return emissions.reduce((subtotal, emission) => {
+    if (!emission) return 0;
     const emissionTotal = calculateEmission(
       emission.dataValues.calculationIdentifier,
       {

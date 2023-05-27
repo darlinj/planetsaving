@@ -10,7 +10,6 @@ module.exports = {
       if (args.userId) {
         user = await dataSources.users.getUser({id: args.userId});
       }
-      console.log("HELLO", user.dataValues);
       if (!user) {
         user = await dataSources.users.getUserByName("AVERAGE JOE");
       }
