@@ -34,6 +34,7 @@ const DrivingForm = () => {
       mutate(formValues);
 
       queryClient.invalidateQueries({queryKey: ["GetClimateData"]});
+      queryClient.invalidateQueries({queryKey: ["GetCategoryData"]});
     }
   }, [formValues, isDirty]);
 

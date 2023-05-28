@@ -24,7 +24,6 @@ module.exports = {
       return dataSources.climateData.getSubCategories(parent.id);
     },
     async amount(parent, args, {dataSources}, info) {
-      console.log("HELLO", args);
       const category =
         await dataSources.climateData.getCategoryWithChildrenAndEmissions(
           parent.id

@@ -1,5 +1,15 @@
 import React from "react";
-import {CircularProgress, Paper, Typography, Box, Divider} from "@mui/material";
+import {
+  CircularProgress,
+  Paper,
+  Typography,
+  Box,
+  Divider,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+} from "@mui/material";
 import useCategoryData from "../api/useCategoryData";
 import CategoryIcon from "./CategoryIcon";
 import ComponentForm from "./CategoryForm";
@@ -34,8 +44,13 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
         {data.detailed_description}
       </Typography>
       <ComponentForm categoryData={data} />
-      <Typography sx={{paddingTop: 2}} variant="body1">
-        Total {data.label} emissions: {data.amount} Tons
+      <Typography
+        sx={{paddingTop: 2}}
+        position={"absolute"}
+        bottom={"25%"}
+        variant="body1"
+      >
+        Total {data.label} emissions: {data.amount.toFixed(2)} Tons
       </Typography>
     </Paper>
   );
