@@ -1,5 +1,5 @@
 const carbonEmittedPerMileDieselKg = 0.253;
-const carbonEmittedPerMileElectricKg = 0.253;
+const carbonEmittedPerMileElectricKg = 0.053;
 const largeCarFactor = 1.3;
 const smallCarFactor = 0.7;
 
