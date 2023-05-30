@@ -48,6 +48,9 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
       sx={{
         padding: 1,
         height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
       }}
     >
       <Box display={"flex"} alignItems={"center"} justifyContent={"center"}>
@@ -56,17 +59,14 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
           {data.label}
         </Typography>
       </Box>
-      <Divider sx={{paddingTop: 1}} />
-      <Typography sx={{paddingTop: 2}} variant="body1">
-        {data.detailed_description}
-      </Typography>
-      <ComponentForm categoryData={data} />
-      <Typography
-        sx={{paddingTop: 2}}
-        position={"absolute"}
-        bottom={"25%"}
-        variant="body1"
-      >
+      <Box sx={{flexGrow: 1}}>
+        <Divider sx={{paddingTop: 1}} />
+        <Typography sx={{paddingTop: 2}} variant="body1">
+          {data.detailed_description}
+        </Typography>
+        <ComponentForm categoryData={data} />
+      </Box>
+      <Typography sx={{paddingTop: 2}} bottom={"25%"} variant="body1">
         <Button id={`${data.category}-total`} onClick={handleOpen}>
           {data.label} emissions: {data.amount.toFixed(2)} Tons
         </Button>
@@ -81,7 +81,7 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Calculation details
           </Typography>
-          <Typography id="modal-modal-description" sx={{mt: 2}}>
+          <Typography id="footprint-driving-calculation" sx={{mt: 2}}>
             Total is {data.amount.toFixed(2)}
           </Typography>
         </Box>

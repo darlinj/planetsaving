@@ -34,3 +34,16 @@ test("Changing the mileage changes the footprint values", async (t) => {
   const drivingSection = Selector("#footprint-driving");
   await t.expect(drivingSection.textContent).contains("2.28 Tons");
 });
+
+test("clicking on the total at the bottom of the form shows the calculation", async (t) => {
+  const transportLink = Selector("#transport");
+  await t.click(transportLink);
+  const drivingLink = Selector("#driving-footprint");
+  await t.click(drivingLink);
+  const totalLink = Selector("#footprint-driving");
+  await t.click(totalLink);
+  const calculation = Selector("#footprint-driving-calculation");
+  await t
+    .expect(calculation.textContent)
+    .contains("9000 miles * 0.123 kg per mile");
+});
