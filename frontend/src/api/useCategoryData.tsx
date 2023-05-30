@@ -14,6 +14,7 @@ const getCategoryDataQuery = gql`
       description
       detailed_description
       amount(userId: $userId)
+      calculation(userId: $userId)
       children {
         category
         label

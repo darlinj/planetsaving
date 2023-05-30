@@ -82,7 +82,7 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
             Calculation details
           </Typography>
           <Typography id="footprint-driving-calculation" sx={{mt: 2}}>
-            Total is {data.amount.toFixed(2)}
+            {data.calculation}
           </Typography>
         </Box>
       </Modal>

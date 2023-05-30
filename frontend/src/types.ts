@@ -14,6 +14,7 @@ export interface CategoryData {
   label: string;
   color: string;
   amount: number;
+  calculation: string;
   colorIntensity: number;
   description: string;
   detailed_description: string;

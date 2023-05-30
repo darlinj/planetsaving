@@ -5,6 +5,7 @@ import useCategoryData from "../api/useCategoryData";
 import {UseQueryResult} from "@tanstack/react-query";
 import ComponentForm from "./CategoryForm";
 import {CategoryData} from "../types";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("../api/useCategoryData");
 
@@ -44,12 +45,13 @@ describe("the sub category detail panel", () => {
     expect(screen.getByText(/No sub category data found/i)).toBeInTheDocument();
   });
 
-  test("renders the details of the sub category", () => {
+  test("renders the details of the sub category", async () => {
     const subCategoryDetail: CategoryData = {
       label: "Item 1",
       category: "food",
       color: "red",
       amount: 10,
+      calculation: "this * that / the other",
       colorIntensity: 500,
       description: "Top level description",
       detailed_description: "detailed description",
@@ -66,8 +68,13 @@ describe("the sub category detail panel", () => {
     expect(screen.getAllByText(/Item 1/i).length).toBe(2);
     expect(screen.getByText(/detailed description/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/Total Item 1 emissions: 10 Tons/i)
+      screen.getByText(/Item 1 emissions: 10.00 Tons/i)
     ).toBeInTheDocument();
+    const totalDetailButton = await screen.findByText(
+      "Item 1 emissions: 10.00 Tons"
+    );
+    await userEvent.click(totalDetailButton);
+    expect(screen.getByText("this * that / the other")).toBeInTheDocument();
   });
 
   test("renders the category form", () => {
@@ -76,6 +83,7 @@ describe("the sub category detail panel", () => {
       category: "food",
       color: "red",
       amount: 10,
+      calculation: "this * that / the other",
       colorIntensity: 500,
       description: "Top level description",
       detailed_description: "detailed description",
