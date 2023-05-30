@@ -21,9 +21,7 @@ test("Clicking on a child category shows the form with the default user values",
   await t.expect(Selector("#annual-mileage").value).eql("9000");
   await t.expect(footprint.textContent).contains("Size of car");
   await t.expect(Selector("#size-of-car").exists).ok;
-  await t
-    .expect(Selector("#driving-total").textContent)
-    .contains("100 Gigatons");
+  await t.expect(Selector("#driving-total").textContent).contains("2.28 Tons");
 });
 
 test("Changing the mileage changes the footprint values", async (t) => {

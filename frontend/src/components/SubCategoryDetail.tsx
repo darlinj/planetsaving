@@ -67,7 +67,7 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
         bottom={"25%"}
         variant="body1"
       >
-        <Button onClick={handleOpen}>
+        <Button id={`${data.category}-total`} onClick={handleOpen}>
           {data.label} emissions: {data.amount.toFixed(2)} Tons
         </Button>
       </Typography>
