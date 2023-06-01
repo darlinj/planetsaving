@@ -16,14 +16,14 @@ const calculateCategoryAmount = (category, userValues = null) => {
 const calculateEmissionsForLeafCategory = (emissions, userValues = null) => {
   return emissions.reduce((subtotal, emission) => {
     if (!emission) return 0;
-    const emissionTotal = calculateEmission(
+    const calculatedEmissions = calculateEmission(
       emission.dataValues.calculationIdentifier,
       {
         ...emission.dataValues,
         ...userValues,
       }
     );
-    return subtotal + emissionTotal;
+    return subtotal + calculatedEmissions.calculation;
   }, 0);
 };
 
@@ -34,8 +34,43 @@ const calculateEmission = (calculationIdentifier, operands) => {
     case "driving_tail_pipe":
       return tailPipeEmissionsCalc(operands);
     default:
-      return operands.totalCarbonEmited * 1.0;
+      return {
+        calculation: operands.totalCarbonEmited * 1.0,
+        description: `${operands.totalCarbonEmited} Tons emitted by ${operands.label}`,
+      };
   }
 };
 
-module.exports = {calculateCategoryAmount, calculateEmissionsForLeafCategory};
+const calculationsForCategory = (category, user) => {
+  if (!category.label) return "Category has data problems!";
+  if (!category.emissions || category.emissions.length == 0)
+    return `No emissions associated with ${category.label} category`;
+  return category.emissions.reduce((combinedCalculation, emission) => {
+    const joiner = combinedCalculation == "" ? "" : " + ";
+    return (
+      combinedCalculation +
+      joiner +
+      calculateEmission(emission.calculationIdentifier, {
+        ...emission.dataValues,
+        ...user.dataValues,
+      }).description
+    );
+  }, "");
+};
+
+const getCalculation = (category, userValues = null) => {
+  if (category.children.length == 0) {
+    return calculationsForCategory(category, userValues);
+  } else {
+    return category.children.reduce((total, c) => {
+      const joiner = total == "" ? "" : " + ";
+      return total + joiner + calculationsForCategory(c, userValues);
+    }, "");
+  }
+};
+
+module.exports = {
+  calculateCategoryAmount,
+  calculateEmissionsForLeafCategory,
+  getCalculation,
+};

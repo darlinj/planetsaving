@@ -67,6 +67,7 @@ module.exports = gql`
     description: String
     detailed_description: String
     amount(userId: Int): Float
+    calculation(userId: Int): String
     children: [Category]
   }
 

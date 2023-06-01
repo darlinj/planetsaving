@@ -99,4 +99,29 @@ describe("the category API", () => {
 
     expect(result.data.getCategoryData.amount).toEqual(20);
   });
+
+  test("getting the text based calculation", async () => {
+    const userId = await addUser({userValueToMultiply: 10});
+    const categoryId = await addClimateChangeData({
+      category: "findme",
+      label: "Test",
+    });
+    addEmission({
+      categoryId,
+      calculationIdentifier: "simple_multiplier_by_2",
+    });
+    const result = await server.executeOperation({
+      query: `query GetCategoryData {
+        getCategoryData(category: "findme") {
+          category
+          calculation(userId: ${userId})
+        }
+      }
+      `,
+    });
+
+    expect(result.data.getCategoryData.calculation).toEqual(
+      "It multiplies by 2 Obvs!"
+    );
+  });
 });
