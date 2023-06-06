@@ -52,7 +52,7 @@ const calculationsForCategory = (category, user) => {
       joiner +
       calculateEmission(emission.calculationIdentifier, {
         ...emission.dataValues,
-        ...user.dataValues,
+        ...user,
       }).description
     );
   }, "");

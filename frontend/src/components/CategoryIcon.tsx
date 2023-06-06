@@ -1,5 +1,5 @@
 import React from "react";
-import {CategoryData} from "../types";
+import {CategoryData, ClimateData} from "../types";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
 import ScienceIcon from "@mui/icons-material/Science";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
@@ -17,7 +17,7 @@ import {getCategoryColorArray} from "../categoryColorMap";
 import {GasMeter} from "@mui/icons-material";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 
-const CategoryIcon = ({category}: {category: CategoryData}) => {
+const CategoryIcon = ({category}: {category: ClimateData}) => {
   const color = getCategoryColorArray(category.color)[category.colorIntensity];
   switch (category.category) {
     case "fertilizer": {
