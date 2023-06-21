@@ -1,5 +1,4 @@
-const tailPipeEmissionsCalc = require("./tailPipeEmissions");
-const simpleMultiplierBy2 = require("./simpleMultiplierBy2");
+const calculateEmission = require("./emissionsCalculators");
 
 const calculateCategoryAmount = (category, userValues = null) => {
   if (category.children.length == 0) {
@@ -27,19 +26,19 @@ const calculateEmissionsForLeafCategory = (emissions, userValues = null) => {
   }, 0);
 };
 
-const calculateEmission = (calculationIdentifier, operands) => {
-  switch (calculationIdentifier) {
-    case "simple_multiplier_by_2":
-      return simpleMultiplierBy2(operands);
-    case "driving_tail_pipe":
-      return tailPipeEmissionsCalc(operands);
-    default:
-      return {
-        calculation: operands.totalCarbonEmited * 1.0,
-        description: `${operands.totalCarbonEmited} Tons emitted by ${operands.label}`,
-      };
-  }
-};
+// const calculateEmission = (calculationIdentifier, operands) => {
+//   switch (calculationIdentifier) {
+//     case "simple_multiplier_by_2":
+//       return simpleMultiplierBy2(operands);
+//     case "driving_tail_pipe":
+//       return tailPipeEmissionsCalc(operands);
+//     default:
+//       return {
+//         calculation: operands.totalCarbonEmited * 1.0,
+//         description: `${operands.totalCarbonEmited} Tons emitted by ${operands.label}`,
+//       };
+//   }
+// };
 
 const calculationsForCategory = (category, user) => {
   if (!category.label) return "Category has data problems!";
