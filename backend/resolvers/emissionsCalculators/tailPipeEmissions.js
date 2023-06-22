@@ -1,32 +1,46 @@
-const carSizeFactors = {small: 0.7, medium: 1.0, large: 1.3};
+const iceFactorsPerMile = {
+  small: 0.215 * 1.61,
+  medium: 0.241 * 1.61,
+  large: 0.28 * 1.61,
+};
+const electricFactorsPerMile = {
+  small: 0.074 * 1.61,
+  medium: 0.075 * 1.61,
+  large: 0.077 * 1.61,
+};
 const typeOfCarFactors = {electric: 0.053, ICE: 0.253};
 
-module.exports = (operands) => {
+module.exports = (operands = {}) => {
   return {calculation: calc(operands), description: desc(operands)};
 };
 
 const desc = (operands) => {
-  const carSizeClause =
-    operands.carType == "electric"
-      ? ""
-      : ` * ${carSizeFactors[operands.sizeOfCar]} car size factor`;
+  const factors =
+    operands.carType == "electric" ? electricFactorsPerMile : iceFactorsPerMile;
   if (operands["drivingMilesPerYear"]) {
-    return `${operands["drivingMilesPerYear"]} miles per year * (${
-      typeOfCarFactors[operands.carType]
-    } Kg per mile / 1000) ${carSizeClause} `;
+    return `${operands["drivingMilesPerYear"]} miles per year * (${factors[
+      operands.sizeOfCar
+    ].toFixed(2)} Kg per mile / 1000)`;
   }
-  console.log("OPERANDS:", operands);
   return `Sorry we can't work this out at this time`;
 };
 
 const calc = (operands) => {
   if (operands["drivingMilesPerYear"]) {
-    return (
-      (operands["drivingMilesPerYear"] *
-        (typeOfCarFactors[operands.carType] *
-          carSizeFactors[operands.sizeOfCar])) /
-      1000
-    );
+    if (operands["carType"] == "ICE") {
+      return (
+        (operands["drivingMilesPerYear"] *
+          iceFactorsPerMile[operands.sizeOfCar]) /
+        1000
+      );
+    }
+    if (operands["carType"] == "electric") {
+      return (
+        (operands["drivingMilesPerYear"] *
+          electricFactorsPerMile[operands.sizeOfCar]) /
+        1000
+      );
+    }
   }
   return 0;
 };
