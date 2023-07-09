@@ -1,5 +1,9 @@
 module.exports = (operands) => {
-  return {calculation: calc(operands), description: desc(operands)};
+  return {
+    calculation: calc(operands),
+    description: desc(operands),
+    referenceUrls: {label: "Some reference", url: "http://emample.com"},
+  };
 };
 
 const desc = (operands) => {

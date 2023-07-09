@@ -159,3 +159,33 @@ describe("the category calculation", () => {
     expect(totalEmissions).toEqual(23);
   });
 });
+
+describe("getting the references for a category", () => {
+  it("Failing to provide the category label returns an empty array", async () => {
+    const category = {
+      children: [],
+    };
+    const references = emissionsCalculator.getReferences(category);
+    expect(references).toEqual([]);
+  });
+
+  it("working out the refs for a single category with a calculation identifier", async () => {
+    const category = {
+      label: "Food",
+      emissions: [
+        {
+          dataValues: {
+            label: "Cabbages",
+            totalCarbonEmited: 10,
+            calculationIdentifier: "simple_multiplier_by_2",
+          },
+        },
+      ],
+      children: [],
+    };
+    const references = emissionsCalculator.getReferences(category);
+    expect(references).toEqual([
+      {label: "Some reference", url: "http://emample.com"},
+    ]);
+  });
+});

@@ -1,4 +1,12 @@
 const emissionsCalculator = require("./emissionsCalculator");
+
+const getUser = async (userId, dataSources) => {
+  if (userId) {
+    return await dataSources.users.getUser({id: userId});
+  }
+  return await dataSources.users.getUserByName("AVERAGE JOE");
+};
+
 module.exports = {
   Category: {
     async amount(parent, args, {dataSources}, info) {
@@ -6,13 +14,7 @@ module.exports = {
         await dataSources.climateData.getCategoryWithChildrenAndEmissions(
           parent.id
         );
-      let user = null;
-      if (args.userId) {
-        user = await dataSources.users.getUser({id: args.userId});
-      }
-      if (!user) {
-        user = await dataSources.users.getUserByName("AVERAGE JOE");
-      }
+      const user = await getUser(args.userId, dataSources);
       return emissionsCalculator.calculateCategoryAmount(
         category,
         user.dataValues
@@ -23,14 +25,16 @@ module.exports = {
         await dataSources.climateData.getCategoryWithChildrenAndEmissions(
           parent.id
         );
-      let user = null;
-      if (args.userId) {
-        user = await dataSources.users.getUser({id: args.userId});
-      }
-      if (!user) {
-        user = await dataSources.users.getUserByName("AVERAGE JOE");
-      }
+      const user = await getUser(args.userId, dataSources);
       return emissionsCalculator.getCalculation(category, user.dataValues);
+    },
+    async referenceUrls(parent, args, {dataSources}, info) {
+      const category =
+        await dataSources.climateData.getCategoryWithChildrenAndEmissions(
+          parent.id
+        );
+      const user = await getUser(args.userId, dataSources);
+      return emissionsCalculator.getReferences(category, user.dataValues);
     },
   },
   ClimateData: {
@@ -42,13 +46,7 @@ module.exports = {
         await dataSources.climateData.getCategoryWithChildrenAndEmissions(
           parent.id
         );
-      let user = null;
-      if (args.userId) {
-        user = await dataSources.users.getUser({id: args.userId});
-      }
-      if (!user) {
-        user = await dataSources.users.getUserByName("AVERAGE JOE");
-      }
+      const user = await getUser(args.userId, dataSources);
       return emissionsCalculator.calculateCategoryAmount(
         category,
         user.dataValues

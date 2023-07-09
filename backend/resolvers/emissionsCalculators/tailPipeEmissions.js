@@ -11,7 +11,11 @@ const electricFactorsPerMile = {
 const typeOfCarFactors = {electric: 0.053, ICE: 0.253};
 
 module.exports = (operands = {}) => {
-  return {calculation: calc(operands), description: desc(operands)};
+  return {
+    calculation: calc(operands),
+    description: desc(operands),
+    referenceUrls,
+  };
 };
 
 const desc = (operands) => {
@@ -43,4 +47,9 @@ const calc = (operands) => {
     }
   }
   return 0;
+};
+
+const referenceUrls = {
+  label: "Electric cars vs Internal combustion engines",
+  url: "https://www.transportenvironment.org/discover/how-clean-are-electric-cars/",
 };

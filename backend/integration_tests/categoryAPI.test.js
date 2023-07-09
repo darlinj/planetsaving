@@ -100,7 +100,7 @@ describe("the category API", () => {
     expect(result.data.getCategoryData.amount).toEqual(20);
   });
 
-  test("getting the text based calculation", async () => {
+  test("getting the text based calculation & references", async () => {
     const userId = await addUser({userValueToMultiply: 10});
     const categoryId = await addClimateChangeData({
       category: "findme",
@@ -115,6 +115,10 @@ describe("the category API", () => {
         getCategoryData(category: "findme") {
           category
           calculation(userId: ${userId})
+          referenceUrls {
+            url
+            label
+          }
         }
       }
       `,
@@ -122,6 +126,10 @@ describe("the category API", () => {
 
     expect(result.data.getCategoryData.calculation).toEqual(
       "It multiplies by 2 Obvs!"
+    );
+
+    expect(result.data.getCategoryData.referenceUrls[0].url).toEqual(
+      "http://emample.com"
     );
   });
 });

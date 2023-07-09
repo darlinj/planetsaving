@@ -26,20 +26,6 @@ const calculateEmissionsForLeafCategory = (emissions, userValues = null) => {
   }, 0);
 };
 
-// const calculateEmission = (calculationIdentifier, operands) => {
-//   switch (calculationIdentifier) {
-//     case "simple_multiplier_by_2":
-//       return simpleMultiplierBy2(operands);
-//     case "driving_tail_pipe":
-//       return tailPipeEmissionsCalc(operands);
-//     default:
-//       return {
-//         calculation: operands.totalCarbonEmited * 1.0,
-//         description: `${operands.totalCarbonEmited} Tons emitted by ${operands.label}`,
-//       };
-//   }
-// };
-
 const calculationsForCategory = (category, user) => {
   if (!category.label) return "Category has data problems!";
   if (!category.emissions || category.emissions.length == 0)
@@ -68,8 +54,23 @@ const getCalculation = (category, userValues = null) => {
   }
 };
 
+const getReferences = (category) => {
+  if (!category.label) return [];
+  if (!category.emissions || category.emissions.length == 0) return [];
+  return category.emissions.reduce((combinedCalculation, emission) => {
+    return [
+      ...combinedCalculation,
+      calculateEmission(
+        emission.dataValues.calculationIdentifier,
+        emission.dataValues
+      ).referenceUrls,
+    ];
+  }, []);
+};
+
 module.exports = {
   calculateCategoryAmount,
   calculateEmissionsForLeafCategory,
   getCalculation,
+  getReferences,
 };

@@ -53,4 +53,15 @@ describe("Tail pipe emissions", () => {
       "Sorry we can't work this out at this time"
     );
   });
+  it("returns a references section for the calculation", () => {
+    const emissions = tailPipeEmissions({
+      carType: "electric",
+      sizeOfCar: "small",
+      drivingMilesPerYear: 10000,
+    });
+    expect(emissions.referenceUrls).toStrictEqual({
+      label: "Electric cars vs Internal combustion engines",
+      url: "https://www.transportenvironment.org/discover/how-clean-are-electric-cars/",
+    });
+  });
 });

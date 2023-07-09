@@ -68,7 +68,13 @@ module.exports = gql`
     detailed_description: String
     amount(userId: Int): Float
     calculation(userId: Int): String
+    referenceUrls: [Reference]
     children: [Category]
+  }
+
+  type Reference {
+    label: String
+    url: String
   }
 
   type ClimateData {
