@@ -15,10 +15,16 @@ export interface CategoryData {
   color: string;
   amount: number;
   calculation: string;
+  referenceUrls: Reference[];
   colorIntensity: number;
   description: string;
   detailed_description: string;
   children?: CategoryData[];
+}
+
+interface Reference {
+  url: string;
+  label: string;
 }
 
 export interface ActionData {

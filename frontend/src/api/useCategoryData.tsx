@@ -13,6 +13,10 @@ const getCategoryDataQuery = gql`
       colorIntensity
       description
       detailed_description
+      referenceUrls {
+        url
+        label
+      }
       amount(userId: $userId)
       calculation(userId: $userId)
       children {

@@ -10,10 +10,14 @@ import {
   CardActions,
   CardContent,
   Modal,
+  Link,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import useCategoryData from "../api/useCategoryData";
 import CategoryIcon from "./CategoryIcon";
 import ComponentForm from "./CategoryForm";
+import LaunchIcon from "@mui/icons-material/Launch";
 
 const style = {
   position: "absolute" as "absolute",
@@ -79,11 +83,50 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Calculation details
+            How this figure was worked out
           </Typography>
-          <Typography id="footprint-driving-calculation" sx={{mt: 2}}>
-            {data.calculation}
-          </Typography>
+          <Box sx={{backgroundColor: "#f5f5f5", borderRadius: 3, padding: 2}}>
+            <Typography>Calculation</Typography>{" "}
+            <Typography variant="caption">
+              How the total was calculated
+            </Typography>
+            <Typography id="footprint-driving-calculation" sx={{mt: 2}}>
+              {data.calculation}
+            </Typography>
+          </Box>
+          {data.referenceUrls &&
+            data.referenceUrls.map((ref) => {
+              return (
+                <Box
+                  key={data.category}
+                  sx={{
+                    backgroundColor: "#f5f5f5",
+                    borderRadius: 3,
+                    padding: 2,
+                    marginTop: 1,
+                  }}
+                >
+                  <Typography>References</Typography>{" "}
+                  <Typography variant="caption">
+                    Where we got the source data
+                  </Typography>
+                  <Link
+                    href={ref.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    sx={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <ListItemIcon>
+                      <LaunchIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={ref.label} />
+                  </Link>
+                </Box>
+              );
+            })}
         </Box>
       </Modal>
     </Paper>

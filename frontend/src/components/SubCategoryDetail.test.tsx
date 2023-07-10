@@ -52,6 +52,12 @@ describe("the sub category detail panel", () => {
       color: "red",
       amount: 10,
       calculation: "this * that / the other",
+      referenceUrls: [
+        {
+          url: "http://example.com",
+          label: "Some reference",
+        },
+      ],
       colorIntensity: 500,
       description: "Top level description",
       detailed_description: "detailed description",
@@ -73,8 +79,12 @@ describe("the sub category detail panel", () => {
     const totalDetailButton = await screen.findByText(
       "Item 1 emissions: 10.00 Tons"
     );
+    // Test the dialog box
     await userEvent.click(totalDetailButton);
     expect(screen.getByText("this * that / the other")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {name: "Some reference"})
+    ).toBeInTheDocument();
   });
 
   test("renders the category form", () => {
