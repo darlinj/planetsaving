@@ -6,30 +6,18 @@ import {
   Box,
   Divider,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  Modal,
   Link,
   ListItemIcon,
   ListItemText,
+  DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import useCategoryData from "../api/useCategoryData";
 import CategoryIcon from "./CategoryIcon";
 import ComponentForm from "./CategoryForm";
 import LaunchIcon from "@mui/icons-material/Launch";
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
   const {data, isLoading} = useCategoryData(subCategory);
@@ -75,16 +63,14 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
           {data.label} emissions: {data.amount.toFixed(2)} Tons
         </Button>
       </Typography>
-      <Modal
+      <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="Calculation dialog"
+        aria-describedby="How this figure was worked out"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            How this figure was worked out
-          </Typography>
+        <DialogTitle>How this figure was worked out</DialogTitle>
+        <DialogContent>
           <Box sx={{backgroundColor: "#f5f5f5", borderRadius: 3, padding: 2}}>
             <Typography>Calculation</Typography>{" "}
             <Typography variant="caption">
@@ -127,8 +113,11 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
                 </Box>
               );
             })}
-        </Box>
-      </Modal>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Paper>
   );
 };
