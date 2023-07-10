@@ -24,7 +24,9 @@ const desc = (operands) => {
   if (operands["drivingMilesPerYear"]) {
     return `${operands["drivingMilesPerYear"]} miles per year * (${factors[
       operands.sizeOfCar
-    ].toFixed(2)} Kg per mile / 1000)`;
+    ].toFixed(2)} Kg per mile for a ${operands.carType} car / 1000) = ${calc(
+      operands
+    )} Tons of CO2e`;
   }
   return `Sorry we can't work this out at this time`;
 };
