@@ -8,7 +8,6 @@ const calculateEmission = (calculationIdentifier, operands) => {
     case "driving_tail_pipe":
       return tailPipeEmissionsCalc(operands);
     default:
-      console.log("OPERANDS", operands);
       return {
         calculation: operands.totalCarbonEmited * 1.0,
         description: `${operands.totalCarbonEmited} Tons emitted by ${operands.label}`,

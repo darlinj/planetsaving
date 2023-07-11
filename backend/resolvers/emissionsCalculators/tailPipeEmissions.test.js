@@ -9,7 +9,7 @@ describe("Tail pipe emissions", () => {
     });
     expect(emissions.calculation).toBe(3.8801000000000005);
     expect(emissions.description).toBe(
-      "10000 miles per year * (0.39 Kg per mile / 1000)"
+      "10000 miles per year * (0.39 Kg per mile for a ICE car / 1000) = 3.88 Tons of CO2e"
     );
   });
   it("correctly calculates the emissions from a large ICE car", () => {
@@ -20,7 +20,7 @@ describe("Tail pipe emissions", () => {
     });
     expect(emissions.calculation).toBe(4.508000000000001);
     expect(emissions.description).toBe(
-      "10000 miles per year * (0.45 Kg per mile / 1000)"
+      "10000 miles per year * (0.45 Kg per mile for a ICE car / 1000) = 4.51 Tons of CO2e"
     );
   });
   it("correctly calculates the emissions from a small ICE car", () => {
@@ -31,7 +31,7 @@ describe("Tail pipe emissions", () => {
     });
     expect(emissions.calculation).toBe(3.4615);
     expect(emissions.description).toBe(
-      "10000 miles per year * (0.35 Kg per mile / 1000)"
+      "10000 miles per year * (0.35 Kg per mile for a ICE car / 1000) = 3.46 Tons of CO2e"
     );
   });
 
@@ -43,7 +43,7 @@ describe("Tail pipe emissions", () => {
     });
     expect(emissions.calculation).toBe(1.1913999999999998);
     expect(emissions.description).toBe(
-      "10000 miles per year * (0.12 Kg per mile / 1000)"
+      "10000 miles per year * (0.12 Kg per mile for a electric car / 1000) = 1.19 Tons of CO2e"
     );
   });
   it("returns 0 if the number of miles isn't set", () => {

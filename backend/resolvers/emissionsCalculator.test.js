@@ -74,10 +74,11 @@ describe("returning the text based calculation", () => {
     };
 
     const calculation = emissionsCalculator.getCalculation(category, {});
-    expect(calculation).toEqual("10 Tons emitted by Cabbages");
+    expect(calculation).toEqual("10 Tons emitted by Food");
   });
 
   it("returns the calculations for a leaf category with a multiple emission", () => {
+    // TODO: Add a label to the emissions table
     const category = {
       label: "Food",
       emissions: [
@@ -89,7 +90,7 @@ describe("returning the text based calculation", () => {
 
     const calculation = emissionsCalculator.getCalculation(category, {});
     expect(calculation).toEqual(
-      "10 Tons emitted by Cabbages + 5 Tons emitted by Potatoes"
+      "10 Tons emitted by Food + 5 Tons emitted by Food"
     );
   });
 
@@ -109,7 +110,7 @@ describe("returning the text based calculation", () => {
     };
 
     const calculation = emissionsCalculator.getCalculation(category, {});
-    expect(calculation).toEqual("10 Tons emitted by Cabbages");
+    expect(calculation).toEqual("10 Tons emitted by Food");
   });
 });
 

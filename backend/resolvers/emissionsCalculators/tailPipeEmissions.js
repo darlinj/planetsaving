@@ -8,7 +8,6 @@ const electricFactorsPerMile = {
   medium: 0.075 * 1.61,
   large: 0.077 * 1.61,
 };
-const typeOfCarFactors = {electric: 0.053, ICE: 0.253};
 
 module.exports = (operands = {}) => {
   return {
@@ -26,7 +25,7 @@ const desc = (operands) => {
       operands.sizeOfCar
     ].toFixed(2)} Kg per mile for a ${operands.carType} car / 1000) = ${calc(
       operands
-    )} Tons of CO2e`;
+    ).toFixed(2)} Tons of CO2e`;
   }
   return `Sorry we can't work this out at this time`;
 };

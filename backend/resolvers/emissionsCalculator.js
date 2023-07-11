@@ -59,13 +59,12 @@ const getReferences = (category) => {
   if (!category.label) return [];
   if (!category.emissions || category.emissions.length == 0) return [];
   return category.emissions.reduce((combinedCalculation, emission) => {
-    return [
-      ...combinedCalculation,
+    return combinedCalculation.concat(
       calculateEmission(
         emission.dataValues.calculationIdentifier,
         emission.dataValues
-      ).referenceUrls,
-    ];
+      ).referenceUrls
+    );
   }, []);
 };
 

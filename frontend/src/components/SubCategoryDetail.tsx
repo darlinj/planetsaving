@@ -80,23 +80,23 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
               {data.calculation}
             </Typography>
           </Box>
-          {data.referenceUrls &&
-            data.referenceUrls.map((ref) => {
-              return (
-                <Box
-                  key={data.category}
-                  sx={{
-                    backgroundColor: "#f5f5f5",
-                    borderRadius: 3,
-                    padding: 2,
-                    marginTop: 1,
-                  }}
-                >
-                  <Typography>References</Typography>{" "}
-                  <Typography variant="caption">
-                    Where we got the source data
-                  </Typography>
+          <Box
+            sx={{
+              backgroundColor: "#f5f5f5",
+              borderRadius: 3,
+              padding: 2,
+              marginTop: 1,
+            }}
+          >
+            <Typography>References</Typography>{" "}
+            <Typography variant="caption">
+              Where we got the source data
+            </Typography>
+            {data.referenceUrls &&
+              data.referenceUrls.map((ref) => {
+                return (
                   <Link
+                    key={data.category}
                     href={ref.url}
                     rel="noopener noreferrer"
                     target="_blank"
@@ -110,9 +110,9 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
                     </ListItemIcon>
                     <ListItemText primary={ref.label} />
                   </Link>
-                </Box>
-              );
-            })}
+                );
+              })}
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Close</Button>
