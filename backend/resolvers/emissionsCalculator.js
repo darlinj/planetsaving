@@ -38,6 +38,7 @@ const calculationsForCategory = (category, user) => {
       calculateEmission(emission.calculationIdentifier, {
         ...emission.dataValues,
         ...user,
+        label: category.label,
       }).description
     );
   }, "");
