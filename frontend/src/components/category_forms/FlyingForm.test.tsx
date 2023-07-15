@@ -28,8 +28,6 @@ const mockAddOrUpdateUser = useAddOrUpdateUser as jest.MockedFunction<
   typeof useAddOrUpdateUser
 >;
 
-// useAddOrUpdateUser.mockResolvedValue({mutate: () => "foo"});
-
 let userData: UserData = {
   id: 1234,
   name: "Default user",
