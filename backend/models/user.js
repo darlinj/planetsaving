@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       sizeOfCar: {
         type: DataTypes.STRING,
       },
-      flyingMilesPerYear: {
+      flyingHoursPerYear: {
         type: DataTypes.INTEGER,
       },
       trainMilesPerYear: {

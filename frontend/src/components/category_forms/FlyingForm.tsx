@@ -32,66 +32,19 @@ const FlyingForm: React.FunctionComponent<UserFormComponentParams> = ({
         <FormGroup sx={{marginBottom: "1em"}}>
           <FormControl>
             <TextField
-              label="Yearly Mileage"
+              label="how many hours do you fly in a year"
               id="annual-mileage"
               variant="outlined"
-              name="drivingMilesPerYear"
+              name="flyingHoursPerYear"
               InputProps={{
                 endAdornment: (
-                  <InputAdornment position="end">miles</InputAdornment>
+                  <InputAdornment position="end">Hours</InputAdornment>
                 ),
               }}
-              value={formValues.drivingMilesPerYear}
+              value={formValues.flyingHoursPerYear}
               onBlur={submitChange}
               onChange={handleChange}
             />
-          </FormControl>
-          <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-          <FormControl>
-            <FormLabel id="engine-size">Engine Type</FormLabel>
-            <RadioGroup
-              aria-labelledby="engine-size"
-              value={formValues.carType}
-              onChange={handleChangeAndSubmit}
-              name="carType"
-            >
-              <FormControlLabel
-                value="ICE"
-                control={<Radio />}
-                label="Petrol or Diesel"
-              />
-              <FormControlLabel
-                value="electric"
-                control={<Radio />}
-                label="Electric"
-              />
-            </RadioGroup>
-          </FormControl>
-          <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-          <FormControl>
-            <FormLabel id="size-of-car">Size of car</FormLabel>
-            <RadioGroup
-              aria-labelledby="size-of-car"
-              value={formValues.sizeOfCar}
-              onChange={handleChangeAndSubmit}
-              name="sizeOfCar"
-            >
-              <FormControlLabel
-                value="small"
-                control={<Radio />}
-                label="Small"
-              />
-              <FormControlLabel
-                value="medium"
-                control={<Radio />}
-                label="Medium"
-              />
-              <FormControlLabel
-                value="large"
-                control={<Radio />}
-                label="Large or SUV"
-              />
-            </RadioGroup>
           </FormControl>
         </FormGroup>
       </form>

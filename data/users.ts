@@ -6,7 +6,7 @@ const users = [
     kwhOfGasUsedPerYear: 18000,
     drivingMilesPerYear: 9000,
     sizeOfCar: "medium",
-    flyingMilesPerYear: 500,
+    flyingHoursPerYear: 6.8,
     trainMilesPerYear: 300,
     carType: "ICE",
     greenEnergyTarriff: true,

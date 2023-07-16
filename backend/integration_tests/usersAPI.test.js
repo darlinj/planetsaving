@@ -15,7 +15,7 @@ describe("the users API", () => {
           kwhOfElectricityUsedPerYear: 4800
           kwhOfGasUsedPerYear: 18000
           drivingMilesPerYear: 9000
-          flyingMilesPerYear: 500
+          flyingHoursPerYear: 500
           trainMilesPerYear: 300
           carType: "ICE"
           greenEnergyTarriff: true
@@ -40,7 +40,7 @@ describe("the users API", () => {
           kwhOfElectricityUsedPerYear: 4800
           kwhOfGasUsedPerYear: 18000
           drivingMilesPerYear: 9000
-          flyingMilesPerYear: 500
+          flyingHoursPerYear: 500
           trainMilesPerYear: 300
           carType: "ICE"
           greenEnergyTarriff: true
@@ -77,7 +77,7 @@ describe("the users API", () => {
           kwhOfElectricityUsedPerYear: 4800
           kwhOfGasUsedPerYear: 18000
           drivingMilesPerYear: 8000
-          flyingMilesPerYear: 500
+          flyingHoursPerYear: 500
           trainMilesPerYear: 300
           carType: "ICE"
           greenEnergyTarriff: true
@@ -120,7 +120,7 @@ describe("the users API", () => {
           kwhOfGasUsedPerYear: 18000,
           drivingMilesPerYear: 90000,
           sizeOfCar: "medium",
-          flyingMilesPerYear: 500,
+          flyingHoursPerYear: 500,
           trainMilesPerYear: 300,
           carType: "electric",
           greenEnergyTarriff: true,

@@ -15,7 +15,7 @@ const addOrUpdateUserQuery = gql`
       drivingMilesPerYear
       sizeOfCar
       carType
-      flyingMilesPerYear
+      flyingHoursPerYear
       trainMilesPerYear
       greenEnergyTarriff
       amountOfLocalFood

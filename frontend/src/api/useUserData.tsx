@@ -13,7 +13,7 @@ const getUserDataQuery = gql`
       kwhOfGasUsedPerYear
       drivingMilesPerYear
       sizeOfCar
-      flyingMilesPerYear
+      flyingHoursPerYear
       trainMilesPerYear
       carType
       greenEnergyTarriff

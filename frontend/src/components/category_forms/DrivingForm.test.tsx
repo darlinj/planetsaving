@@ -33,18 +33,9 @@ const mockAddOrUpdateUser = useAddOrUpdateUser as jest.MockedFunction<
 let userData: UserData = {
   id: 1234,
   name: "Default user",
-  numberOfPeopleInHome: 3,
-  kwhOfElectricityUsedPerYear: 3,
-  kwhOfGasUsedPerYear: 3,
   drivingMilesPerYear: 8000,
   sizeOfCar: "medium",
-  flyingMilesPerYear: 3,
-  trainMilesPerYear: 3,
   carType: "ICE",
-  greenEnergyTarriff: true,
-  amountOfLocalFood: "some",
-  amountOfOrganicFood: "some",
-  percentageOfFoodWaste: 20,
 };
 
 describe("the driving form", () => {

@@ -38,18 +38,18 @@ export interface ActionData {
 export interface UserData {
   id: number;
   name: string;
-  numberOfPeopleInHome: number;
-  kwhOfElectricityUsedPerYear: number;
-  kwhOfGasUsedPerYear: number;
-  drivingMilesPerYear: number;
-  sizeOfCar: string;
-  flyingMilesPerYear: number;
-  trainMilesPerYear: number;
-  carType: string;
-  greenEnergyTarriff: Boolean;
-  amountOfLocalFood: string;
-  amountOfOrganicFood: string;
-  percentageOfFoodWaste: number;
+  numberOfPeopleInHome?: number;
+  kwhOfElectricityUsedPerYear?: number;
+  kwhOfGasUsedPerYear?: number;
+  drivingMilesPerYear?: number;
+  sizeOfCar?: string;
+  flyingHoursPerYear?: number;
+  trainMilesPerYear?: number;
+  carType?: string;
+  greenEnergyTarriff?: Boolean;
+  amountOfLocalFood?: string;
+  amountOfOrganicFood?: string;
+  percentageOfFoodWaste?: number;
 }
 
 export interface UserDataInput {
@@ -59,7 +59,7 @@ export interface UserDataInput {
   kwhOfGasUsedPerYear?: number;
   drivingMilesPerYear?: number;
   sizeOfCar?: string;
-  flyingMilesPerYear?: number;
+  flyingHoursPerYear?: number;
   trainMilesPerYear?: number;
   carType?: string;
   greenEnergyTarriff?: Boolean;

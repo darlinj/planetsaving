@@ -44,7 +44,7 @@ module.exports = gql`
       kwhOfGasUsedPerYear: Int
       drivingMilesPerYear: Int
       sizeOfCar: String
-      flyingMilesPerYear: Int
+      flyingHoursPerYear: Int
       trainMilesPerYear: Int
       carType: String
       greenEnergyTarriff: Boolean
@@ -106,7 +106,7 @@ module.exports = gql`
     kwhOfGasUsedPerYear: Int
     drivingMilesPerYear: Int
     sizeOfCar: String
-    flyingMilesPerYear: Int
+    flyingHoursPerYear: Int
     trainMilesPerYear: Int
     carType: String
     greenEnergyTarriff: Boolean
@@ -124,7 +124,7 @@ module.exports = gql`
     kwhOfGasUsedPerYear: Int
     drivingMilesPerYear: Int
     sizeOfCar: String
-    flyingMilesPerYear: Int
+    flyingHoursPerYear: Int
     trainMilesPerYear: Int
     carType: String
     greenEnergyTarriff: Boolean
