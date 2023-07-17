@@ -13,7 +13,12 @@ jest.mock("./category_forms/FlyingForm", () => (props) => {
   return (
     <div>
       Some form
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          props.saveChange({some: "data"});
+        }}
+      >
         <label htmlFor="myTextbox">Number of flights</label>
         <input
           onChange={props.handleChange}
@@ -123,13 +128,13 @@ describe("Displaying the category forms", () => {
       wrapper: MemoryRouter,
     });
     expect(mockForm).toBeCalled();
-    expect(mockForm.mock.calls[1][0].formValues).toEqual({
+    expect(mockForm.mock.calls[1][0].initialFormValues).toEqual({
       name: "SPECIAL JOE",
       someSpecial: "Data",
     });
   });
 
-  it("mutates the form data when submit is called from the child form", () => {
+  it("mutates the form data when save is called from the child form", () => {
     const mockMutate = jest.fn();
     (useAddOrUpdateUser as jest.Mock).mockReturnValue({
       mutate: mockMutate,
@@ -142,29 +147,7 @@ describe("Displaying the category forms", () => {
     const button = screen.getByRole("button", {name: /Submit Me/i});
     fireEvent.click(button);
     expect(mockMutate).toHaveBeenCalledWith({
-      name: "SPECIAL JOE",
-      some: "Data",
-    });
-  });
-
-  it("changes the data submitted when the child form sends back different data", () => {
-    const mockMutate = jest.fn();
-    (useAddOrUpdateUser as jest.Mock).mockReturnValue({
-      mutate: mockMutate,
-      isLoading: false,
-      isError: false,
-    });
-    render(<CategoryForm categoryData={categoryData} />, {
-      wrapper: MemoryRouter,
-    });
-    const textbox = screen.getByRole("textbox", {name: /number of flights/i});
-    userEvent.type(textbox, "13");
-    const button = screen.getByRole("button", {name: /Submit Me/i});
-    userEvent.click(button);
-    expect(mockMutate).toHaveBeenCalledWith({
-      name: "SPECIAL JOE",
-      some: "Data",
-      flights: 13,
+      some: "data",
     });
   });
 });

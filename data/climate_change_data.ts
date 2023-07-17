@@ -62,6 +62,7 @@ const climateData = [
           {
             totalCarbonEmited: 1.25,
             name: "Running the airport",
+            calculationIdentifier: "flying",
           },
         ],
       },

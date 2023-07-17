@@ -25,10 +25,19 @@ const addOrUpdateUserQuery = gql`
   }
 `;
 
+const stringsToNumbers = (userData: Record<string, any>) => {
+  for (const key in userData) {
+    if (typeof userData[key] === "string" && !isNaN(Number(userData[key]))) {
+      userData[key] = Number(userData[key]);
+    }
+  }
+  return userData;
+};
+
 const submitMutation = async (input: UserDataInput) => {
   const userIdString = Cookies.get("user-id");
   const userId = userIdString ? +userIdString : 0;
-  const userData = {id: userId, user: input};
+  const userData = {id: userId, user: stringsToNumbers(input)};
   const response = await request<any, {id: number | null; user: UserDataInput}>(
     backendUrl,
     addOrUpdateUserQuery,

@@ -1,30 +1,35 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   FormGroup,
-  FormControlLabel,
-  FormLabel,
   TextField,
   FormControl,
-  Radio,
-  RadioGroup,
   Divider,
   InputAdornment,
+  Button,
 } from "@mui/material";
 import {UserDataInput} from "../../types";
 
 type UserFormComponentParams = {
-  formValues: UserDataInput;
-  handleChangeAndSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  submitChange: () => void;
+  initialFormValues: UserDataInput;
+  saveChange: (formValues: UserDataInput) => void;
 };
 
 const FlyingForm: React.FunctionComponent<UserFormComponentParams> = ({
-  formValues,
-  handleChangeAndSubmit,
-  handleChange,
-  submitChange,
+  initialFormValues,
+  saveChange,
 }) => {
+  const [formValues, setFormValues] =
+    useState<UserDataInput>(initialFormValues);
+
+  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = event.target;
+    setFormValues({...formValues, [name]: value});
+  };
+
+  const submitChange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    saveChange(formValues);
+  };
   return (
     <>
       <form>
@@ -33,7 +38,7 @@ const FlyingForm: React.FunctionComponent<UserFormComponentParams> = ({
           <FormControl>
             <TextField
               label="how many hours do you fly in a year"
-              id="annual-mileage"
+              id="annual-flying-hours"
               variant="outlined"
               name="flyingHoursPerYear"
               InputProps={{
@@ -42,10 +47,12 @@ const FlyingForm: React.FunctionComponent<UserFormComponentParams> = ({
                 ),
               }}
               value={formValues.flyingHoursPerYear}
-              onBlur={submitChange}
-              onChange={handleChange}
+              onChange={onInputChange}
             />
           </FormControl>
+          <Button type="submit" onClick={submitChange}>
+            Update
+          </Button>
         </FormGroup>
       </form>
     </>

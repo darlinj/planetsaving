@@ -9,24 +9,12 @@ import useAddOrUpdateUser from "../api/useAddOrUpdateUser";
 import useUserData from "../api/useUserData";
 
 const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
-  const [isDirty, setIsDirty] = useState(false);
   const [formValues, setFormValues] = useState<UserDataInput>({});
-
   const userIdString = Cookies.get("user-id");
   const userId = userIdString ? +userIdString : undefined;
   const {data, isLoading, isError} = useUserData(userId);
   const {mutate} = useAddOrUpdateUser();
-  const [isLoaded, setIsLoaded] = useState(false);
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    if (isDirty) {
-      mutate(formValues);
-
-      queryClient.invalidateQueries({queryKey: ["GetClimateData"]});
-      queryClient.invalidateQueries({queryKey: ["GetCategoryData"]});
-    }
-  }, [formValues, isDirty]);
 
   useEffect(() => {
     if (data) {
@@ -55,21 +43,10 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
     return <div>No user data found</div>;
   }
 
-  const submitChange = () => {
-    setIsDirty(true);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setFormValues({...formValues, [name]: +value});
-  };
-
-  const handleChangeAndSubmit = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const {name, value} = event.target;
-    setFormValues({...formValues, [name]: value});
-    setIsDirty(true);
+  const submitChange = (newFormValues: UserDataInput) => {
+    mutate(newFormValues);
+    queryClient.invalidateQueries({queryKey: ["GetClimateData"]});
+    queryClient.invalidateQueries({queryKey: ["GetCategoryData"]});
   };
 
   switch (categoryData.category) {
@@ -78,12 +55,7 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
 
     case "flying":
       return (
-        <FlyingForm
-          formValues={formValues}
-          submitChange={submitChange}
-          handleChange={handleChange}
-          handleChangeAndSubmit={handleChangeAndSubmit}
-        />
+        <FlyingForm initialFormValues={formValues} saveChange={submitChange} />
       );
   }
   return <></>;

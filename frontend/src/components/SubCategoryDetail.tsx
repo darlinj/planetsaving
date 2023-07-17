@@ -69,13 +69,10 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
         aria-labelledby="Calculation dialog"
         aria-describedby="How this figure was worked out"
       >
-        <DialogTitle>How this figure was worked out</DialogTitle>
+        <DialogTitle>How this figure was calculated</DialogTitle>
         <DialogContent>
           <Box sx={{backgroundColor: "#f5f5f5", borderRadius: 3, padding: 2}}>
             <Typography>Calculation</Typography>{" "}
-            <Typography variant="caption">
-              How the total was calculated
-            </Typography>
             <Typography id="footprint-driving-calculation" sx={{mt: 2}}>
               {data.calculation}
             </Typography>
@@ -86,6 +83,8 @@ const SubCategoryDetail = ({subCategory}: {subCategory: string}) => {
               borderRadius: 3,
               padding: 2,
               marginTop: 1,
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <Typography>References</Typography>{" "}
