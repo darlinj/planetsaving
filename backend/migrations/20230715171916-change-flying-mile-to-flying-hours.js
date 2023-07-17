@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn("Users", "flyingHoursPerYear", "category", {
-      type: Sequelize.INTEGER,
+      type: Sequelize.FLOAT,
     });
     await queryInterface.removeColumn("Users", "flyingMilesPerYear");
   },
