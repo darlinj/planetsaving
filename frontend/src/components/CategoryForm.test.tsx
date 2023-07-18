@@ -128,8 +128,7 @@ describe("Displaying the category forms", () => {
       wrapper: MemoryRouter,
     });
     expect(mockForm).toBeCalled();
-    expect(mockForm.mock.calls[1][0].initialFormValues).toEqual({
-      name: "SPECIAL JOE",
+    expect(mockForm.mock.calls[0][0].initialFormValues).toEqual({
       someSpecial: "Data",
     });
   });

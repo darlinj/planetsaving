@@ -9,7 +9,6 @@ import useAddOrUpdateUser from "../api/useAddOrUpdateUser";
 import useUserData from "../api/useUserData";
 
 const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
-  const [formValues, setFormValues] = useState<UserDataInput>({});
   const userIdString = Cookies.get("user-id");
   const userId = userIdString ? +userIdString : undefined;
   const {data, isLoading, isError} = useUserData(userId);
@@ -18,11 +17,10 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
 
   useEffect(() => {
     if (data) {
-      const {id, ...initFormValues} = data;
-      if (initFormValues.name !== "AVERAGE JOE") {
+      const {id, name} = data;
+      if (name !== "AVERAGE JOE") {
         Cookies.set("user-id", `${id}`);
       }
-      setFormValues({...initFormValues, name: "SPECIAL JOE"});
     }
   }, [data]);
 
@@ -49,13 +47,18 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
     queryClient.invalidateQueries({queryKey: ["GetCategoryData"]});
   };
 
+  const {id, ...initialFormValues} = data;
+
   switch (categoryData.category) {
     case "driving":
       return <DrivingForm />;
 
     case "flying":
       return (
-        <FlyingForm initialFormValues={formValues} saveChange={submitChange} />
+        <FlyingForm
+          initialFormValues={initialFormValues}
+          saveChange={submitChange}
+        />
       );
   }
   return <></>;
