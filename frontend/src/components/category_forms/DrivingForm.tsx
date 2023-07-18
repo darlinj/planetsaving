@@ -7,78 +7,27 @@ import {
   Radio,
   RadioGroup,
   Divider,
-  CircularProgress,
-  OutlinedInput,
-  FormHelperText,
   InputAdornment,
+  Button,
 } from "@mui/material";
-import React, {useEffect, useState} from "react";
-import useUserData from "../../api/useUserData";
-import useAddOrUpdateUser from "../../api/useAddOrUpdateUser";
-import {UserDataInput} from "../../types";
-import Cookies from "js-cookie";
-import {useQueryClient} from "@tanstack/react-query";
+import React, {useState} from "react";
+import {UserDataInput, UserFormComponentParams} from "../../types";
 
-const DrivingForm = () => {
-  const userIdString = Cookies.get("user-id");
-  const userId = userIdString ? +userIdString : undefined;
-  const {data, isLoading, isError} = useUserData(userId);
-  const [formValues, setFormValues] = useState<UserDataInput>({});
-  const {mutate} = useAddOrUpdateUser();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isDirty, setIsDirty] = useState(false);
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    if (isDirty) {
-      mutate(formValues);
-
-      queryClient.invalidateQueries({queryKey: ["GetClimateData"]});
-      queryClient.invalidateQueries({queryKey: ["GetCategoryData"]});
-    }
-  }, [formValues, isDirty]);
-
-  if (isLoading) {
-    return (
-      <div>
-        <CircularProgress />
-        Loading...
-      </div>
-    );
-  }
-
-  if (isError) {
-    return <div>Failed to load data</div>;
-  }
-
-  if (!data) {
-    return <div>No user data found</div>;
-  }
-
-  if (!isLoaded) {
-    const {id, ...formValues} = data;
-    if (formValues.name !== "AVERAGE JOE") {
-      Cookies.set("user-id", `${id}`);
-    }
-    setFormValues({...formValues, name: "SPECIAL JOE"});
-    setIsLoaded(true);
-  }
-
-  const submitChange = () => {
-    setIsDirty(true);
-  };
+const DrivingForm: React.FunctionComponent<UserFormComponentParams> = ({
+  initialFormValues,
+  saveChange,
+}) => {
+  const [formValues, setFormValues] =
+    useState<UserDataInput>(initialFormValues);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
-    setFormValues({...formValues, [name]: +value});
+    setFormValues({...formValues, [name]: value});
   };
 
-  const handleChangeAndSubmit = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const {name, value} = event.target;
-    setFormValues({...formValues, [name]: value});
-    setIsDirty(true);
+  const submitChange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    saveChange(formValues);
   };
 
   return (
@@ -98,7 +47,6 @@ const DrivingForm = () => {
                 ),
               }}
               value={formValues.drivingMilesPerYear}
-              onBlur={submitChange}
               onChange={handleChange}
             />
           </FormControl>
@@ -108,7 +56,7 @@ const DrivingForm = () => {
             <RadioGroup
               aria-labelledby="engine-size"
               value={formValues.carType}
-              onChange={handleChangeAndSubmit}
+              onChange={handleChange}
               name="carType"
             >
               <FormControlLabel
@@ -129,7 +77,7 @@ const DrivingForm = () => {
             <RadioGroup
               aria-labelledby="size-of-car"
               value={formValues.sizeOfCar}
-              onChange={handleChangeAndSubmit}
+              onChange={handleChange}
               name="sizeOfCar"
             >
               <FormControlLabel
@@ -149,6 +97,9 @@ const DrivingForm = () => {
               />
             </RadioGroup>
           </FormControl>
+          <Button type="submit" onClick={submitChange}>
+            Update
+          </Button>
         </FormGroup>
       </form>
     </>

@@ -51,8 +51,12 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
 
   switch (categoryData.category) {
     case "driving":
-      return <DrivingForm />;
-
+      return (
+        <DrivingForm
+          initialFormValues={initialFormValues}
+          saveChange={submitChange}
+        />
+      );
     case "flying":
       return (
         <FlyingForm

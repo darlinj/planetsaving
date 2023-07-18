@@ -30,7 +30,7 @@ const mockAddOrUpdateUser = useAddOrUpdateUser as jest.MockedFunction<
 
 // useAddOrUpdateUser.mockResolvedValue({mutate: () => "foo"});
 
-let userData: UserData = {
+let initialFormValues: UserData = {
   id: 1234,
   name: "Default user",
   drivingMilesPerYear: 8000,
@@ -42,39 +42,15 @@ describe("the driving form", () => {
   beforeEach(() => {
     mockMutate.mockClear();
   });
-  test("it renders the loading page", () => {
-    mockUseUserData.mockImplementation(() => {
-      return {
-        data: undefined,
-        isLoading: true,
-      } as UseQueryResult<UserData>;
-    });
-    render(<DrivingForm />);
-    expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
-  });
-
-  test("renders an error message if there is no data returned", () => {
-    mockUseUserData.mockImplementation(() => {
-      return {
-        status: "success",
-        data: undefined,
-        isFetching: false,
-        isLoading: false,
-      } as unknown as UseQueryResult<UserData>;
-    });
-    render(<DrivingForm />);
-    expect(screen.getByText(/No user data found/i)).toBeInTheDocument();
-  });
 
   test("renders the driving form with default user values", () => {
-    mockUseUserData.mockImplementation(() => {
-      return {
-        status: "success",
-        data: userData,
-        isLoading: false,
-      } as UseQueryResult<UserData>;
-    });
-    render(<DrivingForm />);
+    const saveChange = jest.fn();
+    render(
+      <DrivingForm
+        initialFormValues={initialFormValues}
+        saveChange={saveChange}
+      />
+    );
 
     expect(screen.getByRole("textbox", {name: "Yearly Mileage"})).toHaveValue(
       "8000"
@@ -88,14 +64,13 @@ describe("the driving form", () => {
   });
 
   test("It updates the user when the mileage is changed", async () => {
-    mockUseUserData.mockImplementation(() => {
-      return {
-        status: "success",
-        data: userData,
-        isLoading: false,
-      } as UseQueryResult<UserData>;
-    });
-    render(<DrivingForm />);
+    const saveChange = jest.fn();
+    render(
+      <DrivingForm
+        initialFormValues={initialFormValues}
+        saveChange={saveChange}
+      />
+    );
     await userEvent.type(
       await screen.findByRole("textbox", {name: "Yearly Mileage"}),
       "{selectall}9000"
@@ -103,24 +78,24 @@ describe("the driving form", () => {
     await userEvent.click(
       await screen.findByRole("radiogroup", {name: "Size of car"})
     );
-    // jest.runOnlyPendingTimers();
-    expect(mockMutate).toHaveBeenCalled();
-    expect(mockMutate.mock.calls[0][0]?.drivingMilesPerYear).toBe(9000);
+    userEvent.click(screen.getByRole("button", {name: /update/i}));
+    expect(saveChange).toHaveBeenCalled();
+    expect(saveChange.mock.calls[0][0]?.drivingMilesPerYear).toBe("9000");
   });
 
   test("It updates the user when the car type is changed", async () => {
-    mockUseUserData.mockImplementation(() => {
-      return {
-        status: "success",
-        data: userData,
-        isLoading: false,
-      } as UseQueryResult<UserData>;
-    });
-    render(<DrivingForm />);
+    const saveChange = jest.fn();
+    render(
+      <DrivingForm
+        initialFormValues={initialFormValues}
+        saveChange={saveChange}
+      />
+    );
 
     const radioButton = await screen.findByLabelText("Electric");
     await userEvent.click(radioButton);
-    expect(mockMutate).toHaveBeenCalled();
-    expect(mockMutate.mock.calls[0][0]?.carType).toBe("electric");
+    userEvent.click(screen.getByRole("button", {name: /update/i}));
+    expect(saveChange).toHaveBeenCalled();
+    expect(saveChange.mock.calls[0][0]?.carType).toBe("electric");
   });
 });

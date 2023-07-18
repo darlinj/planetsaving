@@ -67,3 +67,8 @@ export interface UserDataInput {
   amountOfOrganicFood?: string;
   percentageOfFoodWaste?: number;
 }
+
+export type UserFormComponentParams = {
+  initialFormValues: UserDataInput;
+  saveChange: (formValues: UserDataInput) => void;
+};
