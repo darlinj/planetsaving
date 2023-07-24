@@ -41,7 +41,10 @@ export interface UserData {
   numberOfPeopleInHome?: number;
   kwhOfElectricityUsedPerYear?: number;
   kwhOfGasUsedPerYear?: number;
+  m3OfGasUsedPerYear?: number;
   drivingMilesPerYear?: number;
+  gasEstimationType?: string;
+  houseSize?: string;
   sizeOfCar?: string;
   flyingHoursPerYear?: number;
   trainMilesPerYear?: number;
@@ -57,6 +60,9 @@ export interface UserDataInput {
   numberOfPeopleInHome?: number;
   kwhOfElectricityUsedPerYear?: number;
   kwhOfGasUsedPerYear?: number;
+  m3OfGasUsedPerYear?: number;
+  gasEstimationType?: string;
+  houseSize?: string;
   drivingMilesPerYear?: number;
   sizeOfCar?: string;
   flyingHoursPerYear?: number;

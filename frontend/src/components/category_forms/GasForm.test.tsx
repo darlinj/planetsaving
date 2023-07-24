@@ -7,12 +7,15 @@ import userEvent from "@testing-library/user-event";
 let userData: UserData = {
   name: "Some Name",
   id: 1234,
+  houseSize: "medium",
+  gasEstimationType: "houseSize",
   numberOfPeopleInHome: 2.4,
   kwhOfGasUsedPerYear: 6.8,
 };
 
 describe("the gas form", () => {
   it("renders the gas form with default user values", () => {
+    userData.gasEstimationType = "kwh";
     render(<GasForm initialFormValues={userData} saveChange={() => true} />);
 
     expect(
@@ -28,8 +31,29 @@ describe("the gas form", () => {
     ).toHaveValue("6.8");
   });
 
+  it("renders a radio button that allows you to choose your estimation method", () => {
+    userData.gasEstimationType = "houseSize";
+    const {getByRole} = render(
+      <GasForm initialFormValues={userData} saveChange={() => true} />
+    );
+    expect(getByRole("radio", {name: "House size"})).toBeChecked();
+    expect(getByRole("radio", {name: "KWh"})).not.toBeChecked();
+    expect(getByRole("radio", {name: "M 3"})).not.toBeChecked();
+  });
+
+  it("renders the house sizes if the house size options is picked", () => {
+    const {getByRole} = render(
+      <GasForm initialFormValues={userData} saveChange={() => true} />
+    );
+    const houseSize = getByRole("radio", {name: "House size"});
+    userEvent.click(houseSize);
+    expect(getByRole("radio", {name: "Small house"})).not.toBeChecked();
+    expect(getByRole("radio", {name: "Medium house"})).toBeChecked();
+    expect(getByRole("radio", {name: "Large house"})).not.toBeChecked();
+  });
+
   it("updates the form when the Update button is pressed", () => {
-    // const handleSubmit = jest.fn();
+    userData.gasEstimationType = "kwh";
     const handleChange = jest.fn();
     const {getByRole} = render(
       <GasForm initialFormValues={userData} saveChange={handleChange} />
@@ -46,6 +70,8 @@ describe("the gas form", () => {
     userEvent.type(gasUsed, "400");
     userEvent.click(getByRole("button", {name: /update/i}));
     expect(handleChange).toHaveBeenCalledWith({
+      gasEstimationType: "kwh",
+      houseSize: "medium",
       numberOfPeopleInHome: "4",
       kwhOfGasUsedPerYear: "400",
       id: 1234,

@@ -6,6 +6,11 @@ import {
   Divider,
   InputAdornment,
   Button,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Typography,
 } from "@mui/material";
 import {UserDataInput} from "../../types";
 
@@ -46,15 +51,96 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
             />
           </FormControl>
           <FormControl>
-            <TextField
-              label="Annual gas consumed"
-              id="gas-consumed"
-              variant="outlined"
-              name="kwhOfGasUsedPerYear"
-              value={formValues.kwhOfGasUsedPerYear}
+            <FormLabel id="estimation-type">Estimation type</FormLabel>
+            <RadioGroup
+              aria-labelledby="engine-size"
+              value={formValues.gasEstimationType}
               onChange={onInputChange}
-            />
+              name="gasEstimationType"
+              row
+            >
+              <FormControlLabel
+                value="houseSize"
+                control={<Radio />}
+                label="House size"
+              />
+              <FormControlLabel value="kwh" control={<Radio />} label="KWh" />
+              <FormControlLabel
+                value="m3"
+                control={<Radio />}
+                label={
+                  <>
+                    <Typography>
+                      M<sup>3</sup>
+                    </Typography>
+                  </>
+                }
+              />
+            </RadioGroup>
           </FormControl>
+          {formValues.gasEstimationType == "houseSize" && (
+            <FormControl>
+              <FormLabel id="house-size">House size</FormLabel>
+              <RadioGroup
+                aria-labelledby="house-size"
+                value={formValues.houseSize}
+                onChange={onInputChange}
+                name="house-size"
+              >
+                <FormControlLabel
+                  value="small"
+                  control={<Radio />}
+                  label="Small house"
+                />
+                <FormControlLabel
+                  value="medium"
+                  control={<Radio />}
+                  label="Medium house"
+                />
+                <FormControlLabel
+                  value="large"
+                  control={<Radio />}
+                  label="Large house"
+                />
+              </RadioGroup>
+            </FormControl>
+          )}
+          {formValues.gasEstimationType == "kwh" && (
+            <FormControl>
+              <TextField
+                label="Annual gas consumed"
+                id="gas-consumed"
+                variant="outlined"
+                name="kwhOfGasUsedPerYear"
+                value={formValues.kwhOfGasUsedPerYear}
+                onChange={onInputChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">KWh</InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+          )}
+          {formValues.gasEstimationType == "m3" && (
+            <FormControl>
+              <TextField
+                label="Annual gas consumed"
+                id="gas-consumed"
+                variant="outlined"
+                name="m3OfGasUsedPerYear"
+                value={formValues.m3OfGasUsedPerYear}
+                onChange={onInputChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      M<sup>3</sup>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+          )}
           <Button type="submit" onClick={submitChange}>
             Update
           </Button>
