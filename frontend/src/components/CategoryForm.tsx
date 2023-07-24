@@ -7,6 +7,7 @@ import {useQueryClient} from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import useAddOrUpdateUser from "../api/useAddOrUpdateUser";
 import useUserData from "../api/useUserData";
+import GasForm from "./category_forms/GasForm";
 
 const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
   const userIdString = Cookies.get("user-id");
@@ -60,6 +61,13 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
     case "flying":
       return (
         <FlyingForm
+          initialFormValues={initialFormValues}
+          saveChange={submitChange}
+        />
+      );
+    case "gas":
+      return (
+        <GasForm
           initialFormValues={initialFormValues}
           saveChange={submitChange}
         />
