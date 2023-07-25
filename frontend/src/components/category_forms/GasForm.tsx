@@ -31,6 +31,11 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
     setFormValues({...formValues, [name]: value});
   };
 
+  const onInputChangeNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = event.target;
+    setFormValues({...formValues, [name]: +value});
+  };
+
   const submitChange = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     saveChange(formValues);
@@ -47,14 +52,14 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
               variant="outlined"
               name="numberOfPeopleInHome"
               value={formValues.numberOfPeopleInHome}
-              onChange={onInputChange}
+              onChange={onInputChangeNumber}
             />
           </FormControl>
           <FormControl>
             <FormLabel id="estimation-type">Estimation type</FormLabel>
             <RadioGroup
               aria-labelledby="engine-size"
-              value={formValues.gasEstimationType}
+              value={formValues.gasEstimationType || "houseSize"}
               onChange={onInputChange}
               name="gasEstimationType"
               row
@@ -113,7 +118,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                 variant="outlined"
                 name="kwhOfGasUsedPerYear"
                 value={formValues.kwhOfGasUsedPerYear}
-                onChange={onInputChange}
+                onChange={onInputChangeNumber}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">KWh</InputAdornment>
@@ -130,7 +135,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                 variant="outlined"
                 name="m3OfGasUsedPerYear"
                 value={formValues.m3OfGasUsedPerYear}
-                onChange={onInputChange}
+                onChange={onInputChangeNumber}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
