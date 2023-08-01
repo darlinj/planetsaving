@@ -24,7 +24,6 @@ class UsersDatasource extends DataSource {
     const user = await User.findOne({where: {id: args.id}});
     if (user) {
       for (let key in args.user) {
-        console.log("Setting: ", key, "to", args.user[key]);
         if (args.user[key] !== null) {
           user[key] = args.user[key];
         }
