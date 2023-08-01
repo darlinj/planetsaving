@@ -26,8 +26,17 @@ module.exports = (sequelize, DataTypes) => {
       kwhOfElectricityUsedPerYear: {
         type: DataTypes.INTEGER,
       },
+      gasEstimationType: {
+        type: DataTypes.STRING,
+      },
       kwhOfGasUsedPerYear: {
         type: DataTypes.INTEGER,
+      },
+      m3OfGasUsedPerYear: {
+        type: DataTypes.INTEGER,
+      },
+      houseSize: {
+        type: DataTypes.STRING,
       },
       drivingMilesPerYear: {
         type: DataTypes.INTEGER,

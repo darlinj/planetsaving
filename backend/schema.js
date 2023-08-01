@@ -42,6 +42,7 @@ module.exports = gql`
       numberOfPeopleInHome: Float
       kwhOfElectricityUsedPerYear: Int
       kwhOfGasUsedPerYear: Int
+      m3OfGasUsedPerYear: Int
       drivingMilesPerYear: Int
       sizeOfCar: String
       flyingHoursPerYear: Float
@@ -52,6 +53,8 @@ module.exports = gql`
       amountOfOrganicFood: String
       percentageOfFoodWaste: Int
       userValueToMultiply: Int
+      gasEstimationType: String
+      houseSize: String
     ): User
 
     addOrUpdateUser(id: Int, user: UserInput): User
@@ -104,6 +107,7 @@ module.exports = gql`
     numberOfPeopleInHome: Float
     kwhOfElectricityUsedPerYear: Int
     kwhOfGasUsedPerYear: Int
+    m3OfGasUsedPerYear: Int
     drivingMilesPerYear: Int
     sizeOfCar: String
     flyingHoursPerYear: Float
@@ -114,6 +118,8 @@ module.exports = gql`
     amountOfOrganicFood: String
     percentageOfFoodWaste: Int
     userValueToMultiply: Int
+    gasEstimationType: String
+    houseSize: String
   }
 
   type User {
@@ -122,6 +128,7 @@ module.exports = gql`
     numberOfPeopleInHome: Float
     kwhOfElectricityUsedPerYear: Int
     kwhOfGasUsedPerYear: Int
+    m3OfGasUsedPerYear: Int
     drivingMilesPerYear: Int
     sizeOfCar: String
     flyingHoursPerYear: Float
@@ -132,6 +139,8 @@ module.exports = gql`
     amountOfOrganicFood: String
     percentageOfFoodWaste: Int
     userValueToMultiply: Int
+    gasEstimationType: String
+    houseSize: String
   }
 
   type Action {

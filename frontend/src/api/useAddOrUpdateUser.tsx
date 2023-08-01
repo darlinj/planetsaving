@@ -12,6 +12,7 @@ const addOrUpdateUserQuery = gql`
       numberOfPeopleInHome
       kwhOfElectricityUsedPerYear
       kwhOfGasUsedPerYear
+      m3OfGasUsedPerYear
       drivingMilesPerYear
       sizeOfCar
       carType
@@ -21,6 +22,8 @@ const addOrUpdateUserQuery = gql`
       amountOfLocalFood
       amountOfOrganicFood
       percentageOfFoodWaste
+      gasEstimationType
+      houseSize
     }
   }
 `;

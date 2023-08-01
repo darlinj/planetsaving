@@ -90,7 +90,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                 aria-labelledby="house-size"
                 value={formValues.houseSize}
                 onChange={onInputChange}
-                name="house-size"
+                name="houseSize"
               >
                 <FormControlLabel
                   value="small"
