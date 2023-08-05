@@ -32,6 +32,7 @@ describe("the top level panel", () => {
         colorIntensity: 500,
         amount: 4,
         description: "some description",
+        detailed_description: "some detail",
       },
     ];
     mockUseFootprintData.mockImplementation(() => {

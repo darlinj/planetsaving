@@ -97,6 +97,7 @@ describe("the sub category detail panel", () => {
       colorIntensity: 500,
       description: "Top level description",
       detailed_description: "detailed description",
+      referenceUrls: [],
     };
     mockUseCategoryDetail.mockImplementation(() => {
       return {

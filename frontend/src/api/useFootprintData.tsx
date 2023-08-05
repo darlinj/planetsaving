@@ -20,10 +20,14 @@ const getClimateDataQuery = gql`
   }
 `;
 
+type ResponseData = {
+  getClimateData: [ClimateData];
+};
+
 const getData = async (parentCategory: string | undefined) => {
   const userIdString = Cookie.get("user-id");
   const userId = userIdString ? +userIdString : 0;
-  const data = await request(backendUrl, getClimateDataQuery, {
+  const data = await request<ResponseData>(backendUrl, getClimateDataQuery, {
     parentCategory,
     userId,
   });

@@ -8,7 +8,7 @@ import useAddOrUpdateUser from "../api/useAddOrUpdateUser";
 import userEvent from "@testing-library/user-event";
 
 const mockForm = jest.fn();
-jest.mock("./category_forms/FlyingForm", () => (props) => {
+jest.mock("./category_forms/FlyingForm", () => (props: any) => {
   mockForm(props);
   return (
     <div>

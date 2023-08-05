@@ -24,9 +24,13 @@ const getUserDataQuery = gql`
   }
 `;
 
+type ResponseData = {
+  getUser: UserData;
+};
+
 function useUserData(id?: number | undefined) {
   return useQuery<UserData>(["GetUserData", id], async () => {
-    const data = await request(backendUrl, getUserDataQuery, {
+    const data = await request<ResponseData>(backendUrl, getUserDataQuery, {
       id: id,
     });
     return data.getUser;

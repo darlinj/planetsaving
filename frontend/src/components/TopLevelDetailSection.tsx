@@ -10,12 +10,6 @@ import {
   Typography,
   Link,
 } from "@mui/material";
-import {orange, red, yellow, green, blue} from "@mui/material/colors";
-import RestaurantIcon from "@mui/icons-material/Restaurant";
-import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
-import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
 import {useParams} from "react-router-dom";
 import useFootprintData from "../api/useFootprintData";
 import CategoryIcon from "./CategoryIcon";

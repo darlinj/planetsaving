@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {CategoryData, UserDataInput} from "../types";
 import DrivingForm from "./category_forms/DrivingForm";
 import FlyingForm from "./category_forms/FlyingForm";

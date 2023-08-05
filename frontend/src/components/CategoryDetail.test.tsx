@@ -44,6 +44,9 @@ describe("the detail panel", () => {
       amount: 10,
       colorIntensity: 500,
       description: "Top level desctiption",
+      detailed_description: "some detail",
+      referenceUrls: [],
+      calculation: "123",
       children: [
         {
           label: "Child Item 1",
@@ -52,6 +55,9 @@ describe("the detail panel", () => {
           amount: 5,
           colorIntensity: 400,
           description: "Some description",
+          detailed_description: "some detail",
+          referenceUrls: [],
+          calculation: "123",
         },
         {
           label: "Child Item 2",
@@ -60,6 +66,9 @@ describe("the detail panel", () => {
           amount: 5,
           colorIntensity: 300,
           description: "Some description",
+          detailed_description: "some detail",
+          referenceUrls: [],
+          calculation: "123",
         },
       ],
     };

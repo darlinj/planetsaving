@@ -83,7 +83,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
               />
             </RadioGroup>
           </FormControl>
-          {formValues.gasEstimationType == "houseSize" && (
+          {formValues.gasEstimationType === "houseSize" && (
             <FormControl>
               <FormLabel id="house-size">House size</FormLabel>
               <RadioGroup
@@ -110,7 +110,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
               </RadioGroup>
             </FormControl>
           )}
-          {formValues.gasEstimationType == "kwh" && (
+          {formValues.gasEstimationType === "kwh" && (
             <FormControl>
               <TextField
                 label="Annual gas consumed"
@@ -127,7 +127,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
               />
             </FormControl>
           )}
-          {formValues.gasEstimationType == "m3" && (
+          {formValues.gasEstimationType === "m3" && (
             <FormControl>
               <TextField
                 label="Annual gas consumed"

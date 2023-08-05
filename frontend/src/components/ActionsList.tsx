@@ -1,5 +1,5 @@
 import React from "react";
-import {CircularProgress, Grid, Paper, Typography} from "@mui/material";
+import {CircularProgress} from "@mui/material";
 import SuggestedActionCard from "./SuggestedActionCard";
 import useActionsList from "../api/useActionsList";
 import {useParams} from "react-router-dom";

@@ -1,5 +1,5 @@
 import React from "react";
-import {CategoryData, ClimateData} from "../types";
+import {ClimateData} from "../types";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
 import ScienceIcon from "@mui/icons-material/Science";
 import LunchDiningIcon from "@mui/icons-material/LunchDining";
@@ -14,7 +14,6 @@ import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 import TrainIcon from "@mui/icons-material/Train";
 import {grey} from "@mui/material/colors";
 import {getCategoryColorArray} from "../categoryColorMap";
-import {GasMeter} from "@mui/icons-material";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 
 const CategoryIcon = ({category}: {category: ClimateData}) => {

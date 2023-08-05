@@ -31,11 +31,15 @@ const getCategoryDataQuery = gql`
   }
 `;
 
+type ResponseData = {
+  getCategoryData: CategoryData;
+};
+
 function useCategoryData(category: string | undefined) {
   return useQuery<CategoryData>(["GetCategoryData", category], async () => {
     const userIdString = Cookie.get("user-id");
     const userId = userIdString ? +userIdString : 0;
-    const data = await request(backendUrl, getCategoryDataQuery, {
+    const data = await request<ResponseData>(backendUrl, getCategoryDataQuery, {
       category,
       userId,
     });

@@ -17,11 +17,15 @@ const getActionQuery = gql`
   }
 `;
 
+type ResponseData = {
+  getActionsList: [ActionData];
+};
+
 function useActionsList(parentCategory: string | undefined) {
   return useQuery<[ActionData]>(
     ["GetActionsList", parentCategory],
     async () => {
-      const data = await request(backendUrl, getActionQuery, {
+      const data = await request<ResponseData>(backendUrl, getActionQuery, {
         parentCategory: parentCategory,
       });
       return data.getActionsList;
