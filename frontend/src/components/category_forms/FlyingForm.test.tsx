@@ -21,18 +21,18 @@ describe("the flying form", () => {
     ).toHaveValue("6.8");
   });
 
-  it("updates the form when the Update button is pressed", () => {
+  it("updates the form when the Update button is pressed", async () => {
     // const handleSubmit = jest.fn();
     const handleChange = jest.fn();
-    const {getByRole} = render(
+    const {getByRole, findByRole} = render(
       <FlyingForm initialFormValues={userData} saveChange={handleChange} />
     );
     const textbox = getByRole("textbox", {
       name: /how many hours do you fly in a year/i,
     });
-    userEvent.clear(textbox);
-    userEvent.type(textbox, "7.7");
-    userEvent.click(getByRole("button", {name: /update/i}));
+    await userEvent.clear(textbox);
+    await userEvent.type(textbox, "7.7");
+    await userEvent.click(await findByRole("button", {name: /update/i}));
     expect(handleChange).toHaveBeenCalledWith({
       flyingHoursPerYear: "7.7",
       id: 1234,

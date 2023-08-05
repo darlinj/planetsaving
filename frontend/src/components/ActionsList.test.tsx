@@ -8,6 +8,10 @@ import {MemoryRouter} from "react-router-dom";
 
 jest.mock("../api/useActionsList");
 
+const mockUseActionsList = useActionsList as jest.MockedFunction<
+  typeof useActionsList
+>;
+
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: () => ({
@@ -17,26 +21,6 @@ jest.mock("react-router-dom", () => ({
 
 describe("The actions list", () => {
   it("renders the loading message", () => {
-    const mockUseActionsList = useActionsList as jest.MockedFunction<
-      typeof useActionsList
-    >;
-    const actionsList: ActionData[] = [
-      {
-        title: "Reduce your thermostat by ten degree",
-        id: 123,
-        category: {
-          category: "food",
-          label: "Food",
-          amount: 2,
-          description: "some description",
-          detailed_description: "some detailed description",
-          color: "red",
-          colorIntensity: 300,
-        },
-        carbonSaved: 3.0,
-        cost: 6.0,
-      },
-    ];
     mockUseActionsList.mockImplementation(() => {
       return {
         isLoading: true,
@@ -47,9 +31,6 @@ describe("The actions list", () => {
   });
 
   it("renders the actions", () => {
-    const mockUseActionsList = useActionsList as jest.MockedFunction<
-      typeof useActionsList
-    >;
     const actionsList: ActionData[] = [
       {
         title: "Reduce your thermostat by ten degree",
@@ -81,30 +62,10 @@ describe("The actions list", () => {
   });
 
   it("If the category is supplied then it only shows the actions attached to that category", () => {
-    const mockUseActionsList = useActionsList as jest.MockedFunction<
-      typeof useActionsList
-    >;
-    const actionsList: ActionData[] = [
-      {
-        title: "Reduce your thermostat by ten degree",
-        id: 123,
-        category: {
-          category: "food",
-          label: "Food",
-          amount: 2,
-          description: "some description",
-          detailed_description: "some detailed description",
-          color: "red",
-          colorIntensity: 300,
-        },
-        carbonSaved: 3.0,
-        cost: 6.0,
-      },
-    ];
     mockUseActionsList.mockImplementation(() => {
       return {
         status: "success",
-        data: actionsList,
+        data: [{}],
         isFetching: false,
         isLoading: false,
       } as UseQueryResult<[ActionData]>;
