@@ -42,18 +42,18 @@ describe("the gas form", () => {
     expect(getByRole("radio", {name: "M 3"})).not.toBeChecked();
   });
 
-  it("uses the house sizes if the house size options is picked", () => {
+  it("uses the house sizes if the house size options is picked", async () => {
     userData.gasEstimationType = "kwh";
     const handleChange = jest.fn();
-    const {getByRole} = render(
+    const {getByRole, findByRole} = render(
       <GasForm initialFormValues={userData} saveChange={handleChange} />
     );
     const estimationType = getByRole("radio", {name: "House size"});
-    userEvent.click(estimationType);
+    await userEvent.click(estimationType);
     expect(getByRole("radio", {name: "Small house"})).not.toBeChecked();
     expect(getByRole("radio", {name: "Medium house"})).toBeChecked();
     expect(getByRole("radio", {name: "Large house"})).not.toBeChecked();
-    userEvent.click(getByRole("button", {name: /update/i}));
+    await userEvent.click(await findByRole("button", {name: /update/i}));
     expect(handleChange).toHaveBeenCalledWith({
       gasEstimationType: "houseSize",
       houseSize: "medium",
@@ -65,21 +65,20 @@ describe("the gas form", () => {
     });
   });
 
-  it("uses the KWh measure if that option is picked", () => {
+  it("uses the KWh measure if that option is picked", async () => {
     userData.gasEstimationType = "houseSize";
     const handleChange = jest.fn();
-    const {getByRole} = render(
+    const {getByRole, findByRole} = render(
       <GasForm initialFormValues={userData} saveChange={handleChange} />
     );
     const estimationType = getByRole("radio", {name: /kwh/i});
     userEvent.click(estimationType);
-    const gasUsed = getByRole("textbox", {
+    const gasUsed = await findByRole("textbox", {
       name: /Annual gas consumed/i,
     });
-    userEvent.clear(gasUsed);
-    userEvent.type(gasUsed, "400");
-    userEvent.click(getByRole("button", {name: /update/i}));
-    userEvent.click(getByRole("button", {name: /update/i}));
+    await userEvent.clear(gasUsed);
+    await userEvent.type(gasUsed, "400");
+    await userEvent.click(await getByRole("button", {name: /update/i}));
     expect(handleChange).toHaveBeenCalledWith({
       gasEstimationType: "kwh",
       houseSize: "medium",
@@ -91,20 +90,20 @@ describe("the gas form", () => {
     });
   });
 
-  it("uses the square meters measure if that option is picked", () => {
+  it("uses the square meters measure if that option is picked", async () => {
     userData.gasEstimationType = "houseSize";
     const handleChange = jest.fn();
-    const {getByRole} = render(
+    const {getByRole, findByRole} = render(
       <GasForm initialFormValues={userData} saveChange={handleChange} />
     );
     const estimationType = getByRole("radio", {name: /m 3/i});
     userEvent.click(estimationType);
-    const gasUsed = getByRole("textbox", {
+    const gasUsed = await findByRole("textbox", {
       name: /Annual gas consumed/i,
     });
-    userEvent.clear(gasUsed);
-    userEvent.type(gasUsed, "500");
-    userEvent.click(getByRole("button", {name: /update/i}));
+    await userEvent.clear(gasUsed);
+    await userEvent.type(gasUsed, "500");
+    await userEvent.click(await findByRole("button", {name: /update/i}));
     expect(handleChange).toHaveBeenCalledWith({
       gasEstimationType: "m3",
       houseSize: "medium",

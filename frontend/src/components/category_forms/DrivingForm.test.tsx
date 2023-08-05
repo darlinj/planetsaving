@@ -71,14 +71,17 @@ describe("the driving form", () => {
         saveChange={saveChange}
       />
     );
-    await userEvent.type(
-      await screen.findByRole("textbox", {name: "Yearly Mileage"}),
-      "{selectall}9000"
-    );
+
+    const mileageBox = await screen.findByRole("textbox", {
+      name: "Yearly Mileage",
+    });
+
+    await userEvent.clear(mileageBox);
+    await userEvent.type(mileageBox, "{selectall}9000");
     await userEvent.click(
       await screen.findByRole("radiogroup", {name: "Size of car"})
     );
-    userEvent.click(screen.getByRole("button", {name: /update/i}));
+    await userEvent.click(screen.getByRole("button", {name: /update/i}));
     expect(saveChange).toHaveBeenCalled();
     expect(saveChange.mock.calls[0][0]?.drivingMilesPerYear).toBe("9000");
   });
@@ -94,7 +97,7 @@ describe("the driving form", () => {
 
     const radioButton = await screen.findByLabelText("Electric");
     await userEvent.click(radioButton);
-    userEvent.click(screen.getByRole("button", {name: /update/i}));
+    await userEvent.click(await screen.findByRole("button", {name: /update/i}));
     expect(saveChange).toHaveBeenCalled();
     expect(saveChange.mock.calls[0][0]?.carType).toBe("electric");
   });
