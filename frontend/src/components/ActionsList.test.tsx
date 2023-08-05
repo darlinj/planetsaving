@@ -65,7 +65,7 @@ describe("The actions list", () => {
     mockUseActionsList.mockImplementation(() => {
       return {
         status: "success",
-        data: [{}],
+        data: [{id: 123}],
         isFetching: false,
         isLoading: false,
       } as UseQueryResult<[ActionData]>;
