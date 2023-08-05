@@ -150,3 +150,16 @@ set the URL of the environment you are trying to hit **export API_URL=http://bla
 ```
 npx ts-node ./data/reset_database.ts
 ```
+
+# Update dependencies
+
+```
+npx npm-check-updates
+```
+
+then
+
+```
+npx npm-check-updates  -u
+npm install
+```

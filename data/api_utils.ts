@@ -35,7 +35,7 @@ class ClimateData {
 
   addEmissionsRecord(emissions: any, categoryId: any) {
     emissions.forEach((emission: any) => {
-      const query = this.sendQuery(gql`mutation {
+      this.sendQuery(gql`mutation {
           addEmission(
               name: "${emission.name}"
               categoryId: ${categoryId}
@@ -92,7 +92,8 @@ class ClimateData {
   }
 
   addCategory(category: any, parentId: string | null) {
-    return this.sendQuery(
+    return request<{addClimateChangeData: {id: string}}>(
+      API_URL,
       gql`mutation {
           addClimateChangeData(
             label: "${category.label}"
