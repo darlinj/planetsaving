@@ -21,7 +21,7 @@ test("Clicking on a child category shows the form with the default user values",
   await t.expect(Selector("#annual-mileage").value).eql("9000");
   await t.expect(footprint.textContent).contains("Size of car");
   await t.expect(Selector("#size-of-car").exists).ok;
-  await t.expect(Selector("#driving-total").textContent).contains("2.28 Tons");
+  await t.expect(Selector("#driving-total").textContent).contains("3.49 Tons");
 });
 
 test("Changing the mileage changes the footprint values", async (t) => {
@@ -32,7 +32,7 @@ test("Changing the mileage changes the footprint values", async (t) => {
   const mileageTextbox = Selector("#annual-mileage");
   await t.selectText(mileageTextbox).typeText(mileageTextbox, "6000");
   const drivingSection = Selector("#footprint-driving");
-  await t.expect(drivingSection.textContent).contains("2.28 Tons");
+  await t.expect(drivingSection.textContent).contains("3.49 Tons");
 });
 
 test("clicking on the total at the bottom of the form shows the calculation", async (t) => {
@@ -45,5 +45,5 @@ test("clicking on the total at the bottom of the form shows the calculation", as
   const calculation = Selector("#footprint-driving-calculation");
   await t
     .expect(calculation.textContent)
-    .contains("9000 miles per year * (0.253 Kg per mile / 1000)");
+    .contains("9000 miles per year * (0.39 Kg per mile for a ICE car / 1000)");
 });

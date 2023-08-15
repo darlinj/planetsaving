@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently npm:start:*",
     "start:backend": "npm --prefix backend start",
-    "start:frontend": "REACT_APP_BACKEND_URL=http://localhost:4000/ npm --prefix frontend start",
+    "start:frontend": "REACT_APP_BACKEND_URL=http://localhost:4000/ npm --prefix frontend run dev -- --port 3000",
     "test": "testcafe chrome ./e2e_tests -e",
     "test_all": "run-s test:backend test:frontend test:e2e",
     "test:e2e": "testcafe chrome ./e2e_tests -e",
