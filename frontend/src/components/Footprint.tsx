@@ -139,6 +139,7 @@ const Footprint = () => {
   };
 
   const footprintTitle = () => {
+    //TODO: Fix the situation where a user has a cookie but that user doesn't exist in the database.  It returns the STANDARD JOE user but still says that it is the personal one
     if (Cookie.get("user-id")) {
       return <>Your annual {category} Carbon footprint</>;
     }
