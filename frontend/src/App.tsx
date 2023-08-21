@@ -1,6 +1,5 @@
 import React from "react";
 import {Routes, Route} from "react-router-dom";
-import "./App.css";
 import MainContent from "./components/MainContent";
 import Layout from "./components/Layout";
 import NoMatch from "./components/NoMatch";
