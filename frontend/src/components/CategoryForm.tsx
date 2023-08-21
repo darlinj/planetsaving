@@ -39,6 +39,7 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
   }
 
   if (!data) {
+    Cookies.remove("user-id");
     return <div>No user data found</div>;
   }
 
