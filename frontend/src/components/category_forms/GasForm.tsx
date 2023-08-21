@@ -61,6 +61,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
               aria-labelledby="engine-size"
               value={formValues.gasEstimationType || "houseSize"}
               onChange={onInputChange}
+              defaultValue={"houseSize"}
               name="gasEstimationType"
               row
             >
@@ -83,7 +84,8 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
               />
             </RadioGroup>
           </FormControl>
-          {formValues.gasEstimationType === "houseSize" && (
+          {(formValues.gasEstimationType === "houseSize" ||
+            formValues.gasEstimationType === undefined) && (
             <FormControl>
               <FormLabel id="house-size">House size</FormLabel>
               <RadioGroup

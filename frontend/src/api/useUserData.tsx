@@ -20,6 +20,9 @@ const getUserDataQuery = gql`
       amountOfLocalFood
       amountOfOrganicFood
       percentageOfFoodWaste
+      m3OfGasUsedPerYear
+      gasEstimationType
+      houseSize
     }
   }
 `;
