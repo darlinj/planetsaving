@@ -58,7 +58,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
           <FormControl>
             <FormLabel id="estimation-type">Estimation type</FormLabel>
             <RadioGroup
-              aria-labelledby="engine-size"
+              aria-labelledby="estimation-type"
               value={formValues.gasEstimationType || "houseSize"}
               onChange={onInputChange}
               defaultValue={"houseSize"}

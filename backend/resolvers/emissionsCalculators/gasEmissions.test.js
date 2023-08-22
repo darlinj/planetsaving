@@ -14,12 +14,40 @@ describe("gas calculations", () => {
       expect(gasEmitted).toBe(0);
     });
 
-    it("works out the expected gas per person", () => {
+    it("Calculations for a small house", () => {
       const gasEmitted = gasEmissions({
-        kwhOfGasUsedPerYear: 18000,
+        gasEstimationType: "houseSize",
+        houseSize: "small",
         numberOfPeopleInHome: 4,
       }).calculation;
-      expect(gasEmitted).toBe(0.9135000000000001);
+      expect(gasEmitted.toFixed(2)).toEqual("0.61");
+    });
+
+    it("Calculations for a large house", () => {
+      const gasEmitted = gasEmissions({
+        gasEstimationType: "houseSize",
+        houseSize: "large",
+        numberOfPeopleInHome: 4,
+      }).calculation;
+      expect(gasEmitted.toFixed(2)).toEqual("1.37");
+    });
+
+    it("calculates the per person gas usage based on kwh used", () => {
+      const gasEmitted = gasEmissions({
+        kwhOfGasUsedPerYear: 18000,
+        gasEstimationType: "kwh",
+        numberOfPeopleInHome: 4,
+      }).calculation;
+      expect(gasEmitted.toFixed(2)).toBe("0.91");
+    });
+
+    it("calculates the per person gas usage based on m3 used", () => {
+      const gasEmitted = gasEmissions({
+        m3OfGasUsedPerYear: 1800,
+        gasEstimationType: "m3",
+        numberOfPeopleInHome: 4,
+      }).calculation;
+      expect(gasEmitted.toFixed(2)).toBe("1.02");
     });
   });
 
@@ -31,13 +59,36 @@ describe("gas calculations", () => {
       );
     });
 
-    it("shows the calculation", () => {
+    it("shows the kwh calculation", () => {
       const gasEmitted = gasEmissions({
         kwhOfGasUsedPerYear: 18000,
+        gasEstimationType: "kwh",
         numberOfPeopleInHome: 4,
       }).description;
       expect(gasEmitted).toBe(
         "(18000KWh of gas used * 0.203kg of CO2e per unit / 1000) / 4 people = 0.91 Tons of CO2e"
+      );
+    });
+
+    it("shows the house size calculation", () => {
+      const gasEmitted = gasEmissions({
+        houseSize: "medium",
+        gasEstimationType: "houseSize",
+        numberOfPeopleInHome: 4,
+      }).description;
+      expect(gasEmitted).toBe(
+        "(18000KWh of gas used in a typical medium house * 0.203kg of CO2e per unit / 1000) / 4 people = 0.91 Tons of CO2e"
+      );
+    });
+
+    it("shows the m3 calculation", () => {
+      const gasEmitted = gasEmissions({
+        m3OfGasUsedPerYear: 1800,
+        gasEstimationType: "m3",
+        numberOfPeopleInHome: 4,
+      }).description;
+      expect(gasEmitted).toBe(
+        "(1800 meters cubed of gas used * 11.2KWh per M3 * 0.203kg of CO2e per unit / 1000) / 4 people = 1.02 Tons of CO2e"
       );
     });
   });
