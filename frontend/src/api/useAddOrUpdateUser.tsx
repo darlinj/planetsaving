@@ -23,6 +23,7 @@ const addOrUpdateUserQuery = gql`
       amountOfOrganicFood
       percentageOfFoodWaste
       gasEstimationType
+      electricityEstimationType
       houseSize
     }
   }

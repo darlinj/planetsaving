@@ -54,6 +54,7 @@ module.exports = gql`
       percentageOfFoodWaste: Int
       userValueToMultiply: Int
       gasEstimationType: String
+      electricityEstimationType: String
       houseSize: String
     ): User
 
@@ -119,6 +120,7 @@ module.exports = gql`
     percentageOfFoodWaste: Int
     userValueToMultiply: Int
     gasEstimationType: String
+    electricityEstimationType: String
     houseSize: String
   }
 
@@ -140,6 +142,7 @@ module.exports = gql`
     percentageOfFoodWaste: Int
     userValueToMultiply: Int
     gasEstimationType: String
+    electricityEstimationType: String
     houseSize: String
   }
 
