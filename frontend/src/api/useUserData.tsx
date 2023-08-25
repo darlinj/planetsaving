@@ -22,6 +22,7 @@ const getUserDataQuery = gql`
       percentageOfFoodWaste
       m3OfGasUsedPerYear
       gasEstimationType
+      electricityEstimationType
       houseSize
     }
   }

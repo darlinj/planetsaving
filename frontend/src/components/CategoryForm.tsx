@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import useAddOrUpdateUser from "../api/useAddOrUpdateUser";
 import useUserData from "../api/useUserData";
 import GasForm from "./category_forms/GasForm";
+import ElectricityForm from "./category_forms/ElectricityForm";
 
 const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
   const userIdString = Cookies.get("user-id");
@@ -69,6 +70,13 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
     case "gas":
       return (
         <GasForm
+          initialFormValues={initialFormValues}
+          saveChange={submitChange}
+        />
+      );
+    case "electricity":
+      return (
+        <ElectricityForm
           initialFormValues={initialFormValues}
           saveChange={submitChange}
         />
