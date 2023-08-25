@@ -139,7 +139,7 @@ const climateData = [
           {
             totalCarbonEmited: 0.62,
             name: "All electricity",
-            calculationIdentifier: "electricity_use",
+            calculationIdentifier: "electricity",
           },
         ],
       },
