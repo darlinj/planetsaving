@@ -8,16 +8,33 @@ const climateData = [
     detailed_description: "Todo: fill this in",
     subCategories: [
       {
+        label: "Hotels, pubs and catering",
+        category: "catering",
+        color: "orange",
+        colorIntensity: 300,
+        description:
+          "The carbon emissions from staying and eating away from home.",
+        detailed_description:
+          "Eating out and staying away from home causes carbon emissions from heating the rooms to the food that is wasted in most commercial kitchens it all adds up to about 42 millions tons of CO2e per year.  You can reduce your impact by choosing establishments that have an carbon aware attitude",
+        emissions: [
+          {
+            totalCarbonEmited: 0.63,
+            name: "Hotels, pubs and catering",
+            category: "catering",
+          },
+        ],
+      },
+      {
         label: "All Miscellaneous",
         category: "all_misc",
         color: "orange",
-        colorIntensity: 300,
+        colorIntensity: 500,
         description:
           "Everything else that causes carbon to be emited.  This includes everything from the things you buy to your leisure activities",
         detailed_description: "Todo: fill this in",
         emissions: [
           {
-            totalCarbonEmited: 3.19,
+            totalCarbonEmited: 2.56,
             name: "All Miscellaneous emissions",
           },
         ],
