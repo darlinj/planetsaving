@@ -35,25 +35,8 @@ export interface ActionData {
   category: ClimateData;
 }
 
-export interface UserData {
+export interface UserData extends UserDataInput {
   id: number;
-  name: string;
-  numberOfPeopleInHome?: number;
-  kwhOfElectricityUsedPerYear?: number;
-  kwhOfGasUsedPerYear?: number;
-  m3OfGasUsedPerYear?: number;
-  drivingMilesPerYear?: number;
-  gasEstimationType?: string;
-  electricityEstimationType?: string;
-  houseSize?: string;
-  sizeOfCar?: string;
-  flyingHoursPerYear?: number;
-  trainMilesPerYear?: number;
-  carType?: string;
-  greenEnergyTarriff?: boolean;
-  amountOfLocalFood?: string;
-  amountOfOrganicFood?: string;
-  percentageOfFoodWaste?: number;
 }
 
 export interface UserDataInput {
@@ -64,6 +47,17 @@ export interface UserDataInput {
   m3OfGasUsedPerYear?: number;
   gasEstimationType?: string;
   electricityEstimationType?: string;
+  meatEstimationType?: string;
+  beefMealsPerWeek?: number;
+  beefGramsPerWeek?: number;
+  lambMealsPerWeek?: number;
+  lambGramsPerWeek?: number;
+  porkMealsPerWeek?: number;
+  porkGramsPerWeek?: number;
+  chickenMealsPerWeek?: number;
+  chickenGramsPerWeek?: number;
+  cheeseMealsPerWeek?: number;
+  cheeseGramsPerWeek?: number;
   houseSize?: string;
   drivingMilesPerYear?: number;
   sizeOfCar?: string;
