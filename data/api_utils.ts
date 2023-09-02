@@ -53,13 +53,13 @@ class ClimateData {
     return await Promise.all(
       userList.map((user: any) => {
         this.sendQuery(gql`mutation {
-          addUser(
+          addUser( user: {
             ${Object.keys(user).map(
               (key) =>
                 `${key}: ${
                   typeof user[key] == "string" ? `"${user[key]}"` : user[key]
                 }`
-            )})
+            )}})
             {
               id
               name

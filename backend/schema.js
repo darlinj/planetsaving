@@ -37,26 +37,7 @@ module.exports = gql`
       calculationIdentifier: String
     ): Emission
 
-    addUser(
-      name: String
-      numberOfPeopleInHome: Float
-      kwhOfElectricityUsedPerYear: Int
-      kwhOfGasUsedPerYear: Int
-      m3OfGasUsedPerYear: Int
-      drivingMilesPerYear: Int
-      sizeOfCar: String
-      flyingHoursPerYear: Float
-      trainMilesPerYear: Int
-      carType: String
-      greenEnergyTarriff: Boolean
-      amountOfLocalFood: String
-      amountOfOrganicFood: String
-      percentageOfFoodWaste: Int
-      userValueToMultiply: Int
-      gasEstimationType: String
-      electricityEstimationType: String
-      houseSize: String
-    ): User
+    addUser(user: UserInput): User
 
     addOrUpdateUser(id: Int, user: UserInput): User
   }
