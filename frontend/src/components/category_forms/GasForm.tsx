@@ -136,7 +136,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                 id="gas-consumed"
                 variant="outlined"
                 name="m3OfGasUsedPerYear"
-                value={formValues.m3OfGasUsedPerYear}
+                value={formValues.m3OfGasUsedPerYear || ""}
                 onChange={onInputChangeNumber}
                 InputProps={{
                   endAdornment: (
