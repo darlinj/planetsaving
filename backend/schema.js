@@ -103,6 +103,17 @@ module.exports = gql`
     gasEstimationType: String
     electricityEstimationType: String
     houseSize: String
+    meatEstimationType: String
+    beefMealsPerWeek: Float
+    beefGramsPerWeek: Float
+    lambMealsPerWeek: Float
+    lambGramsPerWeek: Float
+    porkMealsPerWeek: Float
+    porkGramsPerWeek: Float
+    chickenMealsPerWeek: Float
+    chickenGramsPerWeek: Float
+    cheeseMealsPerWeek: Float
+    cheeseGramsPerWeek: Float
   }
 
   type User {
@@ -125,6 +136,17 @@ module.exports = gql`
     gasEstimationType: String
     electricityEstimationType: String
     houseSize: String
+    meatEstimationType: String
+    beefMealsPerWeek: Float
+    beefGramsPerWeek: Float
+    lambMealsPerWeek: Float
+    lambGramsPerWeek: Float
+    porkMealsPerWeek: Float
+    porkGramsPerWeek: Float
+    chickenMealsPerWeek: Float
+    chickenGramsPerWeek: Float
+    cheeseMealsPerWeek: Float
+    cheeseGramsPerWeek: Float
   }
 
   type Action {
