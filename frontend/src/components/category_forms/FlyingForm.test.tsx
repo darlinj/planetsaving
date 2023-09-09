@@ -22,7 +22,6 @@ describe("the flying form", () => {
   });
 
   it("updates the form when the Update button is pressed", async () => {
-    // const handleSubmit = jest.fn();
     const handleChange = jest.fn();
     const {getByRole, findByRole} = render(
       <FlyingForm initialFormValues={userData} saveChange={handleChange} />
