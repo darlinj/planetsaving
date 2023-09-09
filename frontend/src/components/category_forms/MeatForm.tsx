@@ -1,18 +1,32 @@
-import React, {useState} from "react";
+import React from "react";
 import {
   FormGroup,
-  TextField,
   FormControl,
   Divider,
   Button,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
-  InputAdornment,
   Grid,
 } from "@mui/material";
+import TextInput from "../formComponents/TextInput";
 import {UserDataInput} from "../../types";
+import {Formik, Form, Field} from "formik";
+import * as Yup from "yup";
+
+const validations = Yup.object().shape({
+  meatEstimationType: Yup.string().required("validation type is required"),
+  beefMealsPerWeek: Yup.number().typeError("This must be a number"),
+  lambMealsPerWeek: Yup.number().typeError("This must be a number"),
+  porkMealsPerWeek: Yup.number().typeError("This must be a number"),
+  chickenMealsPerWeek: Yup.number().typeError("This must be a number"),
+  cheeseMealsPerWeek: Yup.number().typeError("This must be a number"),
+  beefGramsPerWeek: Yup.number().typeError("This must be a number"),
+  lambGramsPerWeek: Yup.number().typeError("This must be a number"),
+  porkGramsPerWeek: Yup.number().typeError("This must be a number"),
+  chickenGramsPerWeek: Yup.number().typeError("This must be a number"),
+  cheeseGramsPerWeek: Yup.number().typeError("This must be a number"),
+});
 
 type UserFormComponentParams = {
   initialFormValues: UserDataInput;
@@ -23,217 +37,133 @@ const MeatForm: React.FunctionComponent<UserFormComponentParams> = ({
   initialFormValues,
   saveChange,
 }) => {
-  const [formValues, setFormValues] =
-    useState<UserDataInput>(initialFormValues);
-
-  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setFormValues({...formValues, [name]: value});
-  };
-
-  const onInputChangeNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setFormValues({...formValues, [name]: value});
-  };
-
-  const submitChange = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    saveChange(formValues);
-  };
   return (
     <>
-      <form>
-        <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-        <FormGroup sx={{marginBottom: "1em"}}>
-          <Grid container direction={"column"} spacing={2} padding={1}>
-            <Grid item xs={12}>
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="estimation-type"
-                  value={formValues.meatEstimationType || "meals"}
-                  onChange={onInputChange}
-                  defaultValue={"meals"}
-                  name="meatEstimationType"
-                  row
-                >
-                  <FormControlLabel
-                    value="meals"
-                    control={<Radio />}
-                    label="Meal based"
-                  />
-                  <FormControlLabel
-                    value="weight"
-                    control={<Radio />}
-                    label="Weight"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Grid>
-            {(formValues.meatEstimationType === "meals" ||
-              formValues.meatEstimationType === undefined) && (
-              <>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Number of meals per week containing beef"
-                      id="beef-meals-consumed"
-                      variant="outlined"
-                      name="beefMealsPerWeek"
-                      value={formValues.beefMealsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      helperText="Where a meal contains about 100g of beef"
-                    />
-                  </FormControl>
+      <Formik
+        initialValues={initialFormValues}
+        validationSchema={validations}
+        onSubmit={(values) => saveChange(values)}
+      >
+        {(formik) => {
+          const {
+            errors,
+            touched,
+            isValid,
+            dirty,
+            values,
+            handleChange,
+            handleBlur,
+          } = formik;
+          return (
+            <Form>
+              <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
+              <FormGroup sx={{marginBottom: "1em"}}>
+                <Grid container direction={"column"} spacing={2} padding={1}>
+                  <Grid item xs={12}>
+                    <FormControl>
+                      <RadioGroup
+                        aria-labelledby="estimation-type"
+                        value={values.meatEstimationType || "meals"}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        defaultValue={"meals"}
+                        name="meatEstimationType"
+                        row
+                      >
+                        <FormControlLabel
+                          value="meals"
+                          control={<Radio />}
+                          label="Meal based"
+                        />
+                        <FormControlLabel
+                          value="weight"
+                          control={<Radio />}
+                          label="Weight"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                  {(values.meatEstimationType === "meals" ||
+                    values.meatEstimationType === undefined) && (
+                    <>
+                      <Field
+                        name="beefMealsPerWeek"
+                        label="Average number of meals per week containing beef"
+                        hint="Where a meal contains about 100g of beef"
+                        component={TextInput}
+                      />
+                      <Field
+                        name="lambMealsPerWeek"
+                        label="Average number of meals per week containing lamb"
+                        hint="Where a meal contains about 100g of lamb"
+                        component={TextInput}
+                      />
+                      <Field
+                        name="porkMealsPerWeek"
+                        label="Average number of meals per week containing pork"
+                        hint="Where a meal contains about 100g of pork"
+                        component={TextInput}
+                      />
+                      <Field
+                        name="chickenMealsPerWeek"
+                        label="Average number of meals per week containing chicken"
+                        hint="Where a meal contains about 100g of chicken"
+                        component={TextInput}
+                      />
+                      <Field
+                        name="cheeseMealsPerWeek"
+                        label="Average number of meals per week containing cheese"
+                        hint="Where a meal contains about 50g of cheese"
+                        component={TextInput}
+                      />
+                    </>
+                  )}
+                  {values.meatEstimationType === "weight" && (
+                    <>
+                      <Field
+                        name="beefGramsPerWeek"
+                        label="Beef consumed per week"
+                        hint=""
+                        suffix="grams"
+                        component={TextInput}
+                      />
+                      <Field
+                        name="lambGramsPerWeek"
+                        label="Lamb consumed per week"
+                        hint=""
+                        suffix="grams"
+                        component={TextInput}
+                      />
+                      <Field
+                        name="porkGramsPerWeek"
+                        label="Pork consumed per week"
+                        hint=""
+                        suffix="grams"
+                        component={TextInput}
+                      />
+                      <Field
+                        name="chickenGramsPerWeek"
+                        label="Chicken consumed per week"
+                        hint=""
+                        suffix="grams"
+                        component={TextInput}
+                      />
+                      <Field
+                        name="cheeseGramsPerWeek"
+                        label="Cheese consumed per week"
+                        hint=""
+                        suffix="grams"
+                        component={TextInput}
+                      />
+                    </>
+                  )}
+                  <Button type="submit">Update</Button>
                 </Grid>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Number of meals per week containing lamb"
-                      id="lamb-meals-consumed"
-                      variant="outlined"
-                      name="lambMealsPerWeek"
-                      value={formValues.lambMealsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      helperText="Where a meal contains about 100g of lamb"
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Number of meals per week containing pork"
-                      id="pork-meals-consumed"
-                      variant="outlined"
-                      name="porkMealsPerWeek"
-                      value={formValues.porkMealsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      helperText="Where a meal contains about 100g of pork"
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Number of meals per week containing chicken"
-                      id="chicken-meals-consumed"
-                      variant="outlined"
-                      name="chickenMealsPerWeek"
-                      value={formValues.chickenMealsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      helperText="Where a meal contains about 100g of chicken"
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Number of meals per week containing cheese"
-                      id="cheese-meals-consumed"
-                      variant="outlined"
-                      name="cheeseMealsPerWeek"
-                      value={formValues.cheeseMealsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      helperText="Where a meal contains about 100g of cheese"
-                    />
-                  </FormControl>
-                </Grid>
-              </>
-            )}
-            {formValues.meatEstimationType === "weight" && (
-              <>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Beef consumed per week"
-                      id="beef-consumed"
-                      variant="outlined"
-                      name="beefGramsPerWeek"
-                      value={formValues.beefGramsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">grams</InputAdornment>
-                        ),
-                      }}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Lamb consumed per week"
-                      id="lamb-consumed"
-                      variant="outlined"
-                      name="lambGramsPerWeek"
-                      value={formValues.lambGramsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">grams</InputAdornment>
-                        ),
-                      }}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Pork consumed per week"
-                      id="pork-consumed"
-                      variant="outlined"
-                      name="porkGramsPerWeek"
-                      value={formValues.porkGramsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">grams</InputAdornment>
-                        ),
-                      }}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Chicken consumed per week"
-                      id="chicken-consumed"
-                      variant="outlined"
-                      name="chickenGramsPerWeek"
-                      value={formValues.chickenGramsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">grams</InputAdornment>
-                        ),
-                      }}
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                  <FormControl>
-                    <TextField
-                      label="Cheese consumed per week"
-                      id="cheese-consumed"
-                      variant="outlined"
-                      name="cheeseGramsPerWeek"
-                      value={formValues.cheeseGramsPerWeek || ""}
-                      onChange={onInputChangeNumber}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">grams</InputAdornment>
-                        ),
-                      }}
-                    />
-                  </FormControl>
-                </Grid>
-              </>
-            )}
-            <Button type="submit" onClick={submitChange}>
-              Update
-            </Button>
-          </Grid>
-        </FormGroup>
-      </form>
+              </FormGroup>
+            </Form>
+          );
+        }}
+      </Formik>
     </>
   );
 };
