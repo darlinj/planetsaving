@@ -4,6 +4,7 @@ import {FieldProps} from "formik";
 
 interface ExtraTextParams {
   options: {value: string; label: string | ReactNode}[];
+  row: boolean;
 }
 
 const RadioButton: React.FC<ExtraTextParams & FieldProps> = ({
@@ -12,7 +13,7 @@ const RadioButton: React.FC<ExtraTextParams & FieldProps> = ({
 }) => {
   return (
     <Grid item xs={12}>
-      <RadioGroup {...field} {...props} row>
+      <RadioGroup {...field} {...props}>
         {props.options.map((option) => (
           <FormControlLabel
             key={option.value}

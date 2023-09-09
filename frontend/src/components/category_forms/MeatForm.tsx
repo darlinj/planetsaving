@@ -44,6 +44,7 @@ const MeatForm: React.FunctionComponent<UserFormComponentParams> = ({
               <Grid container direction={"column"} spacing={2} padding={1}>
                 <Field
                   name="meatEstimationType"
+                  row
                   component={RadioButton}
                   options={[
                     {value: "meals", label: "Meal based"},

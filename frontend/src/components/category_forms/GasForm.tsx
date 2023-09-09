@@ -52,6 +52,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                 <Field
                   name="gasEstimationType"
                   component={RadioButton}
+                  row
                   options={[
                     {value: "houseSize", label: "House size"},
                     {value: "kwh", label: "KWh"},
