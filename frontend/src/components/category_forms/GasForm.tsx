@@ -47,28 +47,26 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                 label="How many people share your home"
                 component={TextInput}
               />
-              <FormControl>
-                <FormLabel id="estimation-type">Estimation type</FormLabel>
-                <Field
-                  name="gasEstimationType"
-                  component={RadioButton}
-                  row
-                  options={[
-                    {value: "houseSize", label: "House size"},
-                    {value: "kwh", label: "KWh"},
-                    {
-                      value: "m3",
-                      label: (
-                        <>
-                          <Typography>
-                            M<sup>3</sup>
-                          </Typography>
-                        </>
-                      ),
-                    },
-                  ]}
-                />
-              </FormControl>
+              <Field
+                name="gasEstimationType"
+                component={RadioButton}
+                label="Estimation type"
+                row
+                options={[
+                  {value: "houseSize", label: "House size"},
+                  {value: "kwh", label: "KWh"},
+                  {
+                    value: "m3",
+                    label: (
+                      <>
+                        <Typography>
+                          M<sup>3</sup>
+                        </Typography>
+                      </>
+                    ),
+                  },
+                ]}
+              />
               {(values.gasEstimationType === "houseSize" ||
                 values.gasEstimationType === undefined) && (
                 <FormControl>

@@ -82,7 +82,7 @@ describe("the electricity form", () => {
       electricityEstimationType: "kwh",
       houseSize: "medium",
       numberOfPeopleInHome: 2.4,
-      kwhOfElectricityUsedPerYear: 400,
+      kwhOfElectricityUsedPerYear: "400",
       id: 1234,
       name: "Some Name",
     });
