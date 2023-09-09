@@ -1,18 +1,10 @@
 import React from "react";
-import {
-  FormGroup,
-  FormControl,
-  Divider,
-  Button,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Grid,
-} from "@mui/material";
+import {FormGroup, Divider, Button, Grid} from "@mui/material";
 import TextInput from "../formComponents/TextInput";
 import {UserDataInput} from "../../types";
 import {Formik, Form, Field} from "formik";
 import * as Yup from "yup";
+import RadioButton from "../formComponents/RadioButton";
 
 const validations = Yup.object().shape({
   meatEstimationType: Yup.string().required("validation type is required"),
@@ -45,44 +37,20 @@ const MeatForm: React.FunctionComponent<UserFormComponentParams> = ({
         onSubmit={(values) => saveChange(values)}
       >
         {(formik) => {
-          const {
-            errors,
-            touched,
-            isValid,
-            dirty,
-            values,
-            handleChange,
-            handleBlur,
-          } = formik;
+          const {isValid, dirty, values} = formik;
           return (
             <Form>
               <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
               <FormGroup sx={{marginBottom: "1em"}}>
                 <Grid container direction={"column"} spacing={2} padding={1}>
-                  <Grid item xs={12}>
-                    <FormControl>
-                      <RadioGroup
-                        aria-labelledby="estimation-type"
-                        value={values.meatEstimationType || "meals"}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        defaultValue={"meals"}
-                        name="meatEstimationType"
-                        row
-                      >
-                        <FormControlLabel
-                          value="meals"
-                          control={<Radio />}
-                          label="Meal based"
-                        />
-                        <FormControlLabel
-                          value="weight"
-                          control={<Radio />}
-                          label="Weight"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
+                  <Field
+                    name="meatEstimationType"
+                    component={RadioButton}
+                    options={[
+                      {value: "meals", label: "Meal based"},
+                      {value: "weight", label: "Weight"},
+                    ]}
+                  />
                   {(values.meatEstimationType === "meals" ||
                     values.meatEstimationType === undefined) && (
                     <>
@@ -157,7 +125,9 @@ const MeatForm: React.FunctionComponent<UserFormComponentParams> = ({
                       />
                     </>
                   )}
-                  <Button type="submit">Update</Button>
+                  <Button type="submit" disabled={!(dirty && isValid)}>
+                    Update
+                  </Button>
                 </Grid>
               </FormGroup>
             </Form>
