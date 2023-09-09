@@ -13,6 +13,8 @@ const users = [
     amountOfLocalFood: "average",
     amountOfOrganicFood: "average",
     percentageOfFoodWaste: 41,
+    gasEstimationType: "kwh",
+    electricityEstimationType: "kwh",
   },
 ];
 
