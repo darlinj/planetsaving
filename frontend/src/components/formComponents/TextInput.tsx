@@ -1,10 +1,10 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {Grid, InputAdornment, TextField} from "@mui/material";
 import {FieldProps} from "formik";
 
 interface ExtraTextParams {
   hint?: string;
-  suffix?: string;
+  suffix?: string | ReactNode;
 }
 
 const TextInput: React.FC<ExtraTextParams & FieldProps> = ({

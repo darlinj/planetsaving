@@ -1,18 +1,25 @@
-import React, {useState} from "react";
+import React from "react";
 import {
   FormGroup,
-  TextField,
   FormControl,
   Divider,
-  InputAdornment,
   Button,
-  FormControlLabel,
   FormLabel,
-  Radio,
-  RadioGroup,
   Typography,
 } from "@mui/material";
 import {UserDataInput} from "../../types";
+import {Formik, Form, Field} from "formik";
+import * as Yup from "yup";
+import TextInput from "../formComponents/TextInput";
+import RadioButton from "../formComponents/RadioButton";
+
+const validations = Yup.object().shape({
+  gasEstimationType: Yup.string().required("validation type is required"),
+  houseSize: Yup.string().required("validation type is required"),
+  numberOfPeopleInHome: Yup.number().typeError("This must be a number"),
+  kwhOfGasUsedPerYear: Yup.number().typeError("This must be a number"),
+  m3OfGasUsedPerYear: Yup.number().typeError("This must be a number"),
+});
 
 type UserFormComponentParams = {
   initialFormValues: UserDataInput;
@@ -23,137 +30,89 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
   initialFormValues,
   saveChange,
 }) => {
-  const [formValues, setFormValues] =
-    useState<UserDataInput>(initialFormValues);
-
-  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setFormValues({...formValues, [name]: value});
-  };
-
-  const onInputChangeNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setFormValues({...formValues, [name]: +value});
-  };
-
-  const submitChange = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    saveChange(formValues);
-  };
   return (
-    <>
-      <form>
-        <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-        <FormGroup sx={{marginBottom: "1em"}}>
-          <FormControl>
-            <TextField
-              label="How many people share your home"
-              id="people-in-home"
-              variant="outlined"
-              name="numberOfPeopleInHome"
-              value={formValues.numberOfPeopleInHome}
-              onChange={onInputChangeNumber}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel id="estimation-type">Estimation type</FormLabel>
-            <RadioGroup
-              aria-labelledby="estimation-type"
-              value={formValues.gasEstimationType || "houseSize"}
-              onChange={onInputChange}
-              defaultValue={"houseSize"}
-              name="gasEstimationType"
-              row
-            >
-              <FormControlLabel
-                value="houseSize"
-                control={<Radio />}
-                label="House size"
+    <Formik
+      initialValues={initialFormValues}
+      validationSchema={validations}
+      onSubmit={(values) => saveChange(values)}
+    >
+      {(formik) => {
+        const {isValid, dirty, values} = formik;
+        return (
+          <Form>
+            <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
+            <FormGroup sx={{marginBottom: "1em"}}>
+              <Field
+                name="numberOfPeopleInHome"
+                label="How many people share your home"
+                component={TextInput}
               />
-              <FormControlLabel value="kwh" control={<Radio />} label="KWh" />
-              <FormControlLabel
-                value="m3"
-                control={<Radio />}
-                label={
-                  <>
-                    <Typography>
-                      M<sup>3</sup>
-                    </Typography>
-                  </>
-                }
-              />
-            </RadioGroup>
-          </FormControl>
-          {(formValues.gasEstimationType === "houseSize" ||
-            formValues.gasEstimationType === undefined) && (
-            <FormControl>
-              <FormLabel id="house-size">House size</FormLabel>
-              <RadioGroup
-                aria-labelledby="house-size"
-                value={formValues.houseSize}
-                onChange={onInputChange}
-                name="houseSize"
-              >
-                <FormControlLabel
-                  value="small"
-                  control={<Radio />}
-                  label="Small house"
+              <FormControl>
+                <FormLabel id="estimation-type">Estimation type</FormLabel>
+                <Field
+                  name="gasEstimationType"
+                  component={RadioButton}
+                  options={[
+                    {value: "houseSize", label: "House size"},
+                    {value: "kwh", label: "KWh"},
+                    {
+                      value: "m3",
+                      label: (
+                        <>
+                          <Typography>
+                            M<sup>3</sup>
+                          </Typography>
+                        </>
+                      ),
+                    },
+                  ]}
                 />
-                <FormControlLabel
-                  value="medium"
-                  control={<Radio />}
-                  label="Medium house"
+              </FormControl>
+              {(values.gasEstimationType === "houseSize" ||
+                values.gasEstimationType === undefined) && (
+                <FormControl>
+                  <FormLabel id="house-size">House size</FormLabel>
+                  <Field
+                    name="houseSize"
+                    component={RadioButton}
+                    options={[
+                      {value: "small", label: "Small house"},
+                      {value: "medium", label: "Medium house"},
+                      {value: "large", label: "Large house"},
+                    ]}
+                  />
+                </FormControl>
+              )}
+              {values.gasEstimationType === "kwh" && (
+                <Field
+                  name="kwhOfGasUsedPerYear"
+                  label="Annual gas consumed"
+                  suffix="KWh"
+                  component={TextInput}
                 />
-                <FormControlLabel
-                  value="large"
-                  control={<Radio />}
-                  label="Large house"
+              )}
+              {values.gasEstimationType === "m3" && (
+                <Field
+                  name="m3OfGasUsedPerYear"
+                  label="Annual gas consumed"
+                  suffix={
+                    <>
+                      <Typography>
+                        M<sup>3</sup>
+                      </Typography>
+                    </>
+                  }
+                  component={TextInput}
                 />
-              </RadioGroup>
-            </FormControl>
-          )}
-          {formValues.gasEstimationType === "kwh" && (
-            <FormControl>
-              <TextField
-                label="Annual gas consumed"
-                id="gas-consumed"
-                variant="outlined"
-                name="kwhOfGasUsedPerYear"
-                value={formValues.kwhOfGasUsedPerYear}
-                onChange={onInputChangeNumber}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">KWh</InputAdornment>
-                  ),
-                }}
-              />
-            </FormControl>
-          )}
-          {formValues.gasEstimationType === "m3" && (
-            <FormControl>
-              <TextField
-                label="Annual gas consumed"
-                id="gas-consumed"
-                variant="outlined"
-                name="m3OfGasUsedPerYear"
-                value={formValues.m3OfGasUsedPerYear || ""}
-                onChange={onInputChangeNumber}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      M<sup>3</sup>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </FormControl>
-          )}
-          <Button type="submit" onClick={submitChange}>
-            Update
-          </Button>
-        </FormGroup>
-      </form>
-    </>
+              )}
+              <Button type="submit" disabled={!(dirty && isValid)}>
+                Update
+              </Button>
+            </FormGroup>
+          </Form>
+        );
+      }}
+    </Formik>
   );
 };
 

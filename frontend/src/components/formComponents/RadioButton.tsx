@@ -1,15 +1,9 @@
-import React from "react";
-import {
-  FormControl,
-  FormControlLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
+import React, {ReactNode} from "react";
+import {FormControlLabel, Grid, Radio, RadioGroup} from "@mui/material";
 import {FieldProps} from "formik";
 
 interface ExtraTextParams {
-  options: {value: string; label: string}[];
+  options: {value: string; label: string | ReactNode}[];
 }
 
 const RadioButton: React.FC<ExtraTextParams & FieldProps> = ({

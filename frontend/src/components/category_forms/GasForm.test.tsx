@@ -83,7 +83,7 @@ describe("the gas form", () => {
       gasEstimationType: "kwh",
       houseSize: "medium",
       numberOfPeopleInHome: 2.4,
-      kwhOfGasUsedPerYear: 400,
+      kwhOfGasUsedPerYear: "400",
       m3OfGasUsedPerYear: 99,
       id: 1234,
       name: "Some Name",
@@ -109,7 +109,7 @@ describe("the gas form", () => {
       houseSize: "medium",
       numberOfPeopleInHome: 2.4,
       kwhOfGasUsedPerYear: 6.8,
-      m3OfGasUsedPerYear: 500,
+      m3OfGasUsedPerYear: "500",
       id: 1234,
       name: "Some Name",
     });
