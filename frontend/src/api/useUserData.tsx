@@ -24,6 +24,17 @@ const getUserDataQuery = gql`
       gasEstimationType
       electricityEstimationType
       houseSize
+      meatEstimationType
+      beefMealsPerWeek
+      beefGramsPerWeek
+      lambMealsPerWeek
+      lambGramsPerWeek
+      porkMealsPerWeek
+      porkGramsPerWeek
+      chickenMealsPerWeek
+      chickenGramsPerWeek
+      cheeseMealsPerWeek
+      cheeseGramsPerWeek
     }
   }
 `;

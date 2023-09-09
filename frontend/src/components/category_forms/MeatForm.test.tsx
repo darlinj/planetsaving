@@ -56,7 +56,7 @@ describe("the meat form", () => {
       <MeatForm initialFormValues={userData} saveChange={() => true} />
     );
     expect(getByRole("radio", {name: "Meal based"})).toBeChecked();
-    expect(getByRole("radio", {name: "Weight of meat"})).not.toBeChecked();
+    expect(getByRole("radio", {name: "Weight"})).not.toBeChecked();
   });
 
   it("uses the meals options if that option is picked", async () => {
@@ -101,7 +101,7 @@ describe("the meat form", () => {
     const {getByRole, findByRole} = render(
       <MeatForm initialFormValues={userData} saveChange={handleChange} />
     );
-    const estimationType = getByRole("radio", {name: "Weight of meat"});
+    const estimationType = getByRole("radio", {name: "Weight"});
     await userEvent.click(estimationType);
     expect(getByRole("textbox", {name: /beef consumed/i})).toBeInTheDocument();
     expect(getByRole("textbox", {name: /lamb consumed/i})).toBeInTheDocument();
