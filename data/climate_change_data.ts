@@ -245,6 +245,7 @@ const climateData = [
           {
             totalCarbonEmited: 0.4,
             name: "Meat and Dairy",
+            calculationIdentifier: "meat",
           },
         ],
       },

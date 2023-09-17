@@ -64,11 +64,11 @@ const addClimateChangeData = async (args = {}) => {
 const addUser = async (args = {}) => {
   const result = await server.executeOperation({
     query: `mutation { 
-            addUser(
+            addUser( user: {
                 name: "${args.name ? args.name : faker.lorem.word()}",
                 userValueToMultiply: ${
                   args.userValueToMultiply ? args.userValueToMultiply : 10
-                },
+                }}
            )
            {
             id

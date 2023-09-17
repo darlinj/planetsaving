@@ -2,6 +2,7 @@ const tailPipeEmissionsCalc = require("./tailPipeEmissions");
 const simpleMultiplierBy2 = require("./simpleMultiplierBy2");
 const flyingCalc = require("./flyingEmissions");
 const gasCalc = require("./gasEmissions");
+const meatCalc = require("./meatEmissions");
 const electricityCalc = require("./electricityEmissions");
 
 const calculateEmission = (calculationIdentifier, operands) => {
@@ -16,6 +17,8 @@ const calculateEmission = (calculationIdentifier, operands) => {
       return gasCalc(operands);
     case "electricity":
       return electricityCalc(operands);
+    case "meat":
+      return meatCalc(operands);
     default:
       return {
         calculation: operands.totalCarbonEmited * 1.0,
