@@ -10,18 +10,20 @@ describe("the users API", () => {
     const result = await server.executeOperation({
       query: `mutation {
         addUser(
-          name: "TEST USER"
-          numberOfPeopleInHome: 2.4
-          kwhOfElectricityUsedPerYear: 4800
-          kwhOfGasUsedPerYear: 18000
-          drivingMilesPerYear: 9000
-          flyingHoursPerYear: 500
-          trainMilesPerYear: 300
-          carType: "ICE"
-          greenEnergyTarriff: true
-          amountOfLocalFood: "average"
-          amountOfOrganicFood: "average"
-          percentageOfFoodWaste: 41
+            user: {
+                name: "TEST USER"
+                numberOfPeopleInHome: 2.4
+                kwhOfElectricityUsedPerYear: 4800
+                kwhOfGasUsedPerYear: 18000
+                drivingMilesPerYear: 9000
+                flyingHoursPerYear: 500
+                trainMilesPerYear: 300
+                carType: "ICE"
+                greenEnergyTarriff: true
+                amountOfLocalFood: "average"
+                amountOfOrganicFood: "average"
+                percentageOfFoodWaste: 41
+            }
         ) {
           id
           name
@@ -35,18 +37,20 @@ describe("the users API", () => {
     const result = await server.executeOperation({
       query: `mutation {
         addUser(
-          name: "AVERAGE JOE"
-          numberOfPeopleInHome: 2.4
-          kwhOfElectricityUsedPerYear: 4800
-          kwhOfGasUsedPerYear: 18000
-          drivingMilesPerYear: 9000
-          flyingHoursPerYear: 500
-          trainMilesPerYear: 300
-          carType: "ICE"
-          greenEnergyTarriff: true
-          amountOfLocalFood: "average"
-          amountOfOrganicFood: "average"
-          percentageOfFoodWaste: 41
+            user: {
+                name: "AVERAGE JOE"
+                numberOfPeopleInHome: 2.4
+                kwhOfElectricityUsedPerYear: 4800
+                kwhOfGasUsedPerYear: 18000
+                drivingMilesPerYear: 9000
+                flyingHoursPerYear: 500
+                trainMilesPerYear: 300
+                carType: "ICE"
+                greenEnergyTarriff: true
+                amountOfLocalFood: "average"
+                amountOfOrganicFood: "average"
+                percentageOfFoodWaste: 41
+            }
         ) {
           id
           name

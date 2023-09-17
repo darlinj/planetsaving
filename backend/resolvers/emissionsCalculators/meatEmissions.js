@@ -10,7 +10,7 @@ const weightsPerMeal = {
   lamb: 0.1,
   pork: 0.1,
   chicken: 0.1,
-  cheese: 0.5,
+  cheese: 0.05,
 };
 
 const foods = new Array("beef", "lamb", "pork", "chicken", "cheese");
