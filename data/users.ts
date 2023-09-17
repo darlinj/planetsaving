@@ -15,6 +15,17 @@ const users = [
     percentageOfFoodWaste: 41,
     gasEstimationType: "kwh",
     electricityEstimationType: "kwh",
+    meatEstimationType: "weight",
+    beefMealsPerWeek: 2.12,
+    beefGramsPerWeek: 212,
+    lambMealsPerWeek: 0.73,
+    lambGramsPerWeek: 73,
+    porkMealsPerWeek: 3.01,
+    porkGramsPerWeek: 301,
+    chickenMealsPerWeek: 5.88,
+    chickenGramsPerWeek: 588,
+    cheeseMealsPerWeek: 3.0,
+    cheeseGramsPerWeek: 150,
   },
 ];
 

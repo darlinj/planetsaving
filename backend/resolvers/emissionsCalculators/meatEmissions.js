@@ -91,7 +91,17 @@ const convertMealsToWeight = (operands, food) => {
   return (operands[`${food}MealsPerWeek`] || 0) * weightsPerMeal[food];
 };
 
-const referenceUrls = {
-  label: "Our World in Data",
-  url: "https://ourworldindata.org/food-choice-vs-eating-local",
-};
+const referenceUrls = [
+  {
+    label: "Our World in Data",
+    url: "https://ourworldindata.org/food-choice-vs-eating-local",
+  },
+  {
+    label: "OECD meat consumption report",
+    url: "https://data.oecd.org/agroutput/meat-consumption.htm",
+  },
+  {
+    label: "Cheese consumption report",
+    url: "https://www.statista.com/statistics/281114/household-consumption-of-cheese-in-the-united-kingdom-uk/",
+  },
+];
