@@ -222,13 +222,14 @@ const climateData = [
         color: "blue",
         colorIntensity: 100,
         description:
-          "Fertilizer is one of the worst food based problems.  It releases a lot of C02 and requires methane.  Buying organic produce reduces the damage",
+          "Fertilizer is one of the most polluting parts of food production. Organic food may seem like the answer but it isn't as simple as that",
         detailed_description:
-          "Fertilizer is one of the worst food based problems.  It releases a lot of C02 and requires methane.  Buying organic produce reduces the damage",
+          "Fertilizer is one of the most polluting parts of food production .  It releases a lot of C02 and requires methane.  Buying organic produce reduces the amount of fertilizer used but also reduces crop yields by about 30% meaning that more land is used to grow the same amount of crops which means that that more land is used for farming rather than growing trees.  So although there may be good health reasons to go organic it doesn't really help the climate",
         emissions: [
           {
             totalCarbonEmited: 0.7,
             name: "Fertilizer",
+            calculationIdentifier: "fertilizer",
           },
         ],
       },
