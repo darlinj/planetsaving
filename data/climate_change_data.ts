@@ -224,7 +224,7 @@ const climateData = [
         description:
           "Fertilizer is one of the most polluting parts of food production. Organic food may seem like the answer but it isn't as simple as that",
         detailed_description:
-          "Fertilizer is one of the most polluting parts of food production .  It releases a lot of C02 and requires methane.  Buying organic produce reduces the amount of fertilizer used but also reduces crop yields by about 30% meaning that more land is used to grow the same amount of crops which means that that more land is used for farming rather than growing trees.  So although there may be good health reasons to go organic it doesn't really help the climate",
+          "Fertilizer is one of the most polluting parts of food production .  It releases a lot of C02 and requires methane.  Buying organic produce reduces the amount of fertilizer used but experts disagree on the knock on effects.  Some say that reducing fertilizer reduces crop yields by about 30% meaning that more land is used to grow the same amount of crops which increases emissions due to land use change. Other experts say that the reduction in yields is short lived and disappear after a few years of organic farming. So although there may be good health reasons to go organic we can't say definitively that it reduces your carbon footprint",
         emissions: [
           {
             totalCarbonEmited: 0.7,
@@ -256,13 +256,14 @@ const climateData = [
         color: "blue",
         colorIntensity: 300,
         description:
-          "Generally the further your food is transported the worse it is for the climate.  Air freighted delicate foods like soft fruit from South America are the worst offenders",
+          "Generally the further your food is transported the worse it is for the climate.  Air freighted delicate foods like soft fruit from South America are the worst offenders but this account for 2.5% of your carbon print on average.",
         detailed_description:
-          "Generally the further your food is transported the worse it is for the climate.  Air freighted delicate foods like soft fruit from South America are the worst offenders",
+          "Generally the further your food is transported the worse it is for the climate.  Air freighted delicate foods like soft fruit from South America are the worst offenders which emit 50-100 times the CO2 than food transported by sea but this account for 2.5% of your carbon print on average. For beef the feed transport is only 0.5% of the carbon that is released so you are better off choosing lower carbon plant based food options with high food miles than buying local beef, lamb or cheese.  Having said that 83% of the emissions from food transport come from road transport largely in the UK so local food is still better but it has less of an impact than you may think.  So to summarize.  Local food is good. Air freighted food is very bad so avoid berries and tender veg from a long way away.  But this will all have a very small impact on your carbon footprint compared with eating less meat and cheese.",
         emissions: [
           {
             totalCarbonEmited: 0.3,
             name: "Food Transportation",
+            calculationIdentifier: "food_transport",
           },
         ],
       },
