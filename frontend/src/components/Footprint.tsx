@@ -23,8 +23,8 @@ const Footprint = () => {
   if (!data) {
     return <div>No data returned... {status}</div>;
   }
-  const footHeight = 500;
-  let stripeOffset = 0;
+  const footHeight = 530;
+  let stripeOffset = 30;
   let lastStripeHeight = 0;
   const totalAmount = data
     .map((item) => item.amount)
@@ -155,7 +155,7 @@ const Footprint = () => {
         id="footprint"
         sx={{display: "flex", alignContent: "center", justifyContent: "center"}}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 550">
           <BackLink />
           {data.map((stripe, index) => {
             const stripeHeight = (stripe.amount / totalAmount) * footHeight;
@@ -186,7 +186,7 @@ const Footprint = () => {
               fill="none"
             />
           </clipPath>
-          <clipPath id="foot">
+          <clipPath id="foot" transform="translate(0,30)">
             <path
               d="M224.231,239.9c43.9,23.3,64.5,75.4,49.8,123.3c-2.7,8.6-5.1,17.5-7,26.4c-7.8,40,2.7,90.2,46.7,99.1
 				c22.2,4.7,44.3-3.9,59.9-20.2c46.5-50.5,32.3-202.6,31.9-240.7c0-16.7-0.4-33.8-7-49.4c-14.8-35-56.4-49-93.3-58.7
