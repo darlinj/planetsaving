@@ -173,6 +173,23 @@ const climateData = [
       "All government activities including schools, hospitals, the army etc",
     subCategories: [
       {
+        label: "The NHS",
+        category: "nhs",
+        color: "green",
+        colorIntensity: 400,
+        description:
+          "The emissions of NHS in the UK are approximately 25 million tonnes of CO2 equivalent.",
+        detailed_description:
+          "The emissions of NHS in the UK are approximately 25 million tonnes of CO2 equivalent.",
+        emissions: [
+          {
+            name: "NHS",
+            totalCarbonEmited: 0,
+            calculationIdentifier: "nhs",
+          },
+        ],
+      },
+      {
         label: "The Military",
         category: "military",
         color: "green",
@@ -199,7 +216,7 @@ const climateData = [
           "This category will be broken down soon. This category represents the emissions from everything that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
         emissions: [
           {
-            totalCarbonEmited: 1.0,
+            totalCarbonEmited: 0.63,
             name: "All government",
           },
         ],
