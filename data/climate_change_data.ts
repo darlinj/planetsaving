@@ -210,7 +210,7 @@ const climateData = [
         label: "The Military",
         category: "military",
         color: "green",
-        colorIntensity: 600,
+        colorIntensity: 700,
         description:
           "The GHG emissions of UK military spending in 2018 – using the consumption-based approach – was approximately 11 million tonnes of CO2 equivalent.",
         detailed_description:
@@ -223,10 +223,26 @@ const climateData = [
         ],
       },
       {
+        label: "The Police",
+        category: "police",
+        color: "green",
+        colorIntensity: 800,
+        description: "The emissions of the police in the UK",
+        detailed_description:
+          "There doesn't seem to be a figure of the total carbon emissions of the police forces of the UK so this is a bit of a rough estimate.  If anyone has better information on police emissions then please get in touch.  The main way that police seem to be reducing their carbon footprint is by making plans to move to electric vehicles",
+        emissions: [
+          {
+            totalCarbonEmited: 0,
+            name: "All Military",
+            calculationIdentifier: "police",
+          },
+        ],
+      },
+      {
         label: "All government activity",
         category: "all_gov",
         color: "green",
-        colorIntensity: 700,
+        colorIntensity: 900,
         description:
           "This category will be broken down soon. This category represents the emissions from everything else that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
         detailed_description:
