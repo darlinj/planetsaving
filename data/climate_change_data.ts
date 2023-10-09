@@ -180,7 +180,7 @@ const climateData = [
         description:
           "The emissions of NHS in the UK are approximately 25 million tonnes of CO2 equivalent.",
         detailed_description:
-          "The emissions of NHS in the UK are approximately 25 million tonnes of CO2 equivalent.",
+          "The emissions of NHS in the UK are approximately 25 million tonnes of CO2 equivalent. 62% of those emissions are from medicines, medical equipment.  The rest is from the actual operation of the NHS including energy, water and travel.  The NHS has a target to reduce their carbon emissions by 80% of directly controlled emissions by 2032 and a reduction of 80% of other emissions by 2039.  If you work in the NHS then you can help by working out ways that emissions can be reduced locally but even if you don't, you can have an influence by using your vote.  Which political parties are invested in the NHS reducing it's carbon footprint?",
         emissions: [
           {
             name: "NHS",
@@ -190,10 +190,27 @@ const climateData = [
         ],
       },
       {
+        label: "Education",
+        category: "education",
+        color: "green",
+        colorIntensity: 500,
+        description:
+          "The carbon emissions of all of our schools and universities",
+        detailed_description:
+          "The emissions of all our schools is estimated at about 8.5M Tons of C02e. The emissions of all the universities and colleges in the UK is said to be about 18.5M GTons of CO2e.  These figures seem a little bit suspect as you might expect the climate impact of schools to be higher than the cost of universities because there are more schools than universities.  If anyone has more accurate figures please get in touch and I will update this section",
+        emissions: [
+          {
+            name: "Education",
+            totalCarbonEmited: 0,
+            calculationIdentifier: "education",
+          },
+        ],
+      },
+      {
         label: "The Military",
         category: "military",
         color: "green",
-        colorIntensity: 500,
+        colorIntensity: 600,
         description:
           "The GHG emissions of UK military spending in 2018 – using the consumption-based approach – was approximately 11 million tonnes of CO2 equivalent.",
         detailed_description:
@@ -209,14 +226,14 @@ const climateData = [
         label: "All government activity",
         category: "all_gov",
         color: "green",
-        colorIntensity: 300,
+        colorIntensity: 700,
         description:
           "This category will be broken down soon. This category represents the emissions from everything else that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
         detailed_description:
           "This category will be broken down soon. This category represents the emissions from everything that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
         emissions: [
           {
-            totalCarbonEmited: 0.63,
+            totalCarbonEmited: 0.24,
             name: "All government",
           },
         ],

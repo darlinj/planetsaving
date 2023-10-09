@@ -7,6 +7,7 @@ const fertilizerCalc = require("./fertilizerEmissions");
 const electricityCalc = require("./electricityEmissions");
 const foodTransportCalc = require("./foodTransportEmissions");
 const nhsCalc = require("./nhsEmissions");
+const educationCalc = require("./educationEmissions");
 
 const calculateEmission = (calculationIdentifier, operands) => {
   switch (calculationIdentifier) {
@@ -28,6 +29,8 @@ const calculateEmission = (calculationIdentifier, operands) => {
       return foodTransportCalc(operands);
     case "nhs":
       return nhsCalc(operands);
+    case "education":
+      return educationCalc(operands);
     default:
       return {
         calculation: operands.totalCarbonEmited * 1.0,
