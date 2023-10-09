@@ -38,7 +38,12 @@ const calculateEmission = (calculationIdentifier, operands) => {
       return {
         calculation: operands.totalCarbonEmited * 1.0,
         description: `${operands.totalCarbonEmited} Tons emitted by ${operands.label}`,
-        referenceUrls: [],
+        referenceUrls: [
+          {
+            label: "Carbon Independent",
+            url: "https://www.carbonindependent.org/",
+          },
+        ],
       };
   }
 };
