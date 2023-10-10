@@ -223,6 +223,23 @@ const climateData = [
         ],
       },
       {
+        label: "The Roads",
+        category: "roads",
+        color: "green",
+        colorIntensity: 800,
+        description:
+          "Carbon emitted from the construction and maintenance of the roads that we drive on",
+        detailed_description:
+          "This is the carbon footprint of our road network.  Most of the climate cost of the road network comes from the materials that are used such as concrete and asphalt (80%) so the challenge is to decarbonize those processes. The study sited is scoped to Great Britain so it is assumed that the cost of road construction in Northern Ireland is the same as the rest of the UK",
+        emissions: [
+          {
+            totalCarbonEmited: 0,
+            name: "Road construction and maintenance",
+            calculationIdentifier: "roads",
+          },
+        ],
+      },
+      {
         label: "The Police",
         category: "police",
         color: "green",
