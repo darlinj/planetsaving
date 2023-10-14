@@ -1,47 +1,5 @@
 const climateData = [
   {
-    label: "Miscellaneous",
-    category: "misc",
-    color: "orange",
-    colorIntensity: 500,
-    description: "Everything else. From things you buy to leisure activities",
-    detailed_description: "Todo: fill this in",
-    subCategories: [
-      {
-        label: "Hotels, pubs and catering",
-        category: "catering",
-        color: "orange",
-        colorIntensity: 300,
-        description:
-          "The carbon emissions from staying and eating away from home.",
-        detailed_description:
-          "Eating out and staying away from home causes carbon emissions from heating the rooms to the food that is wasted in most commercial kitchens it all adds up to about 42 millions tons of CO2e per year.  You can reduce your impact by choosing establishments that have an carbon aware attitude",
-        emissions: [
-          {
-            totalCarbonEmited: 0.63,
-            name: "Hotels, pubs and catering",
-            category: "catering",
-          },
-        ],
-      },
-      {
-        label: "All Miscellaneous",
-        category: "all_misc",
-        color: "orange",
-        colorIntensity: 500,
-        description:
-          "Everything else that causes carbon to be emited.  This includes everything from the things you buy to your leisure activities",
-        detailed_description: "Todo: fill this in",
-        emissions: [
-          {
-            totalCarbonEmited: 2.56,
-            name: "All Miscellaneous emissions",
-          },
-        ],
-      },
-    ],
-  },
-  {
     label: "Transport",
     category: "transport",
     color: "red",
@@ -243,7 +201,7 @@ const climateData = [
         label: "The Police",
         category: "police",
         color: "green",
-        colorIntensity: 800,
+        colorIntensity: 900,
         description: "The emissions of the police in the UK",
         detailed_description:
           "There doesn't seem to be a figure of the total carbon emissions of the police forces of the UK so this is a bit of a rough estimate.  If anyone has better information on police emissions then please get in touch.  The main way that police seem to be reducing their carbon footprint is by making plans to move to electric vehicles",
@@ -256,17 +214,16 @@ const climateData = [
         ],
       },
       {
-        label: "All government activity",
+        label: "Other government activity",
         category: "all_gov",
         color: "green",
-        colorIntensity: 900,
-        description:
-          "This category will be broken down soon. This category represents the emissions from everything else that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
+        colorIntensity: 1000,
+        description: "Government activity not captured explicitly",
         detailed_description:
-          "This category will be broken down soon. This category represents the emissions from everything that your government does on your behalf from running schools and hospitals to the army and building roads.  It is easy to think there is nothing you can do about this but your vote is the most powerful weapon you have to effect change.  Do you know what your MP is doing to help the climate?",
+          "This figure is a bit of a guestimate for the amount of carbon that is released by activities that are not explicitly outlined above.  The author has been unable to find any reliable figures for the total carbon footprint of the UK government or local government but it is likely to be relatively small compared to the sources broken out above.  The carbon footprint of government largely consists of buildings and transport emissions. Please get in touch if you have any better figures on this topic or think that a particular activity should be broken out.",
         emissions: [
           {
-            totalCarbonEmited: 0.24,
+            totalCarbonEmited: 0.2,
             name: "All government",
           },
         ],
@@ -390,6 +347,84 @@ const climateData = [
           {
             totalCarbonEmited: 0.18,
             name: "Other food emissions",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Miscellaneous",
+    category: "misc",
+    color: "orange",
+    colorIntensity: 500,
+    description: "Everything else. From things you buy to leisure activities",
+    detailed_description: "Todo: fill this in",
+    subCategories: [
+      {
+        label: "Hotels, restaurants and catering",
+        category: "catering",
+        color: "orange",
+        colorIntensity: 300,
+        description:
+          "The carbon emissions from staying and eating away from home.",
+        detailed_description:
+          "Eating out and staying away from home causes carbon emissions from heating the rooms to the food that is wasted in most commercial kitchens it all adds up to about 42 millions tons of CO2e per year.  You can reduce your impact by choosing establishments that have an carbon aware attitude",
+        emissions: [
+          {
+            totalCarbonEmited: 0,
+            name: "Hotels and catering",
+            category: "catering",
+            calculationIdentifier: "catering",
+          },
+        ],
+      },
+      {
+        label: "Furniture, DIY and Appliances",
+        category: "home",
+        color: "orange",
+        colorIntensity: 400,
+        description: "Things in our homes such as furniture and appliances",
+        detailed_description:
+          "This category is a collection of things that we use in the home including furniture, DIY equipment, appliances, household textiles and kitchen equipment like utensils and glassware",
+        emissions: [
+          {
+            totalCarbonEmited: 0,
+            name: "Home",
+            category: "home",
+            calculationIdentifier: "home",
+          },
+        ],
+      },
+      {
+        label: "Recreation",
+        category: "recreational",
+        color: "orange",
+        colorIntensity: 500,
+        description: "Other recreational equipment, services and durables",
+        detailed_description:
+          "Other recreational equipment, services and durables",
+        emissions: [
+          {
+            totalCarbonEmited: 0,
+            name: "Recreational",
+            category: "recreational",
+            calculationIdentifier: "recreational",
+          },
+        ],
+      },
+      {
+        label: "Miscellaneous goods and services",
+        category: "all_misc",
+        color: "orange",
+        colorIntensity: 600,
+        description: "Everything else that causes carbon to be emited.",
+        detailed_description:
+          "Things not explicitly included in the other sections",
+        emissions: [
+          {
+            totalCarbonEmited: 0,
+            name: "Miscellaneous emissions",
+            calculationIdentifier: "misc",
           },
         ],
       },

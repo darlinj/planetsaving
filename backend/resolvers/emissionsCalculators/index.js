@@ -1,42 +1,54 @@
-const tailPipeEmissionsCalc = require("./tailPipeEmissions");
+const tailPipeEmissionsEmissions = require("./tailPipeEmissions");
 const simpleMultiplierBy2 = require("./simpleMultiplierBy2");
-const flyingCalc = require("./flyingEmissions");
-const gasCalc = require("./gasEmissions");
-const meatCalc = require("./meatEmissions");
-const fertilizerCalc = require("./fertilizerEmissions");
-const electricityCalc = require("./electricityEmissions");
-const foodTransportCalc = require("./foodTransportEmissions");
-const nhsCalc = require("./nhsEmissions");
-const educationCalc = require("./educationEmissions");
-const policeCalc = require("./policeEmissions");
-const roadsCalc = require("./roadEmissions");
+const flyingEmissions = require("./flyingEmissions");
+const gasEmissions = require("./gasEmissions");
+const meatEmissions = require("./meatEmissions");
+const fertilizerEmissions = require("./fertilizerEmissions");
+const electricityEmissions = require("./electricityEmissions");
+const foodTransportEmissions = require("./foodTransportEmissions");
+const nhsEmissions = require("./nhsEmissions");
+const educationEmissions = require("./educationEmissions");
+const policeEmissions = require("./policeEmissions");
+const roadEmissions = require("./roadEmissions");
+const cateringEmissions = require("./cateringEmissions");
+const miscEmissions = require("./miscEmissions");
+const homeEmissions = require("./homeEmissions");
+const recreationalEmissions = require("./recreationalEmissions");
 
 const calculateEmission = (calculationIdentifier, operands) => {
   switch (calculationIdentifier) {
     case "simple_multiplier_by_2":
       return simpleMultiplierBy2(operands);
     case "driving_tail_pipe":
-      return tailPipeEmissionsCalc(operands);
+      return tailPipeEmissionsEmissions(operands);
     case "flying":
-      return flyingCalc(operands);
+      return flyingEmissions(operands);
     case "gas":
-      return gasCalc(operands);
+      return gasEmissions(operands);
     case "electricity":
-      return electricityCalc(operands);
+      return electricityEmissions(operands);
     case "meat":
-      return meatCalc(operands);
+      return meatEmissions(operands);
     case "fertilizer":
-      return fertilizerCalc(operands);
+      return fertilizerEmissions(operands);
     case "food_transport":
-      return foodTransportCalc(operands);
+      return foodTransportEmissions(operands);
     case "nhs":
-      return nhsCalc(operands);
+      return nhsEmissions(operands);
     case "education":
-      return educationCalc(operands);
+      return educationEmissions(operands);
     case "police":
-      return policeCalc(operands);
+      return policeEmissions(operands);
     case "roads":
-      return roadsCalc(operands);
+      return roadEmissions(operands);
+    case "catering":
+      return cateringEmissions(operands);
+    case "misc":
+      return miscEmissions(operands);
+    case "home":
+      return homeEmissions(operands);
+    case "recreational":
+      return recreationalEmissions(operands);
     default:
       return {
         calculation: operands.totalCarbonEmited * 1.0,
