@@ -1,4 +1,4 @@
-const emissionsPerYearInMTons = 13;
+const emissionsPerYearInMTons = 14.6;
 const ukPopulation = 67.33;
 
 module.exports = (operands = {}) => {

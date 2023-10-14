@@ -66,31 +66,17 @@ const Footprint = () => {
     stripe,
     stripeOffset,
     stripeHeight,
+    linkURL,
+    linkID,
   }: {
     stripe: ClimateData;
     stripeOffset: number;
     stripeHeight: number;
+    linkURL: string;
+    linkID: string;
   }) => {
-    if (stripe.subCategories && stripe.subCategories.length === 0) {
-      return (
-        <Link
-          to={`/f/${category}/${stripe.category}`}
-          id={`${stripe.category}-footprint`}
-        >
-          <rect
-            clipPath="url('#foot')"
-            width="500"
-            y={stripeOffset}
-            height={stripeHeight}
-            style={{
-              fill: getCategoryColorArray(stripe.color)[stripe.colorIntensity],
-            }}
-          />
-        </Link>
-      );
-    }
     return (
-      <Link to={`/f/${stripe.category}`} id={stripe.category}>
+      <Link to={linkURL} id={linkID}>
         <rect
           clipPath="url('#foot')"
           width="500"
@@ -108,10 +94,14 @@ const Footprint = () => {
     height,
     stripe,
     stripeOffset,
+    linkURL,
+    linkID,
   }: {
     height: number;
     stripe: ClimateData;
     stripeOffset: number;
+    linkURL: string;
+    linkID: string;
   }) => {
     const midStripe = stripeOffset + height / 2;
     if (height < 20) {
@@ -119,21 +109,23 @@ const Footprint = () => {
     }
     if (height < 45) {
       return (
-        <>
+        <Link to={linkURL} id={linkID}>
           <text x="0" y={midStripe} fill="black">
             {stripe.label} ({stripe.amount.toFixed(2)} Tons)
           </text>{" "}
-        </>
+        </Link>
       );
     }
     return (
       <>
-        <text x="0" y={midStripe} fill="black">
-          {stripe.label}
-        </text>
-        <text x="0" y={midStripe + 20} fill="black">
-          ({stripe.amount.toFixed(2)} Tons)
-        </text>{" "}
+        <Link to={linkURL} id={linkID}>
+          <text x="0" y={midStripe} fill="black">
+            {stripe.label}
+          </text>
+          <text x="0" y={midStripe + 20} fill="black">
+            ({stripe.amount.toFixed(2)} Tons)
+          </text>{" "}
+        </Link>
       </>
     );
   };
@@ -160,17 +152,27 @@ const Footprint = () => {
             const stripeHeight = (stripe.amount / totalAmount) * footHeight;
             stripeOffset += lastStripeHeight;
             lastStripeHeight = stripeHeight;
+            const linkURL = category
+              ? `/f/${category}/${stripe.category}`
+              : `/f/${stripe.category}`;
+            const linkID = category
+              ? `${stripe.category}-footprint`
+              : stripe.category;
             return (
               <g key={index} id={`footprint-${stripe.category}`}>
                 <Stripe
                   stripe={stripe}
                   stripeOffset={stripeOffset}
                   stripeHeight={stripeHeight}
+                  linkURL={linkURL}
+                  linkID={linkID}
                 />
                 <StripeLabel
                   height={stripeHeight}
                   stripe={stripe}
                   stripeOffset={stripeOffset}
+                  linkURL={linkURL}
+                  linkID={linkID}
                 />
               </g>
             );
