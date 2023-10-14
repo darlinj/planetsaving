@@ -23,7 +23,7 @@ const Footprint = () => {
   if (!data) {
     return <div>No data returned... {status}</div>;
   }
-  const footHeight = 530;
+  const footHeight = 490;
   let stripeOffset = 30;
   let lastStripeHeight = 0;
   const totalAmount = data
@@ -139,7 +139,6 @@ const Footprint = () => {
   };
 
   const footprintTitle = () => {
-    //TODO: Fix the situation where a user has a cookie but that user doesn't exist in the database.  It returns the STANDARD JOE user but still says that it is the personal one
     if (Cookie.get("user-id")) {
       return <>Your annual {category} Carbon footprint</>;
     }
