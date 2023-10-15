@@ -172,11 +172,12 @@ const climateData = [
         description:
           "The GHG emissions of UK military spending in 2018 – using the consumption-based approach – was approximately 11 million tonnes of CO2 equivalent.",
         detailed_description:
-          "The green house gas emissions of UK military spending in 2018 was approximately 11 million tonnes of CO2 equivalent. This includes all lifecycle emissions, such as those arising abroad from raw material extraction. This is more than 3.5 times larger than the total direct GHG emissions of the MOD, and more than 11 times larger than the GHG figures quoted in the main text of MOD annual reports. It is also equivalent to the total CO2 emitted by the annual average mileage driven by over six million UK cars.  These figures do not include the GHG emissions related to impacts of weapons use on the battlefield. Such emissions could potentially be large, but are highly uncertain. Source: https://www.sgr.org.uk/sites/default/files/2020-05/SGR-DUK_UK_Military_Env_Impacts.pdf",
+          "The green house gas emissions of UK military spending in 2018 was approximately 11 million tonnes of CO2 equivalent. This includes all lifecycle emissions, such as those arising abroad from raw material extraction. This is more than 3.5 times larger than the total direct GHG emissions of the MOD, and more than 11 times larger than the GHG figures quoted in the main text of MOD annual reports. It is also equivalent to the total CO2 emitted by the annual average mileage driven by over six million UK cars.  These figures do not include the GHG emissions related to impacts of weapons use on the battlefield. Such emissions could potentially be large, but are highly uncertain.",
         emissions: [
           {
             totalCarbonEmited: 0.175,
             name: "All Military",
+            calculationIdentifier: "military",
           },
         ],
       },

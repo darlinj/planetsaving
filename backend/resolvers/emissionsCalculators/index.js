@@ -14,6 +14,7 @@ const cateringEmissions = require("./cateringEmissions");
 const miscEmissions = require("./miscEmissions");
 const homeEmissions = require("./homeEmissions");
 const recreationalEmissions = require("./recreationalEmissions");
+const militaryEmissions = require("./militaryEmissions");
 
 const calculateEmission = (calculationIdentifier, operands) => {
   switch (calculationIdentifier) {
@@ -49,6 +50,8 @@ const calculateEmission = (calculationIdentifier, operands) => {
       return homeEmissions(operands);
     case "recreational":
       return recreationalEmissions(operands);
+    case "military":
+      return militaryEmissions(operands);
     default:
       return {
         calculation: operands.totalCarbonEmited * 1.0,
