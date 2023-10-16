@@ -169,6 +169,7 @@ common_infrastructure:
     - terraform -chdir=infrastructure/common validate
     - terraform -chdir=infrastructure/common plan -out "planfile"
     - terraform -chdir=infrastructure/common apply -input=false "planfile"
+    - cat infrastructure/common/database.env
   artifacts:
     reports:
       dotenv: infrastructure/common/database.env
@@ -181,6 +182,8 @@ set_up_database_roles:
     - "common_infrastructure"
   allow_failure: true
   script:
+    - env
+    - echo  "Database host is ${DB_HOST}""
     - psql -h ${DB_HOST} "port=5432 dbname=postgres sslmode=verify-full sslrootcert=backend/config/eu-west-2-bundle.pem user=db_user" < infrastructure/database/allow_iam_rds_access.sql
 
 .deploy_infrastructure:
