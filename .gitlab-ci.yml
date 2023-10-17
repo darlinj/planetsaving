@@ -178,6 +178,8 @@ set_up_database_roles:
   stage: common_infra_deploy
   image:
     name: governmentpaas/psql
+  needs:
+    - "common_infrastructure"
   dependencies:
     - "common_infrastructure"
   allow_failure: true
