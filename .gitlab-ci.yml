@@ -26,7 +26,7 @@ build_test_frontend:
     name: test
   after_script:
     - cd frontend
-    - mv build test_build
+    - mv dist test_build
   artifacts:
     paths:
       - frontend/test_build/
@@ -49,7 +49,7 @@ build_prod_frontend:
     name: production
   after_script:
     - cd frontend
-    - mv build prod_build
+    - mv test prod_build
   artifacts:
     paths:
       - frontend/prod_build/
@@ -184,7 +184,6 @@ set_up_database_roles:
     - "common_infrastructure"
   allow_failure: true
   script:
-    - env
     - echo  "Database host is ${DB_HOST}"
     - psql -h ${DB_HOST} "port=5432 dbname=postgres sslmode=verify-full sslrootcert=backend/config/eu-west-2-bundle.pem user=db_user" < infrastructure/database/allow_iam_rds_access.sql
 
