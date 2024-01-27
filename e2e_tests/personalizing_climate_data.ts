@@ -18,7 +18,9 @@ test("Clicking on a child category shows the form with the default user values",
   await t.expect(footprint.textContent).contains("Driving");
   await t.expect(footprint.textContent).contains("Yearly Mileage");
   await t.expect(Selector("#annual-mileage").exists).ok;
-  await t.expect(Selector("#annual-mileage").value).eql("9000");
+  await t
+    .expect(Selector("input[name='drivingMilesPerYear']").value)
+    .eql("9000");
   await t.expect(footprint.textContent).contains("Size of car");
   await t.expect(Selector("#size-of-car").exists).ok;
   await t.expect(Selector("#driving-total").textContent).contains("3.49 Tons");
@@ -29,7 +31,7 @@ test("Changing the mileage changes the footprint values", async (t) => {
   await t.click(transportLink);
   const drivingLink = Selector("#driving-footprint");
   await t.click(drivingLink);
-  const mileageTextbox = Selector("#annual-mileage");
+  const mileageTextbox = Selector("input[name='drivingMilesPerYear']");
   await t.selectText(mileageTextbox).typeText(mileageTextbox, "6000");
   const drivingSection = Selector("#footprint-driving");
   await t.expect(drivingSection.textContent).contains("3.49 Tons");

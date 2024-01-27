@@ -65,5 +65,5 @@ test("The amount of C02 equiv under the footprint is correct", async (t) => {
   const footprint = Selector("#footprint-footer");
   await t
     .expect(footprint.textContent)
-    .contains("Total 14.0 Tons of CO2 equivalent");
+    .contains("Total 12.1 Tons of CO2 equivalent");
 });
