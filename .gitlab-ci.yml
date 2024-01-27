@@ -189,7 +189,7 @@ set_up_database_roles:
 
 .deploy_infrastructure:
   image:
-    name: hashicorp/terraform:light
+    name: hashicorp/terraform:latest
     entrypoint:
       - "/usr/bin/env"
       - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
