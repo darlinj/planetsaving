@@ -49,7 +49,7 @@ build_prod_frontend:
     name: production
   after_script:
     - cd frontend
-    - mv test prod_build
+    - mv dist prod_build
   artifacts:
     paths:
       - frontend/prod_build/
