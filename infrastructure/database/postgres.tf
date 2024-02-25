@@ -37,7 +37,6 @@ resource "aws_db_instance" "footprint" {
   instance_class                      = "db.t3.micro"
   allocated_storage                   = 5
   engine                              = "postgres"
-  engine_version                      = "13.10"
   username                            = "db_user"
   password                            = random_password.password.result
   vpc_security_group_ids              = [aws_security_group.rds.id]
