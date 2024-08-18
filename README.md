@@ -10,20 +10,36 @@ brew install sqlite
 
 ```
 cd backend
+npm install
 npx sequelize-cli db:migrate
 ```
 
-# Running the app
+## Set up the front end
 
-## Locally
+```
+cd frontend
+npx install
+```
+
+## Run the app and setup static data
 
 You can run the front end and backend locally against a sqlite database just running npm start
 
+From the root of the project
+
 ```
+npm install
 npm start
 ```
 
-## Against the test database
+## Set up static data
+
+```
+export API_URL=http://localhost:4000
+npx ts-node ./data/reset_database.ts
+```
+
+# Against the test database
 
 This runs the front end and backend locally but talks to the remote AWS RDS postgres instance. This uses the settings in pg.env to set up the relevant environment variables that point to the test database on AWS.
 
