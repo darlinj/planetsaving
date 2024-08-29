@@ -3,24 +3,24 @@ name: build and deploy
 on:
   push:
     branches:
-    - main
-    
+      - main
+
   workflow_dispatch:
 
 jobs:
   some_job:
     name: buildit
     runs-on: ubuntu-latest
+    environment: test
 
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
-      
+
       - name: Build frontend
         run: |
           cd frontend
           sed "s|PLACEHOLDER|${API_URL}|g" ./src/api/url_template.json  > ./src/api/url.json
+          cat ./src/api/url.json
           npm install
           npm run build
-        
-      
