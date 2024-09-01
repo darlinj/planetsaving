@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  some_job:
-    name: buildit
+  build:
+    name: build
     runs-on: ubuntu-latest
     environment: test
 
@@ -21,8 +21,17 @@ jobs:
         run: |
           cd frontend
           sed "s|PLACEHOLDER|${{ vars.API_URL }}|g" ./src/api/url_template.json  > ./src/api/url.json
-          echo ${{ vars }}
-          env
-          cat ./src/api/url.json
           npm install
           npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-test-build
+          path: frontend/build
+      - name: Build backend
+        run: |
+          cd backend
+          npm install
+      - uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-build
+          path: backend/node_modules/
