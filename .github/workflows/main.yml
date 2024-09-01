@@ -20,7 +20,8 @@ jobs:
       - name: Build frontend
         run: |
           cd frontend
-          sed "s|PLACEHOLDER|${API_URL}|g" ./src/api/url_template.json  > ./src/api/url.json
+          sed "s|PLACEHOLDER|${{ vars.API_URL }}|g" ./src/api/url_template.json  > ./src/api/url.json
+          echo ${{ vars }}
           env
           cat ./src/api/url.json
           npm install
