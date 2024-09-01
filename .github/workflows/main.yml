@@ -21,6 +21,7 @@ jobs:
         run: |
           cd frontend
           sed "s|PLACEHOLDER|${API_URL}|g" ./src/api/url_template.json  > ./src/api/url.json
+          env
           cat ./src/api/url.json
           npm install
           npm run build
