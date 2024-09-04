@@ -26,7 +26,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: frontend-test-build
-          path: frontend/build
+          path: frontend/build/
       - name: Build backend
         run: |
           cd backend
@@ -35,3 +35,15 @@ jobs:
         with:
           name: backend-test-build
           path: backend/node_modules/
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.3
+      - name: test frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run test-ci
