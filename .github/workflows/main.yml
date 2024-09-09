@@ -32,14 +32,14 @@ jobs:
         with:
           name: frontend-test-build
           path: frontend/dist/
-      - name: Build backend
-        run: |
-          cd backend
-          npm install
-      - uses: actions/upload-artifact@v4
-        with:
-          name: backend-test-build
-          path: backend/dist
+      # - name: Build backend
+      #   run: |
+      #     cd backend
+      #     npm install
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: backend-test-build
+      #     path: backend/dist
   unit-test:
     name: unit-test
     runs-on: ubuntu-latest
@@ -55,18 +55,24 @@ jobs:
       - name: test backend
         run: |
           cd backend
+          npm install
           npm run migration
           npm run test
   deploy-to-test:
     name: deploy-to-test
+    needs: [build, unit-test]
     runs-on: ubuntu-latest
     environment: test
     steps:
+      - uses: actions/checkout@v4.1.7
       - uses: actions/download-artifact@v4
         with:
           name: frontend-test-build
+          path: ./
       - name: Deploy to test
         run: |
+          ls -l
+          ls -l frontend
           aws --version
           aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude index.html
           aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
