@@ -7,6 +7,11 @@ on:
 
   workflow_dispatch:
 
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
+
 jobs:
   build:
     name: build
@@ -26,7 +31,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: frontend-test-build
-          path: frontend/build/
+          path: frontend/dist/
       - name: Build backend
         run: |
           cd backend
@@ -34,9 +39,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: backend-test-build
-          path: backend/node_modules/
-  test:
-    name: test
+          path: backend/dist
+  unit-test:
+    name: unit-test
     runs-on: ubuntu-latest
     environment: test
     steps:
@@ -47,3 +52,21 @@ jobs:
           cd frontend
           npm ci
           npm run test-ci
+      - name: test backend
+        run: |
+          cd backend
+          npm run migration
+          npm run test
+  deploy-to-test:
+    name: deploy-to-test
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: frontend-test-build
+      - name: Deploy to test
+        run: |
+          aws --version
+          aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude index.html
+          aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
