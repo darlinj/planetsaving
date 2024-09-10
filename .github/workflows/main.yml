@@ -77,24 +77,16 @@ jobs:
           aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude index.html
           aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
   deploy-test-infrastructure:
+    name: deploy-test-infrastructure
     runs-on: ubuntu-latest
-    environment: test
-    needs: [deploy-frontend-to-test]
     steps:
       - uses: actions/checkout@v4.1.7
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+      - name: Print
+        run: |
+          echo "AWS access key: ${{ secrets.AWS_ACCESS_KEY_ID }}"
+      - uses: ./.github/actions/deploy_infrastructure
         with:
-          terraform_version: 1.5.0
-
-      - name: Print Environment Name
-        run: |
-          echo "Environment Name: ${{ github.event.deployment.environment }}"
-
-      - name: Terraform Init
-        run: |
-          terraform -chdir=infrastructure/${{ github.event.deployment.environment }} init
-          terraform -chdir=infrastructure/${{ github.event.deployment.environment }} validate
-          terraform -chdir=infrastructure/${{ github.event.deployment.environment }} plan -out "planfile"
-          terraform -chdir=infrastructure/${{ github.event.deployment.environment }} apply -input=false "planfile"
+          environment: "test"
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_default_region: ${{ vars.AWS_REGION }}

@@ -1,0 +1,42 @@
+name: Deploy Workflow
+
+inputs:
+  environment:
+    required: true
+    type: string
+  aws_access_key_id:
+    required: true
+    type: string
+  aws_secret_access_key:
+    required: true
+    type: string
+  aws_region:
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4.1.7
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
+
+    - name: Print Environment Name
+      run: |
+        echo "Environment Name: ${{ inputs.environment }}"
+        echo "AWS access key: ${{ inputs.aws_access_key_id }}"
+      shell: bash
+    - name: Terraform Init
+      run: |
+        terraform -chdir=infrastructure/${{ inputs.environment }} init
+        terraform -chdir=infrastructure/${{ inputs.environment }} validate
+        terraform -chdir=infrastructure/${{ inputs.environment }} plan -out "planfile"
+        terraform -chdir=infrastructure/${{ inputs.environment }} apply -input=false "planfile"
+      shell: bash
+      env:
+        AWS_ACCESS_KEY_ID: ${{ inputs.aws_access_key_id }}
+        AWS_SECRET_ACCESS_KEY: ${{ inputs.aws_secret_access_key }}
+        AWS_DEFAULT_REGION: ${{ inputs.aws_region }}
