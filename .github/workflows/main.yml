@@ -79,34 +79,25 @@ jobs:
   deploy-common-infrastructure:
     name: deploy-common-infrastructure
     runs-on: ubuntu-latest
+    outputs:
+      db-host: ${{ steps.db-host-details.outputs.DB_HOST }}
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: ./.github/actions/deploy_infrastructure
         with:
           environment: "common"
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_default_region: ${{ vars.AWS_REGION }}
-      - uses: actions/upload-artifact@v4
-        with:
-          name: database-info
-          path: infrastructure/common/database.env
+      - name: Save database details
+        id: db-host-details
+        run: |
+          grep DB_HOST infrastructure/common/database.env >> "$GITHUB_OUTPUT"
   deploy-test-infrastructure:
     name: deploy-test-infrastructure
     needs: deploy-common-infrastructure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
-      - uses: actions/download-artifact@v4
-        with:
-          name: database-info
-      - name: set-database-info
-        run: |
-          echo ./database.env
-          source ./database.env
       - uses: ./.github/actions/deploy_infrastructure
+        env:
+          TF_VAR_db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
         with:
           environment: "test"
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_default_region: ${{ vars.AWS_REGION }}
