@@ -100,11 +100,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: database-info
-          path: infrastructure/common/database.env
       - name: set-database-info
         run: |
-          echo ./infrastructure/common/database.env
-          source ./infrastructure/common/database.env
+          echo ./database.env
+          source ./database.env
       - uses: ./.github/actions/deploy_infrastructure
         with:
           environment: "test"
