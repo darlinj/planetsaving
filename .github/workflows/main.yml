@@ -90,11 +90,11 @@ jobs:
 
       - name: Print Environment Name
         run: |
-          echo "Environment Name: ${{ github.ref_name }}"
+          echo "Environment Name: ${{ github.event.deployment.environment }}"
 
       - name: Terraform Init
         run: |
-          terraform -chdir=infrastructure/${{ github.ref_name }} init
-          terraform -chdir=infrastructure/${{ github.ref_name }} validate
-          terraform -chdir=infrastructure/${{ github.ref_name }} plan -out "planfile"
-          terraform -chdir=infrastructure/${{ github.ref_name }} apply -input=false "planfile"
+          terraform -chdir=infrastructure/${{ github.event.deployment.environment }} init
+          terraform -chdir=infrastructure/${{ github.event.deployment.environment }} validate
+          terraform -chdir=infrastructure/${{ github.event.deployment.environment }} plan -out "planfile"
+          terraform -chdir=infrastructure/${{ github.event.deployment.environment }} apply -input=false "planfile"
