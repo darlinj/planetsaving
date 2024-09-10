@@ -57,7 +57,7 @@ jobs:
           cd backend
           npm install
           npm run migration
-          npm run test
+          npm run test_once
   deploy-to-test:
     name: deploy-to-test
     needs: [build, unit-test]

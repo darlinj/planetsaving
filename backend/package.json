@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=development jest --watchAll --runInBand",
+    "test": "NODE_ENV=development npx jest --watchAll --runInBand",
+    "test_once": "NODE_ENV=development npx jest --runInBand",
     "start": "nodemon api/index.js",
-    "ci": "NODE_ENV=test jest --watchAll --runInBand",
+    "ci": "NODE_ENV=test npx jest --runInBand",
     "undo_migration": "npx sequelize-cli db:migrate:undo",
     "migration": "npx sequelize-cli db:migrate"
   },
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
+    "jest": "^29.7.0",
     "sequelize-cli": "^6.5.2"
   }
 }
