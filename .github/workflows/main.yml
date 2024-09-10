@@ -76,14 +76,35 @@ jobs:
           aws --version
           aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude index.html
           aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
-  deploy-test-infrastructure:
-    name: deploy-test-infrastructure
+  deploy-common-infrastructure:
+    name: deploy-common-infrastructure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
-      - name: Print
+      - uses: ./.github/actions/deploy_infrastructure
+        with:
+          environment: "common"
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_default_region: ${{ vars.AWS_REGION }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: database-info
+          path: infrastructure/common/database.env
+  deploy-test-infrastructure:
+    name: deploy-test-infrastructure
+    needs: deploy-common-infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/download-artifact@v4
+        with:
+          name: database-info
+          path: infrastructure/common/database.env
+      - name: set-database-info
         run: |
-          echo "AWS access key: ${{ secrets.AWS_ACCESS_KEY_ID }}"
+          echo ./infrastructure/common/database.env
+          source ./infrastructure/common/database.env
       - uses: ./.github/actions/deploy_infrastructure
         with:
           environment: "test"
