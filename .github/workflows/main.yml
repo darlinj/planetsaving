@@ -96,6 +96,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
+      - name: build-backend
+        run: |
+          cd backend
+          npm install
       - uses: ./.github/actions/deploy_infrastructure
         env:
           TF_VAR_db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
