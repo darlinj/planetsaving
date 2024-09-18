@@ -14,6 +14,10 @@ runs:
       uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.5.7
+    - name: build-backend
+      run: |
+        cd backend
+        npm install
     - name: Terraform Init
       run: |
         terraform -chdir=infrastructure/${{ inputs.environment }} init
