@@ -18,6 +18,7 @@ runs:
       run: |
         cd backend
         npm install
+      shell: bash
     - name: Terraform Init
       run: |
         terraform -chdir=infrastructure/${{ inputs.environment }} init
