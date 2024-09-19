@@ -110,11 +110,14 @@ jobs:
   e2e-test:
     name: e2e-test
     needs: [deploy-test-infrastructure, deploy-frontend-to-test]
+    environment: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
       - name: install testcafe
+        env:
+          NODE_ENV: test
         run: |
           npm install
           npx testcafe chrome:headless ./e2e_tests -e
