@@ -59,7 +59,7 @@ jobs:
           npm run migration
           npm run test_once
   deploy-frontend-to-test:
-    name: deploy-to-test
+    name: deploy-frontend-to-test
     needs: [build, unit-test, deploy-test-backend]
     runs-on: ubuntu-latest
     environment: test
@@ -93,8 +93,9 @@ jobs:
           grep DB_HOST infrastructure/common/database.env >> "$GITHUB_OUTPUT"
           echo "DB_HOST=${DB_HOST}"
   migrate-test-database:
-    name: deploy-test-database
+    name: migrate-test-database
     needs: [deploy-common-infrastructure]
+    environment: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
@@ -102,10 +103,10 @@ jobs:
       - name: migrate
         env:
           NODE_ENV: test
-          RDSHOST: ${{needs.deploy-common-infrastructure.outputs.db-host}}
+          DB_HOST: ${{needs.deploy-common-infrastructure.outputs.db-host}}
           PGUSERNAME: db_user
-          PGPASSWORD: "$(aws rds generate-db-auth-token --hostname ${{needs.deploy-common-infrastructure.outputs.db-host}} --port 5432 --region $AWS_DEFAULT_REGION --username db_user )"
         run: |
+          export PGPASSWORD="$(aws rds generate-db-auth-token --hostname ${DB_HOST} --port 5432 --region ${AWS_DEFAULT_REGION} --username db_user )"
           cd backend
           npm install
           npx sequelize-cli db:migrate
