@@ -60,7 +60,7 @@ jobs:
           npm run test_once
   deploy-frontend-to-test:
     name: deploy-to-test
-    needs: [build, unit-test]
+    needs: [build, unit-test, deploy-test-backend]
     runs-on: ubuntu-latest
     environment: test
     steps:
@@ -92,24 +92,9 @@ jobs:
         run: |
           grep DB_HOST infrastructure/common/database.env >> "$GITHUB_OUTPUT"
           echo "DB_HOST=${DB_HOST}"
-  deploy-test-infrastructure:
-    name: deploy-test-infrastructure
-    needs: deploy-common-infrastructure
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.7
-      - uses: ./.github/actions/deploy_infrastructure
-        env:
-          TF_VAR_db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
-        with:
-          environment: "test"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: uploaded-lambda-zip
-          path: infrastructure/api/apollo-server.zip
   migrate-test-database:
     name: deploy-test-database
-    needs: [deploy-common-infrastructure, deploy-test-infrastructure]
+    needs: [deploy-common-infrastructure]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
@@ -124,6 +109,21 @@ jobs:
           cd backend
           npm install
           npx sequelize-cli db:migrate
+  deploy-test-backend:
+    name: deploy-test-backend
+    needs: [deploy-common-infrastructure, migrate-test-database]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: ./.github/actions/deploy_infrastructure
+        env:
+          TF_VAR_db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
+        with:
+          environment: "test"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: uploaded-lambda-zip
+          path: infrastructure/api/apollo-server.zip
   e2e-test:
     name: e2e-test
     needs: [deploy-frontend-to-test, migrate-test-database]
