@@ -107,9 +107,25 @@ jobs:
         with:
           name: uploaded-lambda-zip
           path: infrastructure/api/apollo-server.zip
+  migrate-test-database:
+    name: deploy-test-database
+    needs: [deploy-common-infrastructure, deploy-test-infrastructure]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.3
+      - name: migrate
+        env:
+          NODE_ENV: test
+          PGUSERNAME: db_user
+          PGPASSWORD: "$(aws rds generate-db-auth-token --hostname ${{needs.deploy-common-infrastructure.outputs.db-host}} --port 5432 --region $AWS_DEFAULT_REGION --username db_user )"
+        run: |
+          cd backend
+          npm install
+          npx sequelize-cli db:migrate
   e2e-test:
     name: e2e-test
-    needs: [deploy-test-infrastructure, deploy-frontend-to-test]
+    needs: [deploy-frontend-to-test, migrate-test-database]
     environment: test
     runs-on: ubuntu-latest
     steps:
