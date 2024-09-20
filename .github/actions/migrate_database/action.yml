@@ -1,0 +1,26 @@
+name: Migrate Database
+
+inputs:
+  db_host:
+    required: true
+    type: string
+  environment:
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4.1.7
+    - uses: actions/setup-node@v4.0.3
+    - name: migrate
+      env:
+        NODE_ENV: ${{ inputs.environment }}
+        DB_HOST: ${{ inputs.db_host }}
+        PGUSERNAME: db_user
+      run: |
+        export PGPASSWORD="$(aws rds generate-db-auth-token --hostname ${DB_HOST} --port 5432 --region ${AWS_DEFAULT_REGION} --username db_user )"
+        cd backend
+        npm install
+        npx sequelize-cli db:migrate
+      shell: bash

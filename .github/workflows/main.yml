@@ -90,36 +90,20 @@ jobs:
     environment: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.7
-      - uses: actions/setup-node@v4.0.3
-      - name: migrate
-        env:
-          NODE_ENV: test
-          DB_HOST: ${{needs.deploy-common-infrastructure.outputs.db-host}}
-          PGUSERNAME: db_user
-        run: |
-          export PGPASSWORD="$(aws rds generate-db-auth-token --hostname ${DB_HOST} --port 5432 --region ${AWS_DEFAULT_REGION} --username db_user )"
-          cd backend
-          npm install
-          npx sequelize-cli db:migrate
+      - uses: ./.github/actions/deploy_infrastructure
+        with:
+          db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
+          environment: test
   migrate-production-database:
     name: migrate-production-database
     needs: [e2e-test]
     environment: production
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.7
-      - uses: actions/setup-node@v4.0.3
-      - name: migrate
-        env:
-          NODE_ENV: production
-          DB_HOST: ${{needs.deploy-common-infrastructure.outputs.db-host}}
-          PGUSERNAME: db_user
-        run: |
-          export PGPASSWORD="$(aws rds generate-db-auth-token --hostname ${DB_HOST} --port 5432 --region ${AWS_DEFAULT_REGION} --username db_user )"
-          cd backend
-          npm install
-          npx sequelize-cli db:migrate
+      - uses: ./.github/actions/deploy_infrastructure
+        with:
+          db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
+          environment: production
   deploy-test-backend:
     name: deploy-test-backend
     needs: [deploy-common-infrastructure, migrate-test-database]
