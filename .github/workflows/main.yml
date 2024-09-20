@@ -90,7 +90,8 @@ jobs:
     environment: test
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/deploy_infrastructure
+      - uses: actions/checkout@v4.1.7
+      - uses: ./.github/actions/migrate_database
         with:
           db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
           environment: test
@@ -100,7 +101,8 @@ jobs:
     environment: production
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/deploy_infrastructure
+      - uses: actions/checkout@v4.1.7
+      - uses: ./.github/actions/migrate_database
         with:
           db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
           environment: production
