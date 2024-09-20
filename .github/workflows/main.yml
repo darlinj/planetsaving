@@ -117,6 +117,7 @@ jobs:
       - name: migrate
         env:
           NODE_ENV: test
+          RDSHOST: ${{needs.deploy-common-infrastructure.outputs.db-host}}
           PGUSERNAME: db_user
           PGPASSWORD: "$(aws rds generate-db-auth-token --hostname ${{needs.deploy-common-infrastructure.outputs.db-host}} --port 5432 --region $AWS_DEFAULT_REGION --username db_user )"
         run: |
