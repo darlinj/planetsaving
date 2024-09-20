@@ -118,6 +118,8 @@ jobs:
       - name: install testcafe
         env:
           NODE_ENV: test
+          FRONTEND_URL: ${{ vars.FRONTEND_URL }}
+          API_URL: ${{ vars.API_URL }}
         run: |
           npm install
           npx testcafe chrome:headless ./e2e_tests -e
