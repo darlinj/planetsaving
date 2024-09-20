@@ -32,14 +32,6 @@ jobs:
         with:
           name: frontend-test-build
           path: frontend/dist/
-      # - name: Build backend
-      #   run: |
-      #     cd backend
-      #     npm install
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: backend-test-build
-      #     path: backend/dist
   unit-test:
     name: unit-test
     runs-on: ubuntu-latest
@@ -58,8 +50,8 @@ jobs:
           npm install
           npm run migration
           npm run test_once
-  deploy-frontend-to-test:
-    name: deploy-frontend-to-test
+  deploy-test-frontend:
+    name: deploy-test-frontend
     needs: [build, unit-test, deploy-test-backend]
     runs-on: ubuntu-latest
     environment: test
@@ -110,6 +102,24 @@ jobs:
           cd backend
           npm install
           npx sequelize-cli db:migrate
+  migrate-production-database:
+    name: migrate-production-database
+    needs: [e2e-test]
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.3
+      - name: migrate
+        env:
+          NODE_ENV: production
+          DB_HOST: ${{needs.deploy-common-infrastructure.outputs.db-host}}
+          PGUSERNAME: db_user
+        run: |
+          export PGPASSWORD="$(aws rds generate-db-auth-token --hostname ${DB_HOST} --port 5432 --region ${AWS_DEFAULT_REGION} --username db_user )"
+          cd backend
+          npm install
+          npx sequelize-cli db:migrate
   deploy-test-backend:
     name: deploy-test-backend
     needs: [deploy-common-infrastructure, migrate-test-database]
@@ -127,7 +137,7 @@ jobs:
           path: infrastructure/api/apollo-server.zip
   e2e-test:
     name: e2e-test
-    needs: [deploy-frontend-to-test, migrate-test-database]
+    needs: [deploy-test-frontend, migrate-test-database]
     environment: test
     runs-on: ubuntu-latest
     steps:
