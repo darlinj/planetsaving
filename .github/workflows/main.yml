@@ -13,8 +13,8 @@ env:
   AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
 
 jobs:
-  build:
-    name: build
+  build-test-frontend:
+    name: build-test-frontend
     runs-on: ubuntu-latest
     environment: test
 
@@ -31,6 +31,25 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: frontend-test-build
+          path: frontend/dist/
+  build-production-frontend:
+    name: build-production-frontend
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/setup-node@v4.0.3
+
+      - name: Build frontend
+        run: |
+          cd frontend
+          sed "s|PLACEHOLDER|${{ vars.API_URL }}|g" ./src/api/url_template.json  > ./src/api/url.json
+          npm install
+          npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-production-build
           path: frontend/dist/
   unit-test:
     name: unit-test
@@ -52,7 +71,7 @@ jobs:
           npm run test_once
   deploy-test-frontend:
     name: deploy-test-frontend
-    needs: [build, unit-test, deploy-test-backend]
+    needs: [build-test-frontend, unit-test, deploy-test-backend]
     runs-on: ubuntu-latest
     environment: test
     steps:
@@ -63,8 +82,23 @@ jobs:
           path: frontend/dist/
       - name: Deploy to test
         run: |
-          ls -l
-          ls -l frontend
+          aws --version
+          echo "Using terraform state in s3://${{ vars.S3_TEST_BUCKET }}"
+          aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude index.html
+          aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude "*" --include index.html --metadata-directive REPLACE --cache-control no-cache
+  deploy-production-frontend:
+    name: deploy-production-frontend
+    needs: [build-production-frontend, deploy-production-backend]
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: actions/download-artifact@v4
+        with:
+          name: frontend-production-build
+          path: frontend/dist/
+      - name: Deploy to production
+        run: |
           aws --version
           echo "Using terraform state in s3://${{ vars.S3_TEST_BUCKET }}"
           aws s3 sync frontend/dist s3://${{ vars.S3_TEST_BUCKET }} --exclude index.html
@@ -117,6 +151,21 @@ jobs:
           TF_VAR_db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
         with:
           environment: "test"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: uploaded-lambda-zip
+          path: infrastructure/api/apollo-server.zip
+  deploy-production-backend:
+    name: deploy-production-backend
+    needs: [deploy-common-infrastructure, migrate-production-database]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.7
+      - uses: ./.github/actions/deploy_infrastructure
+        env:
+          TF_VAR_db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
+        with:
+          environment: "production"
       - uses: actions/upload-artifact@v4
         with:
           name: uploaded-lambda-zip
