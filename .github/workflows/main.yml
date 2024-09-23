@@ -151,10 +151,6 @@ jobs:
           TF_VAR_db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
         with:
           environment: "test"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: uploaded-lambda-zip
-          path: infrastructure/api/apollo-server.zip
   deploy-production-backend:
     name: deploy-production-backend
     needs: [deploy-common-infrastructure, migrate-production-database]
@@ -166,10 +162,6 @@ jobs:
           TF_VAR_db_host: ${{needs.deploy-common-infrastructure.outputs.db-host}}
         with:
           environment: "production"
-      - uses: actions/upload-artifact@v4
-        with:
-          name: uploaded-lambda-zip
-          path: infrastructure/api/apollo-server.zip
   e2e-test:
     name: e2e-test
     needs: [deploy-test-frontend, deploy-test-backend, migrate-test-database]
