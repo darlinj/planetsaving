@@ -71,7 +71,7 @@ jobs:
           npm run test_once
   deploy-test-frontend:
     name: deploy-test-frontend
-    needs: [build-test-frontend, unit-test, deploy-test-backend]
+    needs: [build-test-frontend, unit-test]
     runs-on: ubuntu-latest
     environment: test
     steps:
@@ -131,7 +131,7 @@ jobs:
           environment: test
   migrate-production-database:
     name: migrate-production-database
-    needs: [e2e-test]
+    needs: [deploy-common-infrastructure, e2e-test]
     environment: production
     runs-on: ubuntu-latest
     steps:
@@ -142,7 +142,7 @@ jobs:
           environment: production
   deploy-test-backend:
     name: deploy-test-backend
-    needs: [deploy-common-infrastructure, migrate-test-database]
+    needs: [deploy-common-infrastructure, unit-test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.7
@@ -172,7 +172,7 @@ jobs:
           path: infrastructure/api/apollo-server.zip
   e2e-test:
     name: e2e-test
-    needs: [deploy-test-frontend, migrate-test-database]
+    needs: [deploy-test-frontend, deploy-test-backend, migrate-test-database]
     environment: test
     runs-on: ubuntu-latest
     steps:
