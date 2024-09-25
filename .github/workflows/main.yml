@@ -177,4 +177,4 @@ jobs:
           API_URL: ${{ vars.API_URL }}
         run: |
           npm install
-          npx testcafe chrome:headless ./e2e_tests -e
+          npx testcafe chrome:headless ./e2e_tests -e --speed=0.5
