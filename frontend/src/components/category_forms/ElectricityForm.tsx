@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   FormGroup,
   TextField,
@@ -11,11 +11,11 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import {UserDataInput} from "../../types";
-import {Formik, Form, Field} from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import TextInput from "../formComponents/TextInput";
 import RadioButton from "../formComponents/RadioButton";
+import { UserFormComponentParams } from "../../types";
 
 const validations = Yup.object().shape({
   electricityEstimationType: Yup.string().required(
@@ -26,11 +26,6 @@ const validations = Yup.object().shape({
   kwhOfElectricityUsedPerYear: Yup.number().typeError("This must be a number"),
 });
 
-type UserFormComponentParams = {
-  initialFormValues: UserDataInput;
-  saveChange: (formValues: UserDataInput) => void;
-};
-
 const ElectricityForm: React.FunctionComponent<UserFormComponentParams> = ({
   initialFormValues,
   saveChange,
@@ -39,14 +34,13 @@ const ElectricityForm: React.FunctionComponent<UserFormComponentParams> = ({
     <Formik
       initialValues={initialFormValues}
       validationSchema={validations}
-      onSubmit={(values) => saveChange(values)}
+      onSubmit={saveChange}
     >
-      {(formik) => {
-        const {isValid, dirty, values} = formik;
+      {({ isSubmitting, values }) => {
         return (
           <Form>
-            <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-            <FormGroup sx={{marginBottom: "1em"}}>
+            <Divider sx={{ marginTop: "1em", marginBottom: "1em" }} />
+            <FormGroup sx={{ marginBottom: "1em" }}>
               <Field
                 name="numberOfPeopleInHome"
                 label="How many people share your home"
@@ -58,8 +52,8 @@ const ElectricityForm: React.FunctionComponent<UserFormComponentParams> = ({
                 label="Estimation type"
                 row
                 options={[
-                  {value: "houseSize", label: "House size"},
-                  {value: "kwh", label: "KWh"},
+                  { value: "houseSize", label: "House size" },
+                  { value: "kwh", label: "KWh" },
                 ]}
               />
               {(values.electricityEstimationType === "houseSize" ||
@@ -69,9 +63,9 @@ const ElectricityForm: React.FunctionComponent<UserFormComponentParams> = ({
                   component={RadioButton}
                   label="House size"
                   options={[
-                    {value: "small", label: "Small house"},
-                    {value: "medium", label: "Medium house"},
-                    {value: "large", label: "Large house"},
+                    { value: "small", label: "Small house" },
+                    { value: "medium", label: "Medium house" },
+                    { value: "large", label: "Large house" },
                   ]}
                 />
               )}
@@ -83,7 +77,7 @@ const ElectricityForm: React.FunctionComponent<UserFormComponentParams> = ({
                   component={TextInput}
                 />
               )}
-              <Button type="submit" disabled={!(dirty && isValid)}>
+              <Button type="submit" disabled={isSubmitting}>
                 Update
               </Button>
             </FormGroup>

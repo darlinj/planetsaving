@@ -1,18 +1,13 @@
 import React from "react";
-import {FormGroup, Divider, Button} from "@mui/material";
-import {UserDataInput} from "../../types";
-import {Formik, Form, Field} from "formik";
+import { FormGroup, Divider, Button } from "@mui/material";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import TextInput from "../formComponents/TextInput";
+import { UserFormComponentParams } from "../../types";
 
 const validations = Yup.object().shape({
   flyingHoursPerYear: Yup.number().typeError("This must be a number"),
 });
-
-type UserFormComponentParams = {
-  initialFormValues: UserDataInput;
-  saveChange: (formValues: UserDataInput) => void;
-};
 
 const FlyingForm: React.FunctionComponent<UserFormComponentParams> = ({
   initialFormValues,
@@ -22,21 +17,20 @@ const FlyingForm: React.FunctionComponent<UserFormComponentParams> = ({
     <Formik
       initialValues={initialFormValues}
       validationSchema={validations}
-      onSubmit={(values) => saveChange(values)}
+      onSubmit={saveChange}
     >
-      {(formik) => {
-        const {isValid, dirty} = formik;
+      {({ isSubmitting }) => {
         return (
           <Form>
-            <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-            <FormGroup sx={{marginBottom: "1em"}}>
+            <Divider sx={{ marginTop: "1em", marginBottom: "1em" }} />
+            <FormGroup sx={{ marginBottom: "1em" }}>
               <Field
                 name="flyingHoursPerYear"
                 label="how many hours do you fly in a year"
                 suffix="Hours"
                 component={TextInput}
               />
-              <Button type="submit" disabled={!(dirty && isValid)}>
+              <Button type="submit" disabled={isSubmitting}>
                 Update
               </Button>
             </FormGroup>

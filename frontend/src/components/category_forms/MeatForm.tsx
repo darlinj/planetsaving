@@ -1,9 +1,9 @@
 import React from "react";
-import {FormGroup, Divider, Button, Grid} from "@mui/material";
+import { FormGroup, Divider, Button, Grid } from "@mui/material";
 import TextInput from "../formComponents/TextInput";
 import RadioButton from "../formComponents/RadioButton";
-import {UserDataInput} from "../../types";
-import {Formik, Form, Field} from "formik";
+import { UserFormComponentParams } from "../../types";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
 const validations = Yup.object().shape({
@@ -20,11 +20,6 @@ const validations = Yup.object().shape({
   cheeseGramsPerWeek: Yup.number().typeError("This must be a number"),
 });
 
-type UserFormComponentParams = {
-  initialFormValues: UserDataInput;
-  saveChange: (formValues: UserDataInput) => void;
-};
-
 const MeatForm: React.FunctionComponent<UserFormComponentParams> = ({
   initialFormValues,
   saveChange,
@@ -33,22 +28,21 @@ const MeatForm: React.FunctionComponent<UserFormComponentParams> = ({
     <Formik
       initialValues={initialFormValues}
       validationSchema={validations}
-      onSubmit={(values) => saveChange(values)}
+      onSubmit={saveChange}
     >
-      {(formik) => {
-        const {isValid, dirty, values} = formik;
+      {({ isSubmitting, values }) => {
         return (
           <Form>
-            <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-            <FormGroup sx={{marginBottom: "1em"}}>
+            <Divider sx={{ marginTop: "1em", marginBottom: "1em" }} />
+            <FormGroup sx={{ marginBottom: "1em" }}>
               <Grid container direction={"column"} spacing={2} padding={1}>
                 <Field
                   name="meatEstimationType"
                   row
                   component={RadioButton}
                   options={[
-                    {value: "meals", label: "Meal based"},
-                    {value: "weight", label: "Weight"},
+                    { value: "meals", label: "Meal based" },
+                    { value: "weight", label: "Weight" },
                   ]}
                 />
                 {(values.meatEstimationType === "meals" ||
@@ -125,7 +119,7 @@ const MeatForm: React.FunctionComponent<UserFormComponentParams> = ({
                     />
                   </>
                 )}
-                <Button type="submit" disabled={!(dirty && isValid)}>
+                <Button type="submit" disabled={isSubmitting}>
                   Update
                 </Button>
               </Grid>

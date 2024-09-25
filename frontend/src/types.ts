@@ -72,5 +72,8 @@ export interface UserDataInput {
 
 export type UserFormComponentParams = {
   initialFormValues: UserDataInput;
-  saveChange: (formValues: UserDataInput) => void;
+  saveChange: (
+    formValues: UserDataInput,
+    { setSubmitting }: { setSubmitting: (state: boolean) => void }
+  ) => void;
 };

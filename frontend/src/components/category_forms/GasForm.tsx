@@ -7,11 +7,11 @@ import {
   FormLabel,
   Typography,
 } from "@mui/material";
-import {UserDataInput} from "../../types";
-import {Formik, Form, Field} from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import TextInput from "../formComponents/TextInput";
 import RadioButton from "../formComponents/RadioButton";
+import { UserFormComponentParams } from "../../types";
 
 const validations = Yup.object().shape({
   gasEstimationType: Yup.string().required("validation type is required"),
@@ -21,11 +21,6 @@ const validations = Yup.object().shape({
   m3OfGasUsedPerYear: Yup.number().typeError("This must be a number"),
 });
 
-type UserFormComponentParams = {
-  initialFormValues: UserDataInput;
-  saveChange: (formValues: UserDataInput) => void;
-};
-
 const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
   initialFormValues,
   saveChange,
@@ -34,14 +29,13 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
     <Formik
       initialValues={initialFormValues}
       validationSchema={validations}
-      onSubmit={(values) => saveChange(values)}
+      onSubmit={saveChange}
     >
-      {(formik) => {
-        const {isValid, dirty, values} = formik;
+      {({ isSubmitting, values, isValid, errors }) => {
         return (
           <Form>
-            <Divider sx={{marginTop: "1em", marginBottom: "1em"}} />
-            <FormGroup sx={{marginBottom: "1em"}}>
+            <Divider sx={{ marginTop: "1em", marginBottom: "1em" }} />
+            <FormGroup sx={{ marginBottom: "1em" }}>
               <Field
                 name="numberOfPeopleInHome"
                 label="How many people share your home"
@@ -53,8 +47,8 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                 label="Estimation type"
                 row
                 options={[
-                  {value: "houseSize", label: "House size"},
-                  {value: "kwh", label: "KWh"},
+                  { value: "houseSize", label: "House size" },
+                  { value: "kwh", label: "KWh" },
                   {
                     value: "m3",
                     label: (
@@ -75,9 +69,9 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                     name="houseSize"
                     component={RadioButton}
                     options={[
-                      {value: "small", label: "Small house"},
-                      {value: "medium", label: "Medium house"},
-                      {value: "large", label: "Large house"},
+                      { value: "small", label: "Small house" },
+                      { value: "medium", label: "Medium house" },
+                      { value: "large", label: "Large house" },
                     ]}
                   />
                 </FormControl>
@@ -104,7 +98,7 @@ const GasForm: React.FunctionComponent<UserFormComponentParams> = ({
                   component={TextInput}
                 />
               )}
-              <Button type="submit" disabled={!(dirty && isValid)}>
+              <Button type="submit" disabled={isSubmitting}>
                 Update
               </Button>
             </FormGroup>

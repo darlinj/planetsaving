@@ -1,7 +1,7 @@
 import React from "react";
-import {render, screen} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import FlyingForm from "./FlyingForm";
-import {UserData} from "../../types";
+import { UserData } from "../../types";
 import userEvent from "@testing-library/user-event";
 
 let userData: UserData = {
@@ -23,7 +23,7 @@ describe("the flying form", () => {
 
   it("updates the form when the Update button is pressed", async () => {
     const handleChange = jest.fn();
-    const {getByRole, findByRole} = render(
+    const { getByRole, findByRole } = render(
       <FlyingForm initialFormValues={userData} saveChange={handleChange} />
     );
     const textbox = getByRole("textbox", {
@@ -31,11 +31,14 @@ describe("the flying form", () => {
     });
     await userEvent.clear(textbox);
     await userEvent.type(textbox, "7.7");
-    await userEvent.click(await findByRole("button", {name: /update/i}));
-    expect(handleChange).toHaveBeenCalledWith({
-      flyingHoursPerYear: "7.7",
-      id: 1234,
-      name: "Some Name",
-    });
+    await userEvent.click(await findByRole("button", { name: /update/i }));
+    expect(handleChange).toHaveBeenCalledWith(
+      {
+        flyingHoursPerYear: "7.7",
+        id: 1234,
+        name: "Some Name",
+      },
+      expect.anything()
+    );
   });
 });

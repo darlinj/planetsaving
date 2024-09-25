@@ -1,7 +1,7 @@
 import React from "react";
-import {fireEvent, render, screen} from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import CategoryForm from "./CategoryForm";
-import {MemoryRouter} from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import Cookies from "js-cookie";
 import * as useUserData from "../api/useUserData";
 import useAddOrUpdateUser from "../api/useAddOrUpdateUser";
@@ -16,7 +16,7 @@ jest.mock("./category_forms/FlyingForm", () => (props: any) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          props.saveChange({some: "data"});
+          props.saveChange({ some: "data" }, { setSubmitting: () => null });
         }}
       >
         <label htmlFor="myTextbox">Number of flights</label>
@@ -49,7 +49,7 @@ const categoryData = {
   color: "blue",
   amount: 10,
   calculation: "Some calc",
-  referenceUrls: [{url: "someurl", label: "some label"}],
+  referenceUrls: [{ url: "someurl", label: "some label" }],
   colorIntensity: 9,
   description: "Some category",
   detailed_description: "Some detailed description",
@@ -58,7 +58,7 @@ const categoryData = {
 describe("Displaying the category forms", () => {
   beforeEach(() => {
     (useUserData.default as jest.Mock).mockReturnValue({
-      data: {some: "Data"},
+      data: { some: "Data" },
       isLoading: false,
       isError: false,
     });
@@ -85,7 +85,7 @@ describe("Displaying the category forms", () => {
 
   it("returns a loading thing when the userdata is loading", () => {
     (useUserData.default as jest.Mock).mockReturnValue({
-      data: {some: "Data"},
+      data: { some: "Data" },
       isLoading: true,
       isError: false,
     });
@@ -120,7 +120,7 @@ describe("Displaying the category forms", () => {
   it("passes the right stuff to the form", () => {
     mockForm.mockReset();
     (useUserData.default as jest.Mock).mockReturnValue({
-      data: {someSpecial: "Data"},
+      data: { someSpecial: "Data" },
       isLoading: false,
       isError: false,
     });
@@ -143,7 +143,7 @@ describe("Displaying the category forms", () => {
     render(<CategoryForm categoryData={categoryData} />, {
       wrapper: MemoryRouter,
     });
-    const button = screen.getByRole("button", {name: /Submit Me/i});
+    const button = screen.getByRole("button", { name: /Submit Me/i });
     fireEvent.click(button);
     expect(mockMutate).toHaveBeenCalledWith({
       some: "data",

@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
-import {CategoryData, UserDataInput} from "../types";
+import React, { useEffect } from "react";
+import { CategoryData, UserDataInput } from "../types";
 import DrivingForm from "./category_forms/DrivingForm";
 import FlyingForm from "./category_forms/FlyingForm";
-import {CircularProgress} from "@mui/material";
-import {useQueryClient} from "@tanstack/react-query";
+import { CircularProgress } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import useAddOrUpdateUser from "../api/useAddOrUpdateUser";
 import useUserData from "../api/useUserData";
@@ -11,16 +11,16 @@ import GasForm from "./category_forms/GasForm";
 import ElectricityForm from "./category_forms/ElectricityForm";
 import MeatForm from "./category_forms/MeatForm";
 
-const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
+const CategoryForm = ({ categoryData }: { categoryData: CategoryData }) => {
   const userIdString = Cookies.get("user-id");
   const userId = userIdString ? +userIdString : undefined;
-  const {data, isLoading, isError} = useUserData(userId);
-  const {mutate} = useAddOrUpdateUser();
+  const { data, isLoading, isError } = useUserData(userId);
+  const { mutate } = useAddOrUpdateUser();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     if (data) {
-      const {id, name} = data;
+      const { id, name } = data;
       if (name !== "AVERAGE JOE") {
         Cookies.set("user-id", `${id}`);
       }
@@ -45,13 +45,17 @@ const CategoryForm = ({categoryData}: {categoryData: CategoryData}) => {
     return <div>No user data found</div>;
   }
 
-  const submitChange = (newFormValues: UserDataInput) => {
+  const submitChange = (
+    newFormValues: UserDataInput,
+    { setSubmitting }: { setSubmitting: (state: boolean) => void }
+  ) => {
     mutate(newFormValues);
-    queryClient.invalidateQueries({queryKey: ["GetClimateData"]});
-    queryClient.invalidateQueries({queryKey: ["GetCategoryData"]});
+    queryClient.invalidateQueries({ queryKey: ["GetClimateData"] });
+    queryClient.invalidateQueries({ queryKey: ["GetCategoryData"] });
+    setSubmitting(false);
   };
 
-  const {id, ...initialFormValues} = data;
+  const { id, ...initialFormValues } = data;
 
   switch (categoryData.category) {
     case "driving":
