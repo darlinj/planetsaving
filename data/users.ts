@@ -4,6 +4,8 @@ const users = [
     numberOfPeopleInHome: 2.4,
     kwhOfElectricityUsedPerYear: 4800,
     kwhOfGasUsedPerYear: 18000,
+    m3OfGasUsedPerYear: 1612,
+    houseSize: "medium",
     drivingMilesPerYear: 9000,
     sizeOfCar: "medium",
     flyingHoursPerYear: 6.8,
