@@ -21,9 +21,9 @@ cd frontend
 npx install
 ```
 
-## Run the app and setup static data
+## Run the app
 
-You can run the front end and backend locally against a sqlite database just running npm start
+You can run the frontend and backend locally against a sqlite database just running npm start
 
 From the root of the project
 
@@ -43,20 +43,12 @@ npx ts-node ./data/reset_database.ts
 
 This runs the front end and backend locally but talks to the remote AWS RDS postgres instance. This uses the settings in pg.env to set up the relevant environment variables that point to the test database on AWS.
 
+Set up your pg.env to match your environment
+
 ```
+source pg.env
 export NODE_ENV=test
 npm run against_test
-```
-
-## Set environment variables
-
-If you are running the backend locally or maybe some of the migration commands, it is necessary to set up some local variables. These are all in the db.env in the root of the project.
-
-```
-export DB_HOST=<URL of the RDS instance>
-export AWS_DEFAULT_REGION=<Region that the RDS instance is in>
-export AWS_PROFILE=<Your AWS profile referring to ~/aws/credentials if you are not using the default profile>
-export NODE_ENV=[test|production]
 ```
 
 # Creating the infrastructure
