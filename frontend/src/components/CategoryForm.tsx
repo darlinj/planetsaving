@@ -45,11 +45,11 @@ const CategoryForm = ({ categoryData }: { categoryData: CategoryData }) => {
     return <div>No user data found</div>;
   }
 
-  const submitChange = (
+  const submitChange = async (
     newFormValues: UserDataInput,
     { setSubmitting }: { setSubmitting: (state: boolean) => void }
   ) => {
-    mutate(newFormValues);
+    await mutate(newFormValues);
     queryClient.invalidateQueries({ queryKey: ["GetClimateData"] });
     queryClient.invalidateQueries({ queryKey: ["GetCategoryData"] });
     setSubmitting(false);
